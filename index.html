@@ -3,15 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select a Game</title>
+    <title>Game Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Choose a Game:</h1>
-    <ul>
-        <li><a href="mkss.html">Mario Kart - Super Circuit</a></li>
-        <li><a href="lttp.html">The Legend of Zelda: A Link to the Past</a></li>
-        <li><a href="pokemon.html">Pokémon</a></li>
-        <li><a href="gtaa.html">Grand Theft Auto Advance</a></li>
-    </ul>
+
+    <h1>Game Library</h1>
+    
+    <!-- Dropdown Menu -->
+    <label for="consoleSelect">Choose a Console:</label>
+    <select id="consoleSelect" onchange="showGames()">
+        <option value="">-- Select Console --</option>
+        <option value="gba">Game Boy Advance</option>
+        <option value="gamecube">GameCube</option>
+    </select>
+
+    <!-- Game Lists -->
+    <div id="gameList"></div>
+
+    <script>
+        function showGames() {
+            let selection = document.getElementById("consoleSelect").value;
+            let gameListDiv = document.getElementById("gameList");
+            
+            if (selection === "gba") {
+                gameListDiv.innerHTML = `
+                    <h2>Game Boy Advance</h2>
+                    <ul>
+                        <li><a href="games/mkss.html">Mario Kart: Super Circuit</a></li>
+                        <li><a href="games/lttp.html">The Legend of Zelda: A Link to the Past</a></li>
+                        <li><a href="games/gtaa.html">Grand Theft Auto Advance</a></li>
+                    </ul>
+                `;
+            } else if (selection === "gamecube") {
+                gameListDiv.innerHTML = `
+                    <h2>GameCube</h2>
+                    <ul>
+                        <li>Coming Soon...</li>
+                    </ul>
+                `;
+            } else {
+                gameListDiv.innerHTML = "";
+            }
+        }
+    </script>
+
 </body>
 </html>
