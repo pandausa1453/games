@@ -10,18 +10,45 @@
             text-align: center;
             margin: 20px;
         }
+        select {
+            padding: 10px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
 
     <h1>Game Library</h1>
+    
+    <!-- Dropdown Menu -->
+    <label for="consoleSelect">Choose a Console:</label>
+    <select id="consoleSelect" onchange="showGames()">
+        <option value="">-- Select Console --</option>
+        <option value="gba">Game Boy Advance</option>
+    </select>
 
-    <h2>Game Boy Advance</h2>
-    <ul>
-        <li><a href="games/mkss.html">Mario Kart: Super Circuit</a></li>
-        <li><a href="games/lttp.html">The Legend of Zelda: A Link to the Past</a></li>
-        <li><a href="games/gtaa.html">Grand Theft Auto Advance</a></li>
-    </ul>
+    <!-- Game Lists -->
+    <div id="gameList"></div>
+
+    <script>
+        function showGames() {
+            let selection = document.getElementById("consoleSelect").value;
+            let gameListDiv = document.getElementById("gameList");
+            
+            if (selection === "gba") {
+                gameListDiv.innerHTML = `
+                    <h2>Game Boy Advance</h2>
+                    <ul>
+                        <li><a href="games/mkss.html">Mario Kart: Super Circuit</a></li>
+                        <li><a href="games/lttp.html">The Legend of Zelda: A Link to the Past</a></li>
+                        <li><a href="games/gtaa.html">Grand Theft Auto Advance</a></li>
+                    </ul>
+                `;
+            } else {
+                gameListDiv.innerHTML = "";
+            }
+        }
+    </script>
 
 </body>
 </html>
