@@ -25,6 +25,7 @@
     <select id="consoleSelect" onchange="showGames()">
         <option value="">-- Select Console --</option>
         <option value="gba">Game Boy Advance</option>
+        <option value="snes">Super Nintendo (SNES)</option>
         <option value="gamecube">GameCube</option>
     </select>
 
@@ -44,6 +45,14 @@
                         <li><a href="games/lttp.html">The Legend of Zelda: A Link to the Past</a></li>
                         <li><a href="games/gtaa.html">Grand Theft Auto Advance</a></li>
                         <li><a href="games/mpa.html">Mario Party Advance</a></li>
+                        <li><a href="games/pkfr.html">Pokémon FireRed</a></li>
+                    </ul>
+                `;
+            } else if (selection === "snes") {
+                gameListDiv.innerHTML = `
+                    <h2>Super Nintendo (SNES)</h2>
+                    <ul>
+                        <li><a href="games/sf5.html">Street Fighter II Turbo</a></li>
                     </ul>
                 `;
             } else if (selection === "gamecube") {
