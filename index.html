@@ -25,6 +25,7 @@
     <select id="consoleSelect" onchange="showGames()">
         <option value="">-- Select Console --</option>
         <option value="gba">Game Boy Advance</option>
+        <option value="gamecube">GameCube</option>
     </select>
 
     <!-- Game Lists -->
@@ -39,9 +40,17 @@
                 gameListDiv.innerHTML = `
                     <h2>Game Boy Advance</h2>
                     <ul>
-                        <li><a href="https://pandausa1453.github.io/games/mkss.html">Mario Kart: Super Circuit</a></li>
-                        <li><a href="https://pandausa1453.github.io/games/lttp.html">The Legend of Zelda: A Link to the Past</a></li>
-                        <li><a href="https://pandausa1453.github.io/games/gtaa.html">Grand Theft Auto Advance</a></li>
+                        <li><a href="games/mkss.html">Mario Kart: Super Circuit</a></li>
+                        <li><a href="games/lttp.html">The Legend of Zelda: A Link to the Past</a></li>
+                        <li><a href="games/gtaa.html">Grand Theft Auto Advance</a></li>
+                        <li><a href="games/mpa.html">Mario Party Advance</a></li>
+                    </ul>
+                `;
+            } else if (selection === "gamecube") {
+                gameListDiv.innerHTML = `
+                    <h2>GameCube</h2>
+                    <ul>
+                        <li>Coming Soon...</li>
                     </ul>
                 `;
             } else {
