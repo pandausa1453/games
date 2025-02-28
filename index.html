@@ -117,9 +117,9 @@
             document.getElementById("buttons").style.display = "none";
             document.getElementById("gameList").style.display = "block";
             document.getElementById("backButtons").style.display = "block";
-            document.querySelector(".back-console-btn").style.display = "inline-block";
 
             let gameListDiv = document.getElementById("gameList");
+            gameListDiv.innerHTML = ""; // Clear previous content
 
             if (category === "gba") {
                 gameListDiv.innerHTML = `
@@ -132,7 +132,33 @@
                         <a href="pkfr.html" class="game-btn">Pokémon FireRed</a>
                     </div>
                 `;
+                document.querySelector(".back-console-btn").style.display = "inline-block";
             } 
+
+            else if (category === "snes") {
+                gameListDiv.innerHTML = `
+                    <h2>Super Nintendo (SNES) Games</h2>
+                    <div class="button-container">
+                        <a href="dkc.html" class="game-btn">Donkey Kong Country</a>
+                        <a href="sf5.html" class="game-btn">Street Fighter 5</a>
+                        <a href="smrpg.html" class="game-btn">Super Mario RPG</a>
+                        <a href="tg2.html" class="game-btn">Top Gear 2</a>
+                        <a href="smw.html" class="game-btn">Super Mario World</a>
+                        <a href="smk.html" class="game-btn">Super Mario Kart</a>
+                    </div>
+                `;
+                document.querySelector(".back-console-btn").style.display = "inline-block";
+            } 
+
+            else if (category === "shooter") {
+                gameListDiv.innerHTML = `
+                    <h2>Shooter Games</h2>
+                    <div class="button-container">
+                        <a href="1v1lol.html" class="game-btn">1v1.LOL</a>
+                    </div>
+                `;
+                document.querySelector(".back-console-btn").style.display = "none"; 
+            }
         }
 
         function goBack() {
