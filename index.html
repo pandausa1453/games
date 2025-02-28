@@ -10,16 +10,29 @@
             text-align: center;
             margin: 20px;
         }
-        select {
+        select, button {
             padding: 10px;
             font-size: 16px;
+            margin: 10px;
+        }
+        #backButton {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #backButton:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
 
     <h1>Game Library</h1>
-    
+
+    <!-- Back to Home Button -->
+    <button id="backButton" onclick="goHome()">⬅ Back to Home</button>
+
     <!-- Dropdown Menu -->
     <label for="consoleSelect">Choose a Console:</label>
     <select id="consoleSelect" onchange="showGames()">
@@ -33,6 +46,10 @@
     <div id="gameList"></div>
 
     <script>
+        function goHome() {
+            window.location.href = "https://pandausa1453.github.io/games/";
+        }
+
         function showGames() {
             let selection = document.getElementById("consoleSelect").value;
             let gameListDiv = document.getElementById("gameList");
