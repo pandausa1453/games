@@ -21,7 +21,7 @@
             gap: 20px;
             flex-wrap: wrap;
         }
-        .category-btn, .game-btn {
+        .category-btn, .game-btn, .back-home-btn {
             padding: 15px 30px;
             font-size: 18px;
             border: none;
@@ -31,9 +31,10 @@
             display: inline-block;
             text-decoration: none;
             text-align: center;
-            width: 200px;
+            width: 250px; /* Ensures game names fit on one line */
+            white-space: nowrap;
         }
-        .category-btn:hover, .game-btn:hover {
+        .category-btn:hover, .game-btn:hover, .back-home-btn:hover {
             transform: scale(1.1);
         }
         .retro-btn {
@@ -44,6 +45,11 @@
             background-color: #ff4500;
             color: white;
         }
+        .back-home-btn {
+            background-color: #007bff;
+            color: white;
+            margin-bottom: 20px;
+        }
         .console-btn {
             background: none;
             border: none;
@@ -51,7 +57,7 @@
             transition: transform 0.2s;
         }
         .console-btn img {
-            width: 200px;
+            width: 250px;
             transition: transform 0.2s;
         }
         .console-btn:hover img {
@@ -80,6 +86,11 @@
 
     <h1>Game Library</h1>
 
+    <!-- Back to Home Page Button (Initially Hidden) -->
+    <div id="backToHomeContainer" style="display: none;">
+        <a href="#" class="back-home-btn" onclick="goHome()">🏠 Back to Home Page</a>
+    </div>
+
     <div class="button-container" id="buttons">
         <button class="category-btn retro-btn" onclick="showConsoles()">🎮 Retro Games</button>
         <button class="category-btn shooter-btn" onclick="showGames('shooter')">🔫 Shooter Games</button>
@@ -105,7 +116,9 @@
         function showConsoles() {
             document.getElementById("buttons").style.display = "none";
             document.getElementById("consoleSelection").style.display = "block";
-            document.getElementById("backButton").style.display = "none"; // Hide Back button
+            document.getElementById("gameList").style.display = "none";
+            document.getElementById("backButton").style.display = "none";
+            document.getElementById("backToHomeContainer").style.display = "block"; // Show Home button
         }
 
         function showGames(category) {
@@ -113,6 +126,7 @@
             document.getElementById("buttons").style.display = "none";
             document.getElementById("gameList").style.display = "block";
             document.getElementById("backButton").style.display = "block"; // Show Back button
+            document.getElementById("backToHomeContainer").style.display = "block"; // Show Home button
 
             let gameListDiv = document.getElementById("gameList");
 
@@ -152,7 +166,15 @@
         function goBack() {
             document.getElementById("consoleSelection").style.display = "block";
             document.getElementById("gameList").style.display = "none";
-            document.getElementById("backButton").style.display = "none"; // Hide Back button
+            document.getElementById("backButton").style.display = "none";
+        }
+
+        function goHome() {
+            document.getElementById("consoleSelection").style.display = "none";
+            document.getElementById("gameList").style.display = "none";
+            document.getElementById("buttons").style.display = "flex";
+            document.getElementById("backButton").style.display = "none";
+            document.getElementById("backToHomeContainer").style.display = "none"; // Hide Home button
         }
     </script>
 
