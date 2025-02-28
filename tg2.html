@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Street Fighter II Turbo</title>
+    <title>Super Mario Kart</title>
     <style>
         html, body {
             margin: 0;
@@ -12,12 +12,31 @@
             height: 100%;
             overflow: hidden;
         }
+        #backButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            display: block;
+            z-index: 1000;
+        }
+        #backButton:hover {
+            background-color: #0056b3;
+        }
         #gameContainer {
             width: 100vw;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
         #game {
             width: 100%;
@@ -26,6 +45,8 @@
     </style>
 </head>
 <body>
+    <a id="backButton" href="https://pandausa1453.github.io/games/">⬅ Back to Home</a>
+    
     <div id="gameContainer">
         <div id="game"></div>
     </div>
@@ -33,9 +54,20 @@
     <script type="text/javascript">
         EJS_player = "#game";
         EJS_core = "snes";  
-        EJS_gameUrl = "https://pandausa1453.github.io/games/tg2.smc"; // Updated file path
+        EJS_gameUrl = "https://pandausa1453.github.io/games/tg2.smc";
         EJS_pathtodata = "https://cdn.jsdelivr.net/gh/ethanaobrien/emulatorjs@main/data/";
     </script>
     <script src="https://cdn.jsdelivr.net/gh/ethanaobrien/emulatorjs@main/data/loader.js"></script>
+    
+    <script>
+        document.addEventListener("fullscreenchange", function() {
+            let backButton = document.getElementById("backButton");
+            if (!document.fullscreenElement) {
+                backButton.style.display = "block";
+            } else {
+                backButton.style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
