@@ -87,6 +87,7 @@
     <div class="button-container" id="buttons">
         <button class="category-btn" onclick="showConsoles()">🎮 Retro Games</button>
         <button class="category-btn" onclick="showGames('shooter')">🔫 Shooter Games</button>
+        <button class="category-btn" onclick="showGames('driving')">🚗 Driving Games</button>
     </div>
 
     <!-- Console Selection -->
@@ -169,6 +170,16 @@
                     <h2>Shooter Games</h2>
                     <div class="button-container">
                         <a href="1v1lol.html" class="game-btn">1v1.LOL</a>
+                    </div>
+                `;
+                document.querySelector(".back-console-btn").style.display = "none"; 
+            }
+
+            else if (category === "driving") {
+                gameListDiv.innerHTML = `
+                    <h2>Driving Games</h2>
+                    <div class="button-container">
+                        <a href="punkracing.html" class="game-btn">Punk Racing</a>
                     </div>
                 `;
                 document.querySelector(".back-console-btn").style.display = "none"; 
