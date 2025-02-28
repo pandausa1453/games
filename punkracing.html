@@ -710,4 +710,27 @@ input[id="tab5"]:checked ~ .content section:nth-of-type(5) {
             </video>
         </div>
     </div>
+    <button id="backToHome" onclick="goHome()">⬅ Back to Home</button>
+
+<style>
+  #backToHome {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #ff4500;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+</style>
+
+<script>
+  function goHome() {
+    window.location.href = "/"; // Change to your actual home page URL if needed
+  }
+</script>
 </div></body></html>
