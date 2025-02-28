@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Street Fighter II Turbo</title>
+    <title>Super Mario Kart</title>
     <style>
         html, body {
             margin: 0;
@@ -33,9 +33,21 @@
     <script type="text/javascript">
         EJS_player = "#game";
         EJS_core = "snes";  
-        EJS_gameUrl = "https://pandausa1453.github.io/games/dkc.smc"; // Make sure this is the correct file path
+        EJS_gameUrl = "https://pandausa1453.github.io/games/dkc.smc";
         EJS_pathtodata = "https://cdn.jsdelivr.net/gh/ethanaobrien/emulatorjs@main/data/";
     </script>
     <script src="https://cdn.jsdelivr.net/gh/ethanaobrien/emulatorjs@main/data/loader.js"></script>
+    
+    <script>
+        document.addEventListener("fullscreenchange", function() {
+            if (!document.fullscreenElement) {
+                // Fullscreen exited, restore interactions
+                document.getElementById("gameContainer").style.pointerEvents = "auto";
+            } else {
+                // When entering fullscreen, keep interactions working
+                document.getElementById("gameContainer").style.pointerEvents = "auto";
+            }
+        });
+    </script>
 </body>
 </html>
