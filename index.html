@@ -10,50 +10,66 @@
             text-align: center;
             margin: 20px;
         }
-        select, button {
+        select {
             padding: 10px;
             font-size: 16px;
-            margin: 10px;
+            margin: 5px;
         }
-        #backButton {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        #backButton:hover {
-            background-color: #0056b3;
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
 
     <h1>Game Library</h1>
-
-    <!-- Back to Home Button -->
-    <button id="backButton" onclick="goHome()">⬅ Back to Home</button>
-
-    <!-- Dropdown Menu -->
-    <label for="consoleSelect">Choose a Console:</label>
-    <select id="consoleSelect" onchange="showGames()">
-        <option value="">-- Select Console --</option>
-        <option value="gba">Game Boy Advance</option>
-        <option value="snes">Super Nintendo (SNES)</option>
-        <option value="gamecube">GameCube</option>
+    
+    <!-- Main Dropdown Menu -->
+    <label for="categorySelect">Choose Your Game:</label>
+    <select id="categorySelect" onchange="handleCategoryChange()">
+        <option value="">-- Choose Your Game --</option>
+        <option value="retro">Retro Games</option>
+        <option value="shooter">Shooter Games</option>
     </select>
+
+    <!-- Retro Games Dropdown (Initially Hidden) -->
+    <div id="retroGamesDiv" class="hidden">
+        <label for="consoleSelect">Choose a Retro Console:</label>
+        <select id="consoleSelect" onchange="showGames()">
+            <option value="">-- Select Console --</option>
+            <option value="gba">Game Boy Advance</option>
+            <option value="snes">Super Nintendo (SNES)</option>
+            <option value="gamecube">GameCube</option>
+        </select>
+    </div>
 
     <!-- Game Lists -->
     <div id="gameList"></div>
 
     <script>
-        function goHome() {
-            window.location.href = "https://pandausa1453.github.io/games/";
+        function handleCategoryChange() {
+            let category = document.getElementById("categorySelect").value;
+            let retroGamesDiv = document.getElementById("retroGamesDiv");
+            let gameListDiv = document.getElementById("gameList");
+
+            // Show retro console selection only when "Retro Games" is chosen
+            if (category === "retro") {
+                retroGamesDiv.classList.remove("hidden");
+                gameListDiv.innerHTML = ""; // Clear game list
+            } else {
+                retroGamesDiv.classList.add("hidden");
+                showGames(category); // Show non-retro games immediately
+            }
         }
 
-        function showGames() {
-            let selection = document.getElementById("consoleSelect").value;
+        function showGames(selection = null) {
             let gameListDiv = document.getElementById("gameList");
-            
+
+            // If no selection is provided, get it from the dropdown
+            if (!selection) {
+                selection = document.getElementById("consoleSelect").value;
+            }
+
             if (selection === "gba") {
                 gameListDiv.innerHTML = `
                     <h2>Game Boy Advance</h2>
@@ -74,7 +90,7 @@
                         <li><a href="smrpg.html">Super Mario RPG</a></li>
                         <li><a href="tg2.html">Top Gear 2</a></li>
                         <li><a href="smw.html">Super Mario World</a></li>
-                        <li><a href="smk.html">Super Mario Kart</a></li> <!-- Added SMK -->
+                        <li><a href="smk.html">Super Mario Kart</a></li>
                     </ul>
                 `;
             } else if (selection === "gamecube") {
@@ -82,6 +98,13 @@
                     <h2>GameCube</h2>
                     <ul>
                         <li>Coming Soon...</li>
+                    </ul>
+                `;
+            } else if (selection === "shooter") {
+                gameListDiv.innerHTML = `
+                    <h2>Shooter Games</h2>
+                    <ul>
+                        <li><a href="1v1lol.html">1v1.LOL</a></li>
                     </ul>
                 `;
             } else {
