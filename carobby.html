@@ -18,12 +18,14 @@
         }
         #game {
             width: 100%;
-            height: calc(100% - 50px);
+            height: 100%;
             border: none;
         }
         #backButton {
-            width: 150px;
-            padding: 10px;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 10px 15px;
             font-size: 16px;
             font-weight: bold;
             color: white;
@@ -31,10 +33,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            z-index: 1000;
         }
         #backButton:hover {
             background-color: #2a16a3;
@@ -42,7 +41,7 @@
     </style>
 </head>
 <body>
-    <iframe id="game" src="//html5.gamedistribution.com/rvvASMiM/ec3ec421d1994a6ebcf021747844b0ad/index.html"></iframe>
     <button id="backButton" onclick="window.location.href='index.html'">Back to Home</button>
+    <iframe id="game" src="//html5.gamedistribution.com/rvvASMiM/ec3ec421d1994a6ebcf021747844b0ad/index.html"></iframe>
 </body>
 </html>
