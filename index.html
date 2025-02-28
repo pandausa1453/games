@@ -31,8 +31,17 @@
             display: inline-block;
             text-decoration: none;
             text-align: center;
-            width: 250px; /* Ensures game names fit on one line */
             white-space: nowrap;
+        }
+        /* Ensure buttons on main page are wide enough for full titles */
+        .category-btn {
+            width: 250px;
+        }
+        /* Inside lists, let buttons wrap text naturally */
+        .game-btn {
+            width: auto;
+            max-width: 250px;
+            white-space: normal;
         }
         .category-btn:hover, .game-btn:hover, .back-home-btn:hover {
             transform: scale(1.1);
@@ -125,10 +134,16 @@
             document.getElementById("consoleSelection").style.display = "none";
             document.getElementById("buttons").style.display = "none";
             document.getElementById("gameList").style.display = "block";
-            document.getElementById("backButton").style.display = "block"; // Show Back button
             document.getElementById("backToHomeContainer").style.display = "block"; // Show Home button
-
+            
             let gameListDiv = document.getElementById("gameList");
+
+            // If retro games are selected, show Back to Console button
+            if (category === "gba" || category === "snes") {
+                document.getElementById("backButton").style.display = "block";
+            } else {
+                document.getElementById("backButton").style.display = "none";
+            }
 
             if (category === "gba") {
                 gameListDiv.innerHTML = `
