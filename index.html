@@ -9,50 +9,58 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 20px;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
             color: white;
         }
-        select, button {
-            padding: 12px;
-            font-size: 18px;
-            margin: 10px;
+        h1 {
+            font-size: 36px;
+        }
+        .category-btn {
+            display: block;
+            width: 300px;
+            padding: 20px;
+            margin: 15px auto;
+            font-size: 22px;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button {
-            background-color: #ff9800;
+            border-radius: 10px;
+            background: #444;
             color: white;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, background 0.2s;
         }
-        button:hover {
-            background-color: #e68900;
+        .category-btn:hover {
+            transform: scale(1.1);
+            background: #666;
         }
-        #consoleImages {
+        #consoleImages, #gameList, #backToConsoles {
             display: none;
-            margin-top: 20px;
         }
         .console-btn {
-            width: 200px;
+            width: 220px;
             height: auto;
             margin: 15px;
             cursor: pointer;
-            transition: transform 0.2s ease-in-out;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease-in-out, background 0.2s;
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
         }
         .console-btn:hover {
             transform: scale(1.1);
         }
-        #gameList {
-            margin-top: 20px;
-        }
         #backToConsoles {
-            display: none;
-            margin-top: 15px;
-            background-color: #f44336;
+            padding: 15px;
+            font-size: 18px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            background: #c0392b;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
         }
         #backToConsoles:hover {
-            background-color: #d32f2f;
+            transform: scale(1.05);
+            background: #a93226;
         }
     </style>
 </head>
@@ -60,15 +68,11 @@
 
     <h1>Game Library</h1>
 
-    <!-- Main Dropdown Menu -->
-    <label for="gameCategory">Choose Your Game:</label>
-    <select id="gameCategory" onchange="toggleGameOptions()">
-        <option value="">-- Select Category --</option>
-        <option value="shooter">Shooter Game</option>
-        <option value="retro">Retro Games</option>
-    </select>
+    <!-- Category Selection -->
+    <button class="category-btn" onclick="showShooterGames()">🔫 Shooter Games</button>
+    <button class="category-btn" onclick="showRetroConsoles()">🎮 Retro Games</button>
 
-    <!-- Retro Games Console Selection -->
+    <!-- Retro Console Selection -->
     <div id="consoleImages">
         <h2>Select a Console</h2>
         <img src="https://i.imgur.com/AWlL2Xb.jpeg" class="console-btn" onclick="showGames('gba')" alt="Game Boy Advance">
@@ -82,30 +86,21 @@
     <div id="gameList"></div>
 
     <script>
-        function toggleGameOptions() {
-            let category = document.getElementById("gameCategory").value;
-            let consoleImages = document.getElementById("consoleImages");
-            let gameListDiv = document.getElementById("gameList");
-            let backToConsoles = document.getElementById("backToConsoles");
+        function showShooterGames() {
+            document.getElementById("gameList").innerHTML = `
+                <h2>Shooter Game</h2>
+                <ul>
+                    <li><a href="1v1lol.html" style="color: white;">1v1.LOL</a></li>
+                </ul>
+            `;
+            document.getElementById("consoleImages").style.display = "none";
+            document.getElementById("backToConsoles").style.display = "none";
+        }
 
-            if (category === "shooter") {
-                gameListDiv.innerHTML = `
-                    <h2>Shooter Game</h2>
-                    <ul>
-                        <li><a href="1v1lol.html" style="color: white;">1v1.LOL</a></li>
-                    </ul>
-                `;
-                consoleImages.style.display = "none";
-                backToConsoles.style.display = "none";
-            } else if (category === "retro") {
-                consoleImages.style.display = "block";
-                gameListDiv.innerHTML = "";
-                backToConsoles.style.display = "none";
-            } else {
-                gameListDiv.innerHTML = "";
-                consoleImages.style.display = "none";
-                backToConsoles.style.display = "none";
-            }
+        function showRetroConsoles() {
+            document.getElementById("consoleImages").style.display = "block";
+            document.getElementById("gameList").innerHTML = "";
+            document.getElementById("backToConsoles").style.display = "none";
         }
 
         function showGames(console) {
@@ -138,7 +133,7 @@
                 `;
             }
 
-            // Hide console images, show back button
+            // Hide console selection, show back button
             consoleImages.style.display = "none";
             backToConsoles.style.display = "block";
         }
