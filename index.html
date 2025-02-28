@@ -10,10 +10,15 @@
             text-align: center;
             margin: 20px;
         }
-        select {
-            padding: 10px;
-            font-size: 16px;
-            margin: 5px;
+        .console-button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .console-button img {
+            width: 200px;
+            height: auto;
         }
         .hidden {
             display: none;
@@ -24,92 +29,65 @@
 
     <h1>Game Library</h1>
     
-    <!-- Main Dropdown Menu -->
-    <label for="categorySelect">Choose Your Game:</label>
-    <select id="categorySelect" onchange="handleCategoryChange()">
-        <option value="">-- Choose Your Game --</option>
-        <option value="retro">Retro Games</option>
-        <option value="shooter">Shooter Games</option>
-    </select>
+    <!-- Main Menu -->
+    <button onclick="showRetroGames()">Retro Games</button>
+    <button onclick="showShooterGames()">Shooter Games</button>
 
-    <!-- Retro Games Dropdown (Initially Hidden) -->
+    <!-- Retro Games Section (Initially Hidden) -->
     <div id="retroGamesDiv" class="hidden">
-        <label for="consoleSelect">Choose a Retro Console:</label>
-        <select id="consoleSelect" onchange="showGames()">
-            <option value="">-- Select Console --</option>
-            <option value="gba">Game Boy Advance</option>
-            <option value="snes">Super Nintendo (SNES)</option>
-            <option value="gamecube">GameCube</option>
-        </select>
+        <h2>Choose a Retro Console:</h2>
+        <button class="console-button" onclick="showGBA()">
+            <img src="https://freebiesupply.com/logos/game-boy-advance-logo/" alt="Game Boy Advance">
+        </button>
+        <button class="console-button" onclick="showSNES()">
+            <img src="https://wallpapers.com/png/super-nintendo-entertainment-system-logo-4289z8ylroz5gg5k.html" alt="Super Nintendo Entertainment System">
+        </button>
     </div>
 
     <!-- Game Lists -->
     <div id="gameList"></div>
 
     <script>
-        function handleCategoryChange() {
-            let category = document.getElementById("categorySelect").value;
-            let retroGamesDiv = document.getElementById("retroGamesDiv");
-            let gameListDiv = document.getElementById("gameList");
-
-            // Show retro console selection only when "Retro Games" is chosen
-            if (category === "retro") {
-                retroGamesDiv.classList.remove("hidden");
-                gameListDiv.innerHTML = ""; // Clear game list
-            } else {
-                retroGamesDiv.classList.add("hidden");
-                showGames(category); // Show non-retro games immediately
-            }
+        function showRetroGames() {
+            document.getElementById("retroGamesDiv").classList.remove("hidden");
+            document.getElementById("gameList").innerHTML = ""; // Clear game list
         }
 
-        function showGames(selection = null) {
-            let gameListDiv = document.getElementById("gameList");
+        function showShooterGames() {
+            document.getElementById("retroGamesDiv").classList.add("hidden");
+            document.getElementById("gameList").innerHTML = `
+                <h2>Shooter Games</h2>
+                <ul>
+                    <li><a href="1v1lol.html">1v1.LOL</a></li>
+                </ul>
+            `;
+        }
 
-            // If no selection is provided, get it from the dropdown
-            if (!selection) {
-                selection = document.getElementById("consoleSelect").value;
-            }
+        function showGBA() {
+            document.getElementById("gameList").innerHTML = `
+                <h2>Game Boy Advance</h2>
+                <ul>
+                    <li><a href="mkss.html">Mario Kart: Super Circuit</a></li>
+                    <li><a href="lttp.html">The Legend of Zelda: A Link to the Past</a></li>
+                    <li><a href="gtaa.html">Grand Theft Auto Advance</a></li>
+                    <li><a href="mpa.html">Mario Party Advance</a></li>
+                    <li><a href="pkfr.html">Pokémon FireRed</a></li>
+                </ul>
+            `;
+        }
 
-            if (selection === "gba") {
-                gameListDiv.innerHTML = `
-                    <h2>Game Boy Advance</h2>
-                    <ul>
-                        <li><a href="mkss.html">Mario Kart: Super Circuit</a></li>
-                        <li><a href="lttp.html">The Legend of Zelda: A Link to the Past</a></li>
-                        <li><a href="gtaa.html">Grand Theft Auto Advance</a></li>
-                        <li><a href="mpa.html">Mario Party Advance</a></li>
-                        <li><a href="pkfr.html">Pokémon FireRed</a></li>
-                    </ul>
-                `;
-            } else if (selection === "snes") {
-                gameListDiv.innerHTML = `
-                    <h2>Super Nintendo (SNES)</h2>
-                    <ul>
-                        <li><a href="dkc.html">Donkey Kong Country</a></li>
-                        <li><a href="sf5.html">Street Fighter 5</a></li>
-                        <li><a href="smrpg.html">Super Mario RPG</a></li>
-                        <li><a href="tg2.html">Top Gear 2</a></li>
-                        <li><a href="smw.html">Super Mario World</a></li>
-                        <li><a href="smk.html">Super Mario Kart</a></li>
-                    </ul>
-                `;
-            } else if (selection === "gamecube") {
-                gameListDiv.innerHTML = `
-                    <h2>GameCube</h2>
-                    <ul>
-                        <li>Coming Soon...</li>
-                    </ul>
-                `;
-            } else if (selection === "shooter") {
-                gameListDiv.innerHTML = `
-                    <h2>Shooter Games</h2>
-                    <ul>
-                        <li><a href="1v1lol.html">1v1.LOL</a></li>
-                    </ul>
-                `;
-            } else {
-                gameListDiv.innerHTML = "";
-            }
+        function showSNES() {
+            document.getElementById("gameList").innerHTML = `
+                <h2>Super Nintendo (SNES)</h2>
+                <ul>
+                    <li><a href="dkc.html">Donkey Kong Country</a></li>
+                    <li><a href="sf5.html">Street Fighter 5</a></li>
+                    <li><a href="smrpg.html">Super Mario RPG</a></li>
+                    <li><a href="tg2.html">Top Gear 2</a></li>
+                    <li><a href="smw.html">Super Mario World</a></li>
+                    <li><a href="smk.html">Super Mario Kart</a></li>
+                </ul>
+            `;
         }
     </script>
 
