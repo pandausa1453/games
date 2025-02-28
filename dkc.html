@@ -11,6 +11,23 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            background-color: black;
+        }
+        #backButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        #backButton:hover {
+            background-color: #0056b3;
         }
         #gameContainer {
             width: 100vw;
@@ -26,6 +43,9 @@
     </style>
 </head>
 <body>
+
+    <button id="backButton" onclick="goHome()">🏠 Back to Home Page</button>
+
     <div id="gameContainer">
         <div id="game"></div>
     </div>
@@ -40,14 +60,18 @@
     
     <script>
         document.addEventListener("fullscreenchange", function() {
+            let backButton = document.getElementById("backButton");
             if (!document.fullscreenElement) {
-                // Fullscreen exited, restore interactions
-                document.getElementById("gameContainer").style.pointerEvents = "auto";
+                backButton.style.display = "block"; // Show button when exiting fullscreen
             } else {
-                // When entering fullscreen, keep interactions working
-                document.getElementById("gameContainer").style.pointerEvents = "auto";
+                backButton.style.display = "none"; // Hide button in fullscreen
             }
         });
+
+        function goHome() {
+            window.location.href = "index.html"; // Change this to your actual home page URL
+        }
     </script>
+
 </body>
 </html>
