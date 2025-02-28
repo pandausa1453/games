@@ -116,13 +116,13 @@
         }
 
         function showGames(category) {
-            fadeOut(document.getElementById("consoleSelection"), () => {
-                fadeIn(document.getElementById("gameList"));
-            });
+            fadeOut(document.getElementById("consoleSelection"));
             fadeOut(document.getElementById("buttons"));
             fadeIn(document.getElementById("backButtons"));
+            fadeIn(document.getElementById("gameList"));
 
             let gameListDiv = document.getElementById("gameList");
+            gameListDiv.style.display = "block"; // Ensure it's visible before updating content
             gameListDiv.innerHTML = "";
 
             if (category === "driving") {
@@ -133,15 +133,53 @@
                         <a href="carobby.html" class="game-btn">Car Obby</a>
                     </div>
                 `;
-                document.querySelector(".back-console-btn").style.display = "none"; 
+            } else if (category === "shooter") {
+                gameListDiv.innerHTML = `
+                    <h2>Shooter Games</h2>
+                    <div class="button-container">
+                        <a href="1v1lol.html" class="game-btn">1v1.LOL</a>
+                    </div>
+                `;
+            } else if (category === "gba") {
+                gameListDiv.innerHTML = `
+                    <h2>Game Boy Advance Games</h2>
+                    <div class="button-container">
+                        <a href="mkss.html" class="game-btn">Mario Kart: Super Circuit</a>
+                        <a href="lttp.html" class="game-btn">The Legend of Zelda: A Link to the Past</a>
+                        <a href="gtaa.html" class="game-btn">Grand Theft Auto Advance</a>
+                        <a href="mpa.html" class="game-btn">Mario Party Advance</a>
+                        <a href="pkfr.html" class="game-btn">Pokémon FireRed</a>
+                    </div>
+                `;
+            } else if (category === "snes") {
+                gameListDiv.innerHTML = `
+                    <h2>Super Nintendo (SNES) Games</h2>
+                    <div class="button-container">
+                        <a href="dkc.html" class="game-btn">Donkey Kong Country</a>
+                        <a href="sf5.html" class="game-btn">Street Fighter 5</a>
+                        <a href="SMRPG.html" class="game-btn">Super Mario RPG</a>
+                        <a href="tg2.html" class="game-btn">Top Gear 2</a>
+                        <a href="smw.html" class="game-btn">Super Mario World</a>
+                        <a href="smk.html" class="game-btn">Super Mario Kart</a>
+                    </div>
+                `;
             }
+            document.querySelector(".back-console-btn").style.display = category === "gba" || category === "snes" ? "inline-block" : "none";
+        }
+
+        function showConsoles() {
+            fadeOut(document.getElementById("buttons"), () => {
+                fadeIn(document.getElementById("consoleSelection"));
+                fadeIn(document.getElementById("backButtons"));
+            });
+            document.querySelector(".back-console-btn").style.display = "none";
         }
 
         function goBack() {
             fadeOut(document.getElementById("gameList"), () => {
                 fadeIn(document.getElementById("consoleSelection"));
-                document.querySelector(".back-console-btn").style.display = "none";
             });
+            document.querySelector(".back-console-btn").style.display = "none";
         }
 
         function goHome() {
