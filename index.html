@@ -9,58 +9,53 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 20px;
-            background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
+            background-color: #1e1e2e;
             color: white;
         }
         h1 {
-            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
         .category-btn {
-            display: block;
-            width: 300px;
-            padding: 20px;
-            margin: 15px auto;
-            font-size: 22px;
+            padding: 15px 30px;
+            font-size: 18px;
             border: none;
-            border-radius: 10px;
-            background: #444;
-            color: white;
+            border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.2s ease-in-out, background 0.2s;
+            transition: transform 0.2s, background-color 0.3s;
         }
         .category-btn:hover {
             transform: scale(1.1);
-            background: #666;
         }
-        #consoleImages, #gameList, #backToConsoles {
-            display: none;
-        }
-        .console-btn {
-            width: 220px;
-            height: auto;
-            margin: 15px;
-            cursor: pointer;
-            transition: transform 0.2s ease-in-out, background 0.2s;
-            border-radius: 15px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
-        }
-        .console-btn:hover {
-            transform: scale(1.1);
-        }
-        #backToConsoles {
-            padding: 15px;
-            font-size: 18px;
-            margin-top: 20px;
-            border: none;
-            border-radius: 8px;
-            background: #c0392b;
+        .retro-btn {
+            background-color: #8a2be2; /* Purple */
             color: white;
-            cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
         }
-        #backToConsoles:hover {
-            transform: scale(1.05);
-            background: #a93226;
+        .shooter-btn {
+            background-color: #ff4500; /* Orange-Red */
+            color: white;
+        }
+        #gameList {
+            display: none;
+            margin-top: 20px;
+        }
+        #backButton {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #backButton:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -68,80 +63,44 @@
 
     <h1>Game Library</h1>
 
-    <!-- Category Selection -->
-    <button class="category-btn" onclick="showShooterGames()">🔫 Shooter Games</button>
-    <button class="category-btn" onclick="showRetroConsoles()">🎮 Retro Games</button>
-
-    <!-- Retro Console Selection -->
-    <div id="consoleImages">
-        <h2>Select a Console</h2>
-        <img src="https://i.imgur.com/AWlL2Xb.jpeg" class="console-btn" onclick="showGames('gba')" alt="Game Boy Advance">
-        <img src="https://i.imgur.com/gJUJIuX.jpeg" class="console-btn" onclick="showGames('snes')" alt="Super Nintendo">
+    <div class="button-container" id="buttons">
+        <button class="category-btn retro-btn" onclick="showGames('retro')">🎮 Retro Games</button>
+        <button class="category-btn shooter-btn" onclick="showGames('shooter')">🔫 Shooter Games</button>
     </div>
 
-    <!-- Back to Console Selection -->
-    <button id="backToConsoles" onclick="goBackToConsoles()">⬅ Back to Console Selection</button>
-
-    <!-- Game Lists -->
     <div id="gameList"></div>
 
+    <button id="backButton" onclick="goBack()">⬅ Back to Console Selection</button>
+
     <script>
-        function showShooterGames() {
-            document.getElementById("gameList").innerHTML = `
-                <h2>Shooter Game</h2>
-                <ul>
-                    <li><a href="1v1lol.html" style="color: white;">1v1.LOL</a></li>
-                </ul>
-            `;
-            document.getElementById("consoleImages").style.display = "none";
-            document.getElementById("backToConsoles").style.display = "none";
-        }
+        function showGames(category) {
+            document.getElementById("buttons").style.display = "none"; // Hide buttons
+            document.getElementById("gameList").style.display = "block";
+            document.getElementById("backButton").style.display = "block";
 
-        function showRetroConsoles() {
-            document.getElementById("consoleImages").style.display = "block";
-            document.getElementById("gameList").innerHTML = "";
-            document.getElementById("backToConsoles").style.display = "none";
-        }
-
-        function showGames(console) {
             let gameListDiv = document.getElementById("gameList");
-            let consoleImages = document.getElementById("consoleImages");
-            let backToConsoles = document.getElementById("backToConsoles");
 
-            if (console === "gba") {
+            if (category === "retro") {
                 gameListDiv.innerHTML = `
-                    <h2>Game Boy Advance</h2>
+                    <h2>Retro Games</h2>
                     <ul>
-                        <li><a href="mkss.html" style="color: white;">Mario Kart: Super Circuit</a></li>
-                        <li><a href="lttp.html" style="color: white;">The Legend of Zelda: A Link to the Past</a></li>
-                        <li><a href="gtaa.html" style="color: white;">Grand Theft Auto Advance</a></li>
-                        <li><a href="mpa.html" style="color: white;">Mario Party Advance</a></li>
-                        <li><a href="pkfr.html" style="color: white;">Pokémon FireRed</a></li>
+                        <li><a href="retro-games.html">Choose a Console</a></li>
                     </ul>
                 `;
-            } else if (console === "snes") {
+            } else if (category === "shooter") {
                 gameListDiv.innerHTML = `
-                    <h2>Super Nintendo (SNES)</h2>
+                    <h2>Shooter Games</h2>
                     <ul>
-                        <li><a href="dkc.html" style="color: white;">Donkey Kong Country</a></li>
-                        <li><a href="sf5.html" style="color: white;">Street Fighter 5</a></li>
-                        <li><a href="smrpg.html" style="color: white;">Super Mario RPG</a></li>
-                        <li><a href="tg2.html" style="color: white;">Top Gear 2</a></li>
-                        <li><a href="smw.html" style="color: white;">Super Mario World</a></li>
-                        <li><a href="smk.html" style="color: white;">Super Mario Kart</a></li>
+                        <li><a href="1v1lol.html">1v1.LOL</a></li>
                     </ul>
                 `;
             }
-
-            // Hide console selection, show back button
-            consoleImages.style.display = "none";
-            backToConsoles.style.display = "block";
         }
 
-        function goBackToConsoles() {
-            document.getElementById("consoleImages").style.display = "block";
-            document.getElementById("gameList").innerHTML = "";
-            document.getElementById("backToConsoles").style.display = "none";
+        function goBack() {
+            document.getElementById("buttons").style.display = "flex"; // Show buttons
+            document.getElementById("gameList").style.display = "none";
+            document.getElementById("backButton").style.display = "none";
         }
     </script>
 
