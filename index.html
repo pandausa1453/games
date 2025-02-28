@@ -32,24 +32,14 @@
             text-decoration: none;
             text-align: center;
             white-space: nowrap;
+            background-color: #007bff;
+            color: white;
         }
         .category-btn { width: 250px; }
         .game-btn { width: auto; max-width: 250px; white-space: normal; }
         .category-btn:hover, .game-btn:hover, .back-home-btn:hover, .back-console-btn:hover {
             transform: scale(1.1);
-        }
-        .retro-btn { background-color: #8a2be2; color: white; }
-        .shooter-btn { background-color: #ff4500; color: white; }
-        .back-home-btn {
-            background-color: #007bff;
-            color: white;
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-        .back-console-btn {
             background-color: #0056b3;
-            color: white;
-            font-size: 16px;
         }
         .console-btn {
             background: none;
@@ -58,8 +48,8 @@
             transition: transform 0.2s;
         }
         .console-btn img {
-            width: 250px; /* Ensuring both images are the same size */
-            height: 150px; /* Same height to keep it uniform */
+            width: 250px;
+            height: 150px;
             transition: transform 0.2s;
         }
         .console-btn:hover img {
@@ -72,6 +62,14 @@
         #backButtons {
             display: none;
             margin-top: 20px;
+        }
+        .back-home-btn {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .back-console-btn {
+            font-size: 16px;
+            margin-top: 0;
         }
     </style>
 </head>
@@ -86,11 +84,11 @@
     </div>
 
     <div class="button-container" id="buttons">
-        <button class="category-btn retro-btn" onclick="showConsoles()">🎮 Retro Games</button>
-        <button class="category-btn shooter-btn" onclick="showGames('shooter')">🔫 Shooter Games</button>
+        <button class="category-btn" onclick="showConsoles()">🎮 Retro Games</button>
+        <button class="category-btn" onclick="showGames('shooter')">🔫 Shooter Games</button>
     </div>
 
-    <!-- Console Selection (Hidden Until Clicked) -->
+    <!-- Console Selection -->
     <div id="consoleSelection">
         <h2>Choose a Console</h2>
         <button class="console-btn" onclick="showGames('gba')">
@@ -101,7 +99,7 @@
         </button>
     </div>
 
-    <!-- Game List (Hidden Until Clicked) -->
+    <!-- Game List -->
     <div id="gameList"></div>
 
     <script>
@@ -109,48 +107,48 @@
             document.getElementById("buttons").style.display = "none";
             document.getElementById("consoleSelection").style.display = "block";
             document.getElementById("gameList").style.display = "none";
-            document.getElementById("backButtons").style.display = "block"; // Show Back buttons
+            document.getElementById("backButtons").style.display = "block";
         }
 
         function showGames(category) {
             document.getElementById("consoleSelection").style.display = "none";
             document.getElementById("buttons").style.display = "none";
             document.getElementById("gameList").style.display = "block";
-            document.getElementById("backButtons").style.display = "block"; // Show Back buttons
+            document.getElementById("backButtons").style.display = "block";
 
             let gameListDiv = document.getElementById("gameList");
 
-            // If retro games are selected, show Back to Console button
+            // Show "Back to Console Selection" only for retro games
             document.querySelector(".back-console-btn").style.display = (category === "gba" || category === "snes") ? "inline-block" : "none";
 
             if (category === "gba") {
                 gameListDiv.innerHTML = `
                     <h2>Game Boy Advance Games</h2>
                     <div class="button-container">
-                        <a href="mkss.html" class="game-btn retro-btn">Mario Kart: Super Circuit</a>
-                        <a href="lttp.html" class="game-btn retro-btn">The Legend of Zelda: A Link to the Past</a>
-                        <a href="gtaa.html" class="game-btn retro-btn">Grand Theft Auto Advance</a>
-                        <a href="mpa.html" class="game-btn retro-btn">Mario Party Advance</a>
-                        <a href="pkfr.html" class="game-btn retro-btn">Pokémon FireRed</a>
+                        <a href="mkss.html" class="game-btn">Mario Kart: Super Circuit</a>
+                        <a href="lttp.html" class="game-btn">The Legend of Zelda: A Link to the Past</a>
+                        <a href="gtaa.html" class="game-btn">Grand Theft Auto Advance</a>
+                        <a href="mpa.html" class="game-btn">Mario Party Advance</a>
+                        <a href="pkfr.html" class="game-btn">Pokémon FireRed</a>
                     </div>
                 `;
             } else if (category === "snes") {
                 gameListDiv.innerHTML = `
                     <h2>Super Nintendo (SNES) Games</h2>
                     <div class="button-container">
-                        <a href="dkc.html" class="game-btn retro-btn">Donkey Kong Country</a>
-                        <a href="sf5.html" class="game-btn retro-btn">Street Fighter 5</a>
-                        <a href="smrpg.html" class="game-btn retro-btn">Super Mario RPG</a>
-                        <a href="tg2.html" class="game-btn retro-btn">Top Gear 2</a>
-                        <a href="smw.html" class="game-btn retro-btn">Super Mario World</a>
-                        <a href="smk.html" class="game-btn retro-btn">Super Mario Kart</a>
+                        <a href="dkc.html" class="game-btn">Donkey Kong Country</a>
+                        <a href="sf5.html" class="game-btn">Street Fighter 5</a>
+                        <a href="smrpg.html" class="game-btn">Super Mario RPG</a>
+                        <a href="tg2.html" class="game-btn">Top Gear 2</a>
+                        <a href="smw.html" class="game-btn">Super Mario World</a>
+                        <a href="smk.html" class="game-btn">Super Mario Kart</a>
                     </div>
                 `;
             } else if (category === "shooter") {
                 gameListDiv.innerHTML = `
                     <h2>Shooter Games</h2>
                     <div class="button-container">
-                        <a href="1v1lol.html" class="game-btn shooter-btn">1v1.LOL</a>
+                        <a href="1v1lol.html" class="game-btn">1v1.LOL</a>
                     </div>
                 `;
             }
@@ -159,14 +157,14 @@
         function goBack() {
             document.getElementById("consoleSelection").style.display = "block";
             document.getElementById("gameList").style.display = "none";
-            document.querySelector(".back-console-btn").style.display = "none"; // Hide Back to Console button
+            document.querySelector(".back-console-btn").style.display = "none"; // Hide "Back to Console Selection"
         }
 
         function goHome() {
             document.getElementById("consoleSelection").style.display = "none";
             document.getElementById("gameList").style.display = "none";
             document.getElementById("buttons").style.display = "flex";
-            document.getElementById("backButtons").style.display = "none"; // Hide all Back buttons
+            document.getElementById("backButtons").style.display = "none"; // Hide all back buttons
         }
     </script>
 
