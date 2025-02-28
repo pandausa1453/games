@@ -21,15 +21,19 @@
             gap: 20px;
             flex-wrap: wrap;
         }
-        .category-btn {
+        .category-btn, .game-btn {
             padding: 15px 30px;
             font-size: 18px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.2s, background-color 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+            width: 200px;
         }
-        .category-btn:hover {
+        .category-btn:hover, .game-btn:hover {
             transform: scale(1.1);
         }
         .retro-btn {
@@ -101,55 +105,54 @@
         function showConsoles() {
             document.getElementById("buttons").style.display = "none";
             document.getElementById("consoleSelection").style.display = "block";
-            document.getElementById("backButton").style.display = "block";
+            document.getElementById("backButton").style.display = "none"; // Hide Back button
         }
 
         function showGames(category) {
             document.getElementById("consoleSelection").style.display = "none";
             document.getElementById("buttons").style.display = "none";
             document.getElementById("gameList").style.display = "block";
-            document.getElementById("backButton").style.display = "block";
+            document.getElementById("backButton").style.display = "block"; // Show Back button
 
             let gameListDiv = document.getElementById("gameList");
 
             if (category === "gba") {
                 gameListDiv.innerHTML = `
                     <h2>Game Boy Advance Games</h2>
-                    <ul>
-                        <li><a href="mkss.html">Mario Kart: Super Circuit</a></li>
-                        <li><a href="lttp.html">The Legend of Zelda: A Link to the Past</a></li>
-                        <li><a href="gtaa.html">Grand Theft Auto Advance</a></li>
-                        <li><a href="mpa.html">Mario Party Advance</a></li>
-                        <li><a href="pkfr.html">Pokémon FireRed</a></li>
-                    </ul>
+                    <div class="button-container">
+                        <a href="mkss.html" class="game-btn retro-btn">Mario Kart: Super Circuit</a>
+                        <a href="lttp.html" class="game-btn retro-btn">The Legend of Zelda: A Link to the Past</a>
+                        <a href="gtaa.html" class="game-btn retro-btn">Grand Theft Auto Advance</a>
+                        <a href="mpa.html" class="game-btn retro-btn">Mario Party Advance</a>
+                        <a href="pkfr.html" class="game-btn retro-btn">Pokémon FireRed</a>
+                    </div>
                 `;
             } else if (category === "snes") {
                 gameListDiv.innerHTML = `
                     <h2>Super Nintendo (SNES) Games</h2>
-                    <ul>
-                        <li><a href="dkc.html">Donkey Kong Country</a></li>
-                        <li><a href="sf5.html">Street Fighter 5</a></li>
-                        <li><a href="smrpg.html">Super Mario RPG</a></li>
-                        <li><a href="tg2.html">Top Gear 2</a></li>
-                        <li><a href="smw.html">Super Mario World</a></li>
-                        <li><a href="smk.html">Super Mario Kart</a></li>
-                    </ul>
+                    <div class="button-container">
+                        <a href="dkc.html" class="game-btn retro-btn">Donkey Kong Country</a>
+                        <a href="sf5.html" class="game-btn retro-btn">Street Fighter 5</a>
+                        <a href="smrpg.html" class="game-btn retro-btn">Super Mario RPG</a>
+                        <a href="tg2.html" class="game-btn retro-btn">Top Gear 2</a>
+                        <a href="smw.html" class="game-btn retro-btn">Super Mario World</a>
+                        <a href="smk.html" class="game-btn retro-btn">Super Mario Kart</a>
+                    </div>
                 `;
             } else if (category === "shooter") {
                 gameListDiv.innerHTML = `
                     <h2>Shooter Games</h2>
-                    <ul>
-                        <li><a href="1v1lol.html">1v1.LOL</a></li>
-                    </ul>
+                    <div class="button-container">
+                        <a href="1v1lol.html" class="game-btn shooter-btn">1v1.LOL</a>
+                    </div>
                 `;
             }
         }
 
         function goBack() {
-            document.getElementById("buttons").style.display = "flex";
-            document.getElementById("consoleSelection").style.display = "none";
+            document.getElementById("consoleSelection").style.display = "block";
             document.getElementById("gameList").style.display = "none";
-            document.getElementById("backButton").style.display = "none";
+            document.getElementById("backButton").style.display = "none"; // Hide Back button
         }
     </script>
 
