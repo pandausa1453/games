@@ -11,23 +11,6 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: black;
-        }
-        #backButton {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1000;
-        }
-        #backButton:hover {
-            background-color: #0056b3;
         }
         #gameContainer {
             width: 100vw;
@@ -35,18 +18,35 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
         #game {
             width: 100%;
             height: 100%;
         }
+        /* Back to Home Button */
+        #backButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            z-index: 1000;
+            display: block; /* Ensure it's always visible */
+        }
+        /* Hide when in fullscreen */
+        .fullscreen #backButton {
+            display: none;
+        }
     </style>
 </head>
 <body>
-
-    <button id="backButton" onclick="goHome()">🏠 Back to Home Page</button>
-
     <div id="gameContainer">
+        <a id="backButton" href="https://pandausa1453.github.io/">⬅ Back to Home</a>
         <div id="game"></div>
     </div>
 
@@ -57,21 +57,24 @@
         EJS_pathtodata = "https://cdn.jsdelivr.net/gh/ethanaobrien/emulatorjs@main/data/";
     </script>
     <script src="https://cdn.jsdelivr.net/gh/ethanaobrien/emulatorjs@main/data/loader.js"></script>
-    
+
     <script>
+        // Detect fullscreen changes to hide/show Back button
         document.addEventListener("fullscreenchange", function() {
-            let backButton = document.getElementById("backButton");
             if (!document.fullscreenElement) {
-                backButton.style.display = "block"; // Show button when exiting fullscreen
+                document.body.classList.remove("fullscreen");
             } else {
-                backButton.style.display = "none"; // Hide button in fullscreen
+                document.body.classList.add("fullscreen");
             }
         });
 
-        function goHome() {
-            window.location.href = "index.html"; // Change this to your actual home page URL
-        }
+        // Ensure the Back button is visible when loaded inside an iframe
+        window.onload = function() {
+            let backButton = document.getElementById("backButton");
+            if (backButton) {
+                backButton.style.display = "block"; // Ensure it appears
+            }
+        };
     </script>
-
 </body>
 </html>
