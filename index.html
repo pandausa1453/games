@@ -1,47 +1,153 @@
-function showGames(category) {
-    document.getElementById("consoleSelection").style.display = "none";
-    document.getElementById("buttons").style.display = "none";
-    document.getElementById("gameList").style.display = "block";
-    document.getElementById("backButtons").style.display = "block";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #1e1e2e;
+            color: white;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .category-btn, .game-btn, .back-home-btn, .back-console-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+            white-space: nowrap;
+            background-color: #007bff;
+            color: white;
+        }
+        .category-btn { width: 250px; }
+        .game-btn { width: auto; max-width: 250px; white-space: normal; }
+        .category-btn:hover, .game-btn:hover, .back-home-btn:hover, .back-console-btn:hover {
+            transform: scale(1.1);
+            background-color: #0056b3;
+        }
+        .console-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .console-btn img {
+            width: 250px;
+            height: 150px;
+            transition: transform 0.2s;
+        }
+        .console-btn:hover img {
+            transform: scale(1.1);
+        }
+        #gameList, #consoleSelection {
+            display: none;
+            margin-top: 20px;
+        }
+        #backButtons {
+            display: none;
+            margin-top: 20px;
+        }
+        .back-home-btn {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .back-console-btn {
+            font-size: 16px;
+            margin-top: 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
 
-    let gameListDiv = document.getElementById("gameList");
+    <h1>Game Library</h1>
 
-    // Clear previous game list content
-    gameListDiv.innerHTML = "";
+    <!-- Back Button Container -->
+    <div id="backButtons">
+        <a href="#" class="back-home-btn" onclick="goHome()">🏠 Back to Home Page</a>
+        <a href="#" class="back-console-btn" onclick="goBack()">⬅ Back to Console Selection</a>
+    </div>
 
-    // Show "Back to Console Selection" only for retro games
-    document.querySelector(".back-console-btn").style.display = 
-        (category === "gba" || category === "snes") ? "inline-block" : "none";
+    <div class="button-container" id="buttons">
+        <button class="category-btn" onclick="showConsoles()">🎮 Retro Games</button>
+        <button class="category-btn" onclick="showGames('shooter')">🔫 Shooter Games</button>
+    </div>
 
-    if (category === "gba") {
-        gameListDiv.innerHTML = `
-            <h2>Game Boy Advance Games</h2>
-            <div class="button-container">
-                <a href="mkss.html" class="game-btn">Mario Kart: Super Circuit</a>
-                <a href="lttp.html" class="game-btn">The Legend of Zelda: A Link to the Past</a>
-                <a href="gtaa.html" class="game-btn">Grand Theft Auto Advance</a>
-                <a href="mpa.html" class="game-btn">Mario Party Advance</a>
-                <a href="pkfr.html" class="game-btn">Pokémon FireRed</a>
-            </div>
-        `;
-    } else if (category === "snes") {
-        gameListDiv.innerHTML = `
-            <h2>Super Nintendo (SNES) Games</h2>
-            <div class="button-container">
-                <a href="dkc.html" class="game-btn">Donkey Kong Country</a>
-                <a href="sf5.html" class="game-btn">Street Fighter 5</a>
-                <a href="smrpg.html" class="game-btn">Super Mario RPG</a>
-                <a href="tg2.html" class="game-btn">Top Gear 2</a>
-                <a href="smw.html" class="game-btn">Super Mario World</a>
-                <a href="smk.html" class="game-btn">Super Mario Kart</a>
-            </div>
-        `;
-    } else if (category === "shooter") {
-        gameListDiv.innerHTML = `
-            <h2>Shooter Games</h2>
-            <div class="button-container">
-                <a href="1v1lol.html" class="game-btn">1v1.LOL</a>
-            </div>
-        `;
-    }
-}
+    <!-- Console Selection -->
+    <div id="consoleSelection">
+        <h2>Choose a Console</h2>
+        <button class="console-btn" onclick="showGames('gba')">
+            <img src="https://i.imgur.com/AWlL2Xb.jpeg" alt="Game Boy Advance">
+        </button>
+        <button class="console-btn" onclick="showGames('snes')">
+            <img src="https://i.imgur.com/gJUJIuX.jpeg" alt="Super Nintendo">
+        </button>
+    </div>
+
+    <!-- Game List -->
+    <div id="gameList"></div>
+
+    <script>
+        function showConsoles() {
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("consoleSelection").style.display = "block";
+            document.getElementById("gameList").style.display = "none";
+            document.getElementById("backButtons").style.display = "block";
+            document.querySelector(".back-console-btn").style.display = "none";
+        }
+
+        function showGames(category) {
+            document.getElementById("consoleSelection").style.display = "none";
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("gameList").style.display = "block";
+            document.getElementById("backButtons").style.display = "block";
+            document.querySelector(".back-console-btn").style.display = "inline-block";
+
+            let gameListDiv = document.getElementById("gameList");
+
+            if (category === "gba") {
+                gameListDiv.innerHTML = `
+                    <h2>Game Boy Advance Games</h2>
+                    <div class="button-container">
+                        <a href="mkss.html" class="game-btn">Mario Kart: Super Circuit</a>
+                        <a href="lttp.html" class="game-btn">The Legend of Zelda: A Link to the Past</a>
+                        <a href="gtaa.html" class="game-btn">Grand Theft Auto Advance</a>
+                        <a href="mpa.html" class="game-btn">Mario Party Advance</a>
+                        <a href="pkfr.html" class="game-btn">Pokémon FireRed</a>
+                    </div>
+                `;
+            } 
+        }
+
+        function goBack() {
+            document.getElementById("consoleSelection").style.display = "block";
+            document.getElementById("gameList").style.display = "none";
+            document.querySelector(".back-console-btn").style.display = "none";
+        }
+
+        function goHome() {
+            document.getElementById("consoleSelection").style.display = "none";
+            document.getElementById("gameList").style.display = "none";
+            document.getElementById("buttons").style.display = "flex";
+            document.getElementById("backButtons").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
