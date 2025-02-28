@@ -78,7 +78,6 @@
 
     <h1>Game Library</h1>
 
-    <!-- Back Button Container -->
     <div id="backButtons">
         <a href="#" class="back-home-btn" onclick="goHome()">🏠 Back to Home Page</a>
         <a href="#" class="back-console-btn" onclick="goBack()">⬅ Back to Console Selection</a>
@@ -90,7 +89,6 @@
         <button class="category-btn" onclick="showGames('driving')">🚗 Driving Games</button>
     </div>
 
-    <!-- Console Selection -->
     <div id="consoleSelection">
         <h2>Choose a Console</h2>
         <button class="console-btn" onclick="showGames('gba')">
@@ -101,7 +99,6 @@
         </button>
     </div>
 
-    <!-- Game List -->
     <div id="gameList"></div>
 
     <script>
@@ -118,14 +115,6 @@
             }, 500);
         }
 
-        function showConsoles() {
-            fadeOut(document.getElementById("buttons"), () => {
-                fadeIn(document.getElementById("consoleSelection"));
-                fadeIn(document.getElementById("backButtons"));
-            });
-            document.querySelector(".back-console-btn").style.display = "none";
-        }
-
         function showGames(category) {
             fadeOut(document.getElementById("consoleSelection"), () => {
                 fadeIn(document.getElementById("gameList"));
@@ -136,50 +125,12 @@
             let gameListDiv = document.getElementById("gameList");
             gameListDiv.innerHTML = "";
 
-            if (category === "gba") {
-                gameListDiv.innerHTML = `
-                    <h2>Game Boy Advance Games</h2>
-                    <div class="button-container">
-                        <a href="mkss.html" class="game-btn">Mario Kart: Super Circuit</a>
-                        <a href="lttp.html" class="game-btn">The Legend of Zelda: A Link to the Past</a>
-                        <a href="gtaa.html" class="game-btn">Grand Theft Auto Advance</a>
-                        <a href="mpa.html" class="game-btn">Mario Party Advance</a>
-                        <a href="pkfr.html" class="game-btn">Pokémon FireRed</a>
-                    </div>
-                `;
-                document.querySelector(".back-console-btn").style.display = "inline-block";
-            } 
-
-            else if (category === "snes") {
-                gameListDiv.innerHTML = `
-                    <h2>Super Nintendo (SNES) Games</h2>
-                    <div class="button-container">
-                        <a href="dkc.html" class="game-btn">Donkey Kong Country</a>
-                        <a href="sf5.html" class="game-btn">Street Fighter 5</a>
-                        <a href="SMRPG.html" class="game-btn">Super Mario RPG</a>
-                        <a href="tg2.html" class="game-btn">Top Gear 2</a>
-                        <a href="smw.html" class="game-btn">Super Mario World</a>
-                        <a href="smk.html" class="game-btn">Super Mario Kart</a>
-                    </div>
-                `;
-                document.querySelector(".back-console-btn").style.display = "inline-block";
-            } 
-
-            else if (category === "shooter") {
-                gameListDiv.innerHTML = `
-                    <h2>Shooter Games</h2>
-                    <div class="button-container">
-                        <a href="1v1lol.html" class="game-btn">1v1.LOL</a>
-                    </div>
-                `;
-                document.querySelector(".back-console-btn").style.display = "none"; 
-            }
-
-            else if (category === "driving") {
+            if (category === "driving") {
                 gameListDiv.innerHTML = `
                     <h2>Driving Games</h2>
                     <div class="button-container">
-                        <a href="punkracing.html" class="game-btn">Punk Racing</a>
+                        <a href="stuntcar.html" class="game-btn">Stunt Car</a>
+                        <a href="carobby.html" class="game-btn">Car Obby</a>
                     </div>
                 `;
                 document.querySelector(".back-console-btn").style.display = "none"; 
