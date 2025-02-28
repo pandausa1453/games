@@ -33,14 +33,27 @@
             transform: scale(1.1);
         }
         .retro-btn {
-            background-color: #8a2be2; /* Purple */
+            background-color: #8a2be2;
             color: white;
         }
         .shooter-btn {
-            background-color: #ff4500; /* Orange-Red */
+            background-color: #ff4500;
             color: white;
         }
-        #gameList {
+        .console-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .console-btn img {
+            width: 200px;
+            transition: transform 0.2s;
+        }
+        .console-btn:hover img {
+            transform: scale(1.1);
+        }
+        #gameList, #consoleSelection {
             display: none;
             margin-top: 20px;
         }
@@ -64,27 +77,62 @@
     <h1>Game Library</h1>
 
     <div class="button-container" id="buttons">
-        <button class="category-btn retro-btn" onclick="showGames('retro')">🎮 Retro Games</button>
+        <button class="category-btn retro-btn" onclick="showConsoles()">🎮 Retro Games</button>
         <button class="category-btn shooter-btn" onclick="showGames('shooter')">🔫 Shooter Games</button>
     </div>
 
+    <!-- Console Selection (Hidden Until Clicked) -->
+    <div id="consoleSelection">
+        <h2>Choose a Console</h2>
+        <button class="console-btn" onclick="showGames('gba')">
+            <img src="https://i.imgur.com/AWlL2Xb.jpeg" alt="Game Boy Advance">
+        </button>
+        <button class="console-btn" onclick="showGames('snes')">
+            <img src="https://i.imgur.com/gJUJIuX.jpeg" alt="Super Nintendo">
+        </button>
+    </div>
+
+    <!-- Game List (Hidden Until Clicked) -->
     <div id="gameList"></div>
 
     <button id="backButton" onclick="goBack()">⬅ Back to Console Selection</button>
 
     <script>
+        function showConsoles() {
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("consoleSelection").style.display = "block";
+            document.getElementById("backButton").style.display = "block";
+        }
+
         function showGames(category) {
-            document.getElementById("buttons").style.display = "none"; // Hide buttons
+            document.getElementById("consoleSelection").style.display = "none";
+            document.getElementById("buttons").style.display = "none";
             document.getElementById("gameList").style.display = "block";
             document.getElementById("backButton").style.display = "block";
 
             let gameListDiv = document.getElementById("gameList");
 
-            if (category === "retro") {
+            if (category === "gba") {
                 gameListDiv.innerHTML = `
-                    <h2>Retro Games</h2>
+                    <h2>Game Boy Advance Games</h2>
                     <ul>
-                        <li><a href="retro-games.html">Choose a Console</a></li>
+                        <li><a href="mkss.html">Mario Kart: Super Circuit</a></li>
+                        <li><a href="lttp.html">The Legend of Zelda: A Link to the Past</a></li>
+                        <li><a href="gtaa.html">Grand Theft Auto Advance</a></li>
+                        <li><a href="mpa.html">Mario Party Advance</a></li>
+                        <li><a href="pkfr.html">Pokémon FireRed</a></li>
+                    </ul>
+                `;
+            } else if (category === "snes") {
+                gameListDiv.innerHTML = `
+                    <h2>Super Nintendo (SNES) Games</h2>
+                    <ul>
+                        <li><a href="dkc.html">Donkey Kong Country</a></li>
+                        <li><a href="sf5.html">Street Fighter 5</a></li>
+                        <li><a href="smrpg.html">Super Mario RPG</a></li>
+                        <li><a href="tg2.html">Top Gear 2</a></li>
+                        <li><a href="smw.html">Super Mario World</a></li>
+                        <li><a href="smk.html">Super Mario Kart</a></li>
                     </ul>
                 `;
             } else if (category === "shooter") {
@@ -98,7 +146,8 @@
         }
 
         function goBack() {
-            document.getElementById("buttons").style.display = "flex"; // Show buttons
+            document.getElementById("buttons").style.display = "flex";
+            document.getElementById("consoleSelection").style.display = "none";
             document.getElementById("gameList").style.display = "none";
             document.getElementById("backButton").style.display = "none";
         }
