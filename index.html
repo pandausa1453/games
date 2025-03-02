@@ -87,6 +87,7 @@
         <button class="category-btn" onclick="showConsoles()">🎮 Retro Games</button>
         <button class="category-btn" onclick="showGames('shooter')">🔫 Shooter Games</button>
         <button class="category-btn" onclick="showGames('driving')">🚗 Driving Games</button>
+        <button class="category-btn" onclick="showGames('sports')">🏀 Sports Games</button>
     </div>
 
     <div id="consoleSelection">
@@ -138,6 +139,13 @@
                     <h2>Shooter Games</h2>
                     <div class="button-container">
                         <a href="1v1lol.html" class="game-btn">1v1.LOL</a>
+                    </div>
+                `;
+            } else if (category === "sports") {
+                gameListDiv.innerHTML = `
+                    <h2>Sports Games</h2>
+                    <div class="button-container">
+                        <a href="basketballlegends.html" class="game-btn">Basketball Legends</a>
                     </div>
                 `;
             } else if (category === "gba") {
