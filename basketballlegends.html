@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Game</title>
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <style>
         html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: black;
+            margin: 0px;
         }
         .back-home-btn {
             position: absolute;
@@ -34,20 +25,20 @@
     </style>
 </head>
 <body>
+
     <!-- Home Button -->
     <a href="index.html" class="back-home-btn">🏠 Back to Home</a>
 
     <script>
         window.RufflePlayer = window.RufflePlayer || {};
-        // Custom Ruffle configuration
+        // Below code forces autoplay, no splash screen, and allows sound
         window.RufflePlayer.config = {
             "autoplay": "on",
             "splashScreen": false,
             "unmuteOverlay": "hidden",
             "quality": "medium"
         };
-
-        // Load and embed Ruffle Player for SWF
+        // End custom configuration code above
         window.addEventListener("load", (event) => {
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
