@@ -125,7 +125,7 @@
             fadeIn(document.getElementById("gameList"));
 
             let gameListDiv = document.getElementById("gameList");
-            gameListDiv.style.display = "block";
+            gameListDiv.style.display = "block"; // Ensure it's visible before updating content
             gameListDiv.innerHTML = "";
 
             if (category === "driving") {
@@ -142,6 +142,7 @@
                     <div class="button-container">
                         <a href="1v1lol.html" class="game-btn">1v1.LOL</a>
                         <a href="getawayshootout.html" class="game-btn">Getaway Shootout</a>
+                        <a href="rooftopsnipers.html" class="game-btn">Rooftop Snipers</a>
                     </div>
                 `;
             } else if (category === "sports") {
