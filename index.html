@@ -58,11 +58,21 @@
             margin-top: 0;
             display: none;
         }
+        #searchBar {
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 50%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+        }
     </style>
 </head>
 <body>
 
     <h1>Game Library</h1>
+
+    <input type="text" id="searchBar" placeholder="Search for a game..." onkeyup="searchGames()">
 
     <div id="backButtons">
         <a href="#" class="back-home-btn" onclick="goHome()">🏠 Back to Home Page</a>
@@ -112,7 +122,6 @@
             fadeIn(document.getElementById("gameList"));
 
             let gameListDiv = document.getElementById("gameList");
-            gameListDiv.style.display = "block"; // Ensure it's visible before updating content
             gameListDiv.innerHTML = "";
 
             if (category === "driving") {
@@ -164,25 +173,24 @@
                         <a href="slope.html" class="game-btn">Slope</a>
                         <a href="subwaysurfers.html" class="game-btn">Subway Surfers</a>
                         <a href="fruitmerge.html" class="game-btn">Fruit Merge</a>
+                        <a href="escapejump.html" class="game-btn">Escape Jump</a>
                     </div>
                 `;
             }
-            document.querySelector(".back-console-btn").style.display = category === "gba" || category === "snes" ? "inline-block" : "none";
         }
 
-        function showConsoles() {
-            fadeOut(document.getElementById("buttons"), () => {
-                fadeIn(document.getElementById("consoleSelection"));
-                fadeIn(document.getElementById("backButtons"));
-            });
-            document.querySelector(".back-console-btn").style.display = "none";
-        }
+        function searchGames() {
+            let input = document.getElementById("searchBar").value.toLowerCase();
+            let gameButtons = document.querySelectorAll(".game-btn");
 
-        function goBack() {
-            fadeOut(document.getElementById("gameList"), () => {
-                fadeIn(document.getElementById("consoleSelection"));
+            gameButtons.forEach(button => {
+                let gameName = button.innerText.toLowerCase();
+                if (gameName.includes(input)) {
+                    button.style.display = "inline-block";
+                } else {
+                    button.style.display = "none";
+                }
             });
-            document.querySelector(".back-console-btn").style.display = "none";
         }
 
         function goHome() {
