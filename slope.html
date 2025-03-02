@@ -25,7 +25,7 @@
             height: 100vh;
         }
         .back-home-btn {
-            position: fixed;
+            position: absolute;
             top: 10px;
             left: 10px;
             padding: 10px 20px;
@@ -37,8 +37,8 @@
             color: white;
             text-decoration: none;
             transition: transform 0.2s, background-color 0.3s;
-            z-index: 9999; /* Super high z-index */
-            pointer-events: auto;
+            z-index: 99999; /* Ensure it's always on top */
+            pointer-events: auto; /* Ensure it's clickable */
             display: block;
         }
         .back-home-btn:hover {
@@ -57,10 +57,19 @@
     <script>
         var gameInstance = UnityLoader.instantiate("gameContainer", "https://cdn.jsdelivr.net/gh/cookieclickerunblocked/slp@ddcf1d475e4c9f0c58a6b0cf0cba75b25896b657/slope_new.json");
 
-        // Ensure button stays visible after game loads
-        setTimeout(function() {
-            document.querySelector(".back-home-btn").style.display = "block";
-        }, 2000);
+        function ensureButtonVisibility() {
+            let btn = document.querySelector(".back-home-btn");
+            if (!btn) {
+                let newBtn = document.createElement("a");
+                newBtn.href = "index.html";
+                newBtn.className = "back-home-btn";
+                newBtn.innerHTML = "🏠 Back to Home";
+                document.body.appendChild(newBtn);
+            }
+        }
+        
+        // Run this every second to ensure the button stays visible
+        setInterval(ensureButtonVisibility, 1000);
     </script>
 
 </body>
