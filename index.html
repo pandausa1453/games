@@ -43,20 +43,6 @@
             transform: scale(1.1);
             background-color: #0056b3;
         }
-        .console-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .console-btn img {
-            width: 250px;
-            height: 150px;
-            transition: transform 0.2s;
-        }
-        .console-btn:hover img {
-            transform: scale(1.1);
-        }
         #gameList, #consoleSelection, #backButtons {
             display: none;
             margin-top: 20px;
@@ -87,8 +73,6 @@
         <button class="category-btn" onclick="showConsoles()">🎮 Retro Games</button>
         <button class="category-btn" onclick="showGames('shooter')">🔫 Shooter Games</button>
         <button class="category-btn" onclick="showGames('driving')">🚗 Driving Games</button>
-        <button class="category-btn" onclick="showGames('sports')">🏀 Sports Games</button>
-        <button class="category-btn" onclick="showGames('idle')">⏳ Idle Games</button>
     </div>
 
     <div id="consoleSelection">
@@ -140,20 +124,7 @@
                     <h2>Shooter Games</h2>
                     <div class="button-container">
                         <a href="1v1lol.html" class="game-btn">1v1.LOL</a>
-                    </div>
-                `;
-            } else if (category === "sports") {
-                gameListDiv.innerHTML = `
-                    <h2>Sports Games</h2>
-                    <div class="button-container">
-                        <a href="basketballlegends.html" class="game-btn">Basketball Legends</a>
-                    </div>
-                `;
-            } else if (category === "idle") {
-                gameListDiv.innerHTML = `
-                    <h2>Idle Games</h2>
-                    <div class="button-container">
-                        <a href="idledice.html" class="game-btn">Idle Dice</a>
+                        <a href="getawayshootout.html" class="game-btn">Getaway Shootout</a>
                     </div>
                 `;
             } else if (category === "gba") {
