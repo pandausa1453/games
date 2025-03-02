@@ -1,55 +1,30 @@
 <html>
 <head>
-    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
-    <style>
-        html, body {
-            margin: 0px;
-        }
-        .back-home-btn {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            z-index: 100;
-        }
-        .back-home-btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+<style>
+html, body {
+margin:0px;
+}
+</style>
 </head>
 <body>
+<script>
+window.RufflePlayer = window.RufflePlayer || {};
+//Below code forces autoplay, no splashscreen and allows sound
 
-    <!-- Home Button -->
-    <a href="index.html" class="back-home-btn">🏠 Back to Home</a>
-
-    <script>
-        window.RufflePlayer = window.RufflePlayer || {};
-        // Below code forces autoplay, no splash screen, and allows sound
-        window.RufflePlayer.config = {
-            "autoplay": "on",
-            "splashScreen": false,
-            "unmuteOverlay": "hidden",
-            "quality": "medium"
-        };
-        // End custom configuration code above
-        window.addEventListener("load", (event) => {
-            const ruffle = window.RufflePlayer.newest();
-            const player = ruffle.createPlayer();
-            const container = document.getElementById("container");
-            container.appendChild(player);
-            player.load("https://pandausa1453.github.io/games/Basketball Legends.swf");
-            player.style.width = "100%";
-            player.style.height = "100%";
-        });
-    </script>
-
-    <div id="container"></div>
+window.RufflePlayer.config = {
+"autoplay": "on","splashScreen": false,"unmuteOverlay": "hidden","quality": "medium" };
+// End custom configuration code above
+window.addEventListener("load", (event) => {
+const ruffle = window.RufflePlayer.newest();
+const player = ruffle.createPlayer();
+const container = document.getElementById("container");
+container.appendChild(player);
+player.load("https://pandausa1453.github.io/games/Basketball Legends.swf");
+player.style.width = "100%";
+player.style.height = "100%";
+});
+</script>
+<div id="container"></div>
 </body>
 </html>
