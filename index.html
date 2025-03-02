@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Library</title>
     <style>
         body {
@@ -90,6 +90,7 @@
         <button class="category-btn" onclick="showGames('sports')">🏀 Sports Games</button>
         <button class="category-btn" onclick="showGames('idle')">⏳ Idle Games</button>
         <button class="category-btn" onclick="showGames('strategy')">♟️ Strategy Games</button>
+        <button class="category-btn" onclick="showGames('skill')">🎯 Skill Games</button>
     </div>
 
     <div id="consoleSelection">
@@ -167,6 +168,13 @@
                     <div class="button-container">
                         <a href="paperio2.html" class="game-btn">Paper.io 2</a>
                         <a href="gettingoverit.html" class="game-btn">Getting Over It</a>
+                    </div>
+                `;
+            } else if (category === "skill") {
+                gameListDiv.innerHTML = `
+                    <h2>Skill Games</h2>
+                    <div class="button-container">
+                        <a href="slope.html" class="game-btn">Slope</a>
                     </div>
                 `;
             }
