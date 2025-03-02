@@ -15,6 +15,11 @@
             overflow: hidden;
             background-color: black;
         }
+        #gameWrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
         #gameContainer {
             width: 100vw;
             height: 100vh;
@@ -32,8 +37,9 @@
             color: white;
             text-decoration: none;
             transition: transform 0.2s, background-color 0.3s;
-            z-index: 1000; /* Ensures it stays on top */
-            pointer-events: auto; /* Ensures it remains clickable */
+            z-index: 9999; /* Super high z-index */
+            pointer-events: auto;
+            display: block;
         }
         .back-home-btn:hover {
             transform: scale(1.1);
@@ -43,11 +49,18 @@
 </head>
 <body>
 
-    <a href="index.html" class="back-home-btn">🏠 Back to Home</a>
-    <div id="gameContainer"></div>
+    <div id="gameWrapper">
+        <a href="index.html" class="back-home-btn">🏠 Back to Home</a>
+        <div id="gameContainer"></div>
+    </div>
 
     <script>
         var gameInstance = UnityLoader.instantiate("gameContainer", "https://cdn.jsdelivr.net/gh/cookieclickerunblocked/slp@ddcf1d475e4c9f0c58a6b0cf0cba75b25896b657/slope_new.json");
+
+        // Ensure button stays visible after game loads
+        setTimeout(function() {
+            document.querySelector(".back-home-btn").style.display = "block";
+        }, 2000);
     </script>
 
 </body>
