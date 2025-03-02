@@ -59,12 +59,13 @@
             display: none;
         }
         #searchBar {
-            margin-bottom: 20px;
+            width: 80%;
+            max-width: 400px;
             padding: 10px;
-            width: 50%;
-            font-size: 16px;
+            margin-bottom: 20px;
             border-radius: 5px;
             border: none;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -72,7 +73,7 @@
 
     <h1>Game Library</h1>
 
-    <input type="text" id="searchBar" placeholder="Search for a game..." onkeyup="searchGames()">
+    <input type="text" id="searchBar" onkeyup="searchGames()" placeholder="Search for games...">
 
     <div id="backButtons">
         <a href="#" class="back-home-btn" onclick="goHome()">🏠 Back to Home Page</a>
@@ -124,73 +125,39 @@
             let gameListDiv = document.getElementById("gameList");
             gameListDiv.innerHTML = "";
 
-            if (category === "driving") {
-                gameListDiv.innerHTML = `
-                    <h2>Driving Games</h2>
-                    <div class="button-container">
-                        <a href="stuntcar.html" class="game-btn">Stunt Car</a>
-                        <a href="carobby.html" class="game-btn">Car Obby</a>
-                        <a href="escaperoad.html" class="game-btn">Escape Road</a>
-                        <a href="battlekarts.html" class="game-btn">Battle Karts</a>
-                    </div>
-                `;
-            } else if (category === "shooter") {
-                gameListDiv.innerHTML = `
-                    <h2>Shooter Games</h2>
-                    <div class="button-container">
-                        <a href="1v1lol.html" class="game-btn">1v1.LOL</a>
-                        <a href="getawayshootout.html" class="game-btn">Getaway Shootout</a>
-                        <a href="rooftopsnipers.html" class="game-btn">Rooftop Snipers</a>
-                    </div>
-                `;
-            } else if (category === "sports") {
-                gameListDiv.innerHTML = `
-                    <h2>Sports Games</h2>
-                    <div class="button-container">
-                        <a href="basketrandom.html" class="game-btn">Basket Random</a>
-                        <a href="retrobowlc.html" class="game-btn">Retro Bowl College</a>
-                    </div>
-                `;
-            } else if (category === "idle") {
-                gameListDiv.innerHTML = `
-                    <h2>Idle Games</h2>
-                    <div class="button-container">
-                        <a href="idledice.html" class="game-btn">Idle Dice</a>
-                    </div>
-                `;
-            } else if (category === "strategy") {
-                gameListDiv.innerHTML = `
-                    <h2>Strategy Games</h2>
-                    <div class="button-container">
-                        <a href="paperio2.html" class="game-btn">Paper.io 2</a>
-                        <a href="gettingoverit.html" class="game-btn">Getting Over It</a>
-                    </div>
-                `;
-            } else if (category === "skill") {
-                gameListDiv.innerHTML = `
-                    <h2>Skill Games</h2>
-                    <div class="button-container">
-                        <a href="slope.html" class="game-btn">Slope</a>
-                        <a href="subwaysurfers.html" class="game-btn">Subway Surfers</a>
-                        <a href="fruitmerge.html" class="game-btn">Fruit Merge</a>
-                        <a href="escapejump.html" class="game-btn">Escape Jump</a>
-                    </div>
-                `;
+            let games = {
+                driving: ["stuntcar.html", "carobby.html", "escaperoad.html", "battlekarts.html"],
+                shooter: ["1v1lol.html", "getawayshootout.html", "rooftopsnipers.html"],
+                sports: ["basketrandom.html", "retrobowlc.html"],
+                idle: ["idledice.html"],
+                strategy: ["paperio2.html", "gettingoverit.html"],
+                skill: ["slope.html", "subwaysurfers.html", "fruitmerge.html", "escapejump.html"]
+            };
+
+            if (games[category]) {
+                let categoryTitle = category.charAt(0).toUpperCase() + category.slice(1) + " Games";
+                gameListDiv.innerHTML = `<h2>${categoryTitle}</h2><div class="button-container">`;
+                games[category].forEach(game => {
+                    let gameName = game.replace(".html", "").replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                    gameListDiv.innerHTML += `<a href="${game}" class="game-btn">${gameName}</a>`;
+                });
+                gameListDiv.innerHTML += `</div>`;
             }
         }
 
-        function searchGames() {
-            let input = document.getElementById("searchBar").value.toLowerCase();
-            let gameButtons = document.querySelectorAll(".game-btn");
-
-            gameButtons.forEach(button => {
-                let gameName = button.innerText.toLowerCase();
-                if (gameName.includes(input)) {
-                    button.style.display = "inline-block";
-                } else {
-                    button.style.display = "none";
-                }
+        function showConsoles() {
+            fadeOut(document.getElementById("buttons"), () => {
+                fadeIn(document.getElementById("consoleSelection"));
+                fadeIn(document.getElementById("backButtons"));
             });
+            document.querySelector(".back-console-btn").style.display = "none";
+        }
+
+        function goBack() {
+            fadeOut(document.getElementById("gameList"), () => {
+                fadeIn(document.getElementById("consoleSelection"));
+            });
+            document.querySelector(".back-console-btn").style.display = "none";
         }
 
         function goHome() {
@@ -198,6 +165,19 @@
             fadeOut(document.getElementById("gameList"));
             fadeIn(document.getElementById("buttons"));
             fadeOut(document.getElementById("backButtons"));
+        }
+
+        function searchGames() {
+            let input = document.getElementById("searchBar").value.toLowerCase();
+            let gameLinks = document.querySelectorAll(".game-btn");
+
+            gameLinks.forEach(link => {
+                if (link.innerText.toLowerCase().includes(input)) {
+                    link.style.display = "inline-block";
+                } else {
+                    link.style.display = "none";
+                }
+            });
         }
     </script>
 
