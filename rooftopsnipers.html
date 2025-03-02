@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Rooftop Snipers</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+        }
+        #gameContainer {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        #gameFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        #backHomeButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+        #backHomeButton:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="backHomeButton" onclick="goHome()">🏠 Back to Home</button>
+
+    <div id="gameContainer">
+        <iframe id="gameFrame" 
+            src="https://html5.gamedistribution.com/rvvASMiM/c3a70ae98547407a92ebedca8b79fdfa/index.html" 
+            allow="autoplay" 
+            allowfullscreen 
+            seamless 
+            scrolling="no">
+        </iframe>
+    </div>
+
+    <script>
+        function goHome() {
+            window.location.href = "index.html"; // Change this if the home page URL is different
+        }
+    </script>
+
+</body>
+</html>
