@@ -32,6 +32,8 @@
             color: white;
             text-decoration: none;
             transition: transform 0.2s, background-color 0.3s;
+            z-index: 1000; /* Ensures it stays on top */
+            pointer-events: auto; /* Ensures it remains clickable */
         }
         .back-home-btn:hover {
             transform: scale(1.1);
