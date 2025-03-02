@@ -43,20 +43,6 @@
             transform: scale(1.1);
             background-color: #0056b3;
         }
-        .console-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .console-btn img {
-            width: 250px;
-            height: 150px;
-            transition: transform 0.2s;
-        }
-        .console-btn:hover img {
-            transform: scale(1.1);
-        }
         #gameList, #consoleSelection, #backButtons {
             display: none;
             margin-top: 20px;
@@ -90,7 +76,7 @@
         <button class="category-btn" onclick="showGames('sports')">🏀 Sports Games</button>
         <button class="category-btn" onclick="showGames('idle')">⏳ Idle Games</button>
         <button class="category-btn" onclick="showGames('strategy')">♟️ Strategy Games</button>
-        <button class="category-btn" onclick="showGames('skill')">🎯 Skill Games</button>
+        <button class="category-btn" onclick="showGames('skill')">⚡ Skill Games</button>
     </div>
 
     <div id="consoleSelection">
@@ -176,6 +162,7 @@
                     <div class="button-container">
                         <a href="slope.html" class="game-btn">Slope</a>
                         <a href="subwaysurfers.html" class="game-btn">Subway Surfers</a>
+                        <a href="fruitmerge.html" class="game-btn">Fruit Merge</a>
                     </div>
                 `;
             }
