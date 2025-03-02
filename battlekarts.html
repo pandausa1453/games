@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <title>Play Battle Karts Game Online!</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="robots" content="noindex, nofollow, noodp, noydir">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="requiresActiveX=true,IE=Edge,chrome=1">
+    <meta http-equiv="Content-Language" content="en-US">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        .game-iframe {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+        .back-home-btn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            z-index: 1000;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+        .back-home-btn:hover {
+            transform: scale(1.1);
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-home-btn">🏠 Back to Home</a>
+
+    <iframe class="game-iframe" id="iframehtml5" 
+        src="https://game.azgame.io/battle-karts/" 
+        scrolling="none" 
+        allowfullscreen>
+    </iframe>
+
+</body>
+</html>
