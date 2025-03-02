@@ -89,6 +89,7 @@
         <button class="category-btn" onclick="showGames('driving')">🚗 Driving Games</button>
         <button class="category-btn" onclick="showGames('sports')">🏀 Sports Games</button>
         <button class="category-btn" onclick="showGames('idle')">⏳ Idle Games</button>
+        <button class="category-btn" onclick="showGames('strategy')">♟️ Strategy Games</button>
     </div>
 
     <div id="consoleSelection">
@@ -157,27 +158,11 @@
                         <a href="idledice.html" class="game-btn">Idle Dice</a>
                     </div>
                 `;
-            } else if (category === "gba") {
+            } else if (category === "strategy") {
                 gameListDiv.innerHTML = `
-                    <h2>Game Boy Advance Games</h2>
+                    <h2>Strategy Games</h2>
                     <div class="button-container">
-                        <a href="mkss.html" class="game-btn">Mario Kart: Super Circuit</a>
-                        <a href="lttp.html" class="game-btn">The Legend of Zelda: A Link to the Past</a>
-                        <a href="gtaa.html" class="game-btn">Grand Theft Auto Advance</a>
-                        <a href="mpa.html" class="game-btn">Mario Party Advance</a>
-                        <a href="pkfr.html" class="game-btn">Pokémon FireRed</a>
-                    </div>
-                `;
-            } else if (category === "snes") {
-                gameListDiv.innerHTML = `
-                    <h2>Super Nintendo (SNES) Games</h2>
-                    <div class="button-container">
-                        <a href="dkc.html" class="game-btn">Donkey Kong Country</a>
-                        <a href="sf5.html" class="game-btn">Street Fighter 5</a>
-                        <a href="SMRPG.html" class="game-btn">Super Mario RPG</a>
-                        <a href="tg2.html" class="game-btn">Top Gear 2</a>
-                        <a href="smw.html" class="game-btn">Super Mario World</a>
-                        <a href="smk.html" class="game-btn">Super Mario Kart</a>
+                        <a href="paperio2.html" class="game-btn">Paper.io 2</a>
                     </div>
                 `;
             }
