@@ -43,10 +43,6 @@
             transform: scale(1.1);
             background-color: #0056b3;
         }
-        .game-btn.disabled {
-            pointer-events: none;
-            background-color: gray;
-        }
         .console-btn {
             background: none;
             border: none;
@@ -128,7 +124,7 @@
             fadeIn(document.getElementById("gameList"));
 
             let gameListDiv = document.getElementById("gameList");
-            gameListDiv.style.display = "block";
+            gameListDiv.style.display = "block"; // Ensure it's visible before updating content
             gameListDiv.innerHTML = "";
 
             if (category === "driving") {
@@ -151,7 +147,7 @@
                 gameListDiv.innerHTML = `
                     <h2>Sports Games</h2>
                     <div class="button-container">
-                        <a href="#" class="game-btn disabled">Coming Soon</a>
+                        <a href="basketrandom.html" class="game-btn">Basket Random</a>
                     </div>
                 `;
             } else if (category === "idle") {
