@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+    <title>Play Retro Bowl College Game Online!</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow, noodp, noydir">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="requiresActiveX=true,IE=Edge,chrome=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Retro Bowl College">
+    <meta http-equiv="Content-Language" content="en-US">
+    <meta property="og:type" content="game">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
+        }
+
+        html, body {
+            background-color: #fff;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .back-home-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .back-home-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body id="run_IFRAME_HTML">
+
+    <!-- Back to Home Button -->
+    <a href="index.html" class="back-home-btn">🏠 Back to Home</a>
+
+    <script type="text/javascript">
+        let url_game2 = "https://classroomjq.github.io/retro-bowl-college/";
+        let is_game_layer2 = url_game2.includes("gamedistribution") || url_game2.includes("crazygame");
+
+        if (is_game_layer2) {
+            start_game_frame();
+        }
+
+        async function start_game_frame() {
+            let frame_game = document.createElement('iframe');
+            frame_game.setAttribute('id', 'iframehtml5');
+            frame_game.setAttribute('width', '100%');
+            frame_game.setAttribute('height', '100%');
+            frame_game.setAttribute('frameborder', '0');
+            frame_game.setAttribute('border', '0');
+            frame_game.setAttribute('scrolling', 'auto');
+            frame_game.setAttribute('class', 'iframe-default');
+            frame_game.setAttribute('allowfullscreen', 'true');
+            frame_game.setAttribute('src', url_game2);
+            frame_game.setAttribute('title', "Retro Bowl College");
+
+            if (document.getElementById("preloading-game")) {
+                await document.getElementById("preloading-game").remove();
+            }
+            document.body.append(frame_game);
+        }
+    </script>
+
+    <iframe id="iframehtml5" width="100%" height="100%" frameborder="0" border="0" scrolling="auto" class="iframe-default" allowfullscreen="true" src="https://classroomjq.github.io/retro-bowl-college/" title="Retro Bowl College"></iframe>
+
+</body>
+</html>
