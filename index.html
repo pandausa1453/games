@@ -19,10 +19,10 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
         .category-btn, .game-btn, .back-home-btn, .back-console-btn {
-            padding: 15px;
+            padding: 15px 30px;
             font-size: 18px;
             border: none;
             border-radius: 8px;
@@ -30,15 +30,20 @@
             transition: transform 0.2s, background-color 0.3s;
             text-decoration: none;
             text-align: center;
+            white-space: nowrap;
             background-color: #007bff;
             color: white;
             width: 250px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .category-btn:hover, .game-btn:hover, .back-home-btn:hover, .back-console-btn:hover {
             transform: scale(1.1);
             background-color: #0056b3;
         }
-        #gameList, #consoleSelection, #backButtons, #searchResults {
+        #gameList, #consoleSelection, #backButtons {
             display: none;
             margin-top: 20px;
         }
@@ -51,27 +56,16 @@
             margin-top: 0;
             display: none;
         }
-        .search-container {
-            margin-bottom: 20px;
+        .console-btn img {
+            width: 150px;
+            height: auto;
+            margin: 10px;
         }
         #searchBar {
-            padding: 10px;
-            font-size: 16px;
             width: 300px;
-            border-radius: 5px;
-            border: none;
-        }
-        #searchButton {
             padding: 10px;
             font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #28a745;
-            color: white;
-        }
-        #searchButton:hover {
-            background-color: #218838;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -79,14 +73,12 @@
 
     <h1>Game Library</h1>
 
-    <div class="search-container">
-        <input type="text" id="searchBar" placeholder="Search for a game...">
-        <button id="searchButton" onclick="searchGames()">Search</button>
-    </div>
+    <input type="text" id="searchBar" placeholder="Search for a game...">
+    <button onclick="searchGames()">🔍 Search</button>
 
     <div id="backButtons">
         <a href="#" class="back-home-btn" onclick="goHome()">🏠 Back to Home Page</a>
-        <a href="#" class="back-console-btn" onclick="showConsoles()">⬅ Back to Console Selection</a>
+        <a href="#" class="back-console-btn" onclick="goBack()">⬅ Back to Console Selection</a>
     </div>
 
     <div class="button-container" id="buttons">
@@ -112,82 +104,99 @@
     </div>
 
     <div id="gameList"></div>
-    <div id="searchResults"></div>
 
     <script>
-        document.getElementById("searchBar").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                searchGames();
-            }
-        });
+        function fadeIn(element) {
+            element.style.display = "block";
+            setTimeout(() => element.style.opacity = "1", 50);
+        }
 
-        function showConsoles() {
-            document.getElementById("buttons").style.display = "none";
-            document.getElementById("gameList").style.display = "none";
-            document.getElementById("searchResults").style.display = "none";
-            document.getElementById("consoleSelection").style.display = "block";
-            document.querySelector(".back-console-btn").style.display = "block";
+        function fadeOut(element, callback) {
+            element.style.opacity = "0";
+            setTimeout(() => {
+                element.style.display = "none";
+                if (callback) callback();
+            }, 500);
         }
 
         function showGames(category) {
-            document.getElementById("buttons").style.display = "none";
-            document.getElementById("consoleSelection").style.display = "none";
-            document.getElementById("backButtons").style.display = "block";
-            document.getElementById("gameList").style.display = "block";
-
-            let games = {
-                "shooter": [
-                    { name: "1v1.LOL", file: "1v1lol.html" },
-                    { name: "Getaway Shootout", file: "getawayshootout.html" },
-                    { name: "Rooftop Snipers", file: "rooftopsnipers.html" }
-                ],
-                "driving": [
-                    { name: "Stunt Car", file: "stuntcar.html" },
-                    { name: "Car Obby", file: "carobby.html" },
-                    { name: "Escape Road", file: "escaperoad.html" },
-                    { name: "Battle Karts", file: "battlekarts.html" }
-                ],
-                "sports": [
-                    { name: "Basket Random", file: "basketrandom.html" },
-                    { name: "Retro Bowl College", file: "retrobowlc.html" }
-                ],
-                "skill": [
-                    { name: "Slope", file: "slope.html" },
-                    { name: "Subway Surfers", file: "subwaysurfers.html" },
-                    { name: "Fruit Merge", file: "fruitmerge.html" },
-                    { name: "Escape Jump", file: "escapejump.html" }
-                ],
-                "gba": [
-                    { name: "Grand Theft Auto Advance", file: "gtaa.html" },
-                    { name: "Mario Kart: Super Circuit", file: "mkss.html" },
-                    { name: "Pokémon FireRed", file: "pkfr.html" }
-                ],
-                "snes": [
-                    { name: "Donkey Kong Country", file: "dkc.html" },
-                    { name: "Mario Paint", file: "mpa.html" },
-                    { name: "Street Fighter II", file: "sf5.html" },
-                    { name: "Super Mario Kart", file: "smk.html" },
-                    { name: "Super Mario World", file: "smw.html" },
-                    { name: "The Legend of Zelda: A Link to the Past", file: "lttp.html" },
-                    { name: "Super Mario RPG", file: "SMRPG.html" }
-                ]
-            };
+            fadeOut(document.getElementById("consoleSelection"));
+            fadeOut(document.getElementById("buttons"));
+            fadeIn(document.getElementById("backButtons"));
+            fadeIn(document.getElementById("gameList"));
 
             let gameListDiv = document.getElementById("gameList");
-            gameListDiv.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Games</h2><div class="button-container">`;
-            games[category]?.forEach(game => {
-                gameListDiv.innerHTML += `<a href="${game.file}" class="game-btn">${game.name}</a>`;
+            gameListDiv.innerHTML = "";
+
+            let games = {
+                shooter: ["1v1.LOL", "Getaway Shootout", "Rooftop Snipers"],
+                driving: ["Stunt Car", "Car Obby", "Escape Road", "Battle Karts"],
+                sports: ["Basket Random", "Retro Bowl College"],
+                idle: ["Idle Dice"],
+                strategy: ["Paper.io 2", "Getting Over It"],
+                skill: ["Slope", "Subway Surfers", "Fruit Merge", "Escape Jump"],
+                gba: ["Grand Theft Auto Advance", "The Legend of Zelda: A Link to the Past", "Mario Kart: Super Circuit", "Pokémon FireRed"],
+                snes: ["Donkey Kong Country", "Mario Party Advance", "Street Fighter II", "Super Mario Kart", "Super Mario World", "Top Gear 2", "Super Mario RPG"]
+            };
+
+            if (games[category]) {
+                let gameButtons = games[category].map(game => `<a href="${game.toLowerCase().replace(/ /g, '')}.html" class="game-btn">${game}</a>`).join("");
+                gameListDiv.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Games</h2><div class="button-container">${gameButtons}</div>`;
+            }
+
+            document.querySelector(".back-console-btn").style.display = category === "gba" || category === "snes" ? "inline-block" : "none";
+        }
+
+        function showConsoles() {
+            fadeOut(document.getElementById("buttons"), () => {
+                fadeIn(document.getElementById("consoleSelection"));
+                fadeIn(document.getElementById("backButtons"));
             });
-            gameListDiv.innerHTML += `</div>`;
+            document.querySelector(".back-console-btn").style.display = "none";
+        }
+
+        function goBack() {
+            fadeOut(document.getElementById("gameList"), () => {
+                fadeIn(document.getElementById("consoleSelection"));
+            });
+            document.querySelector(".back-console-btn").style.display = "none";
         }
 
         function goHome() {
-            document.getElementById("searchResults").style.display = "none";
-            document.getElementById("gameList").style.display = "none";
-            document.getElementById("consoleSelection").style.display = "none";
-            document.getElementById("buttons").style.display = "block";
-            document.getElementById("backButtons").style.display = "none";
+            fadeOut(document.getElementById("consoleSelection"));
+            fadeOut(document.getElementById("gameList"));
+            fadeIn(document.getElementById("buttons"));
+            fadeOut(document.getElementById("backButtons"));
         }
+
+        function searchGames() {
+            let input = document.getElementById("searchBar").value.toLowerCase();
+            let allGames = [
+                "1v1.LOL", "Getaway Shootout", "Rooftop Snipers", "Stunt Car", "Car Obby", "Escape Road", "Battle Karts",
+                "Basket Random", "Retro Bowl College", "Idle Dice", "Paper.io 2", "Getting Over It", "Slope", "Subway Surfers",
+                "Fruit Merge", "Escape Jump", "Grand Theft Auto Advance", "The Legend of Zelda: A Link to the Past",
+                "Mario Kart: Super Circuit", "Pokémon FireRed", "Donkey Kong Country", "Mario Party Advance", "Street Fighter II",
+                "Super Mario Kart", "Super Mario World", "Top Gear 2", "Super Mario RPG"
+            ];
+
+            let results = allGames.filter(game => game.toLowerCase().includes(input));
+            let gameListDiv = document.getElementById("gameList");
+
+            if (results.length > 0) {
+                gameListDiv.innerHTML = `<h2>Search Results</h2><div class="button-container">${results.map(game => `<a href="${game.toLowerCase().replace(/ /g, '')}.html" class="game-btn">${game}</a>`).join("")}</div>`;
+            } else {
+                gameListDiv.innerHTML = "<h2>No games found</h2>";
+            }
+
+            fadeOut(document.getElementById("buttons"));
+            fadeIn(gameListDiv);
+            fadeIn(document.getElementById("backButtons"));
+        }
+
+        document.getElementById("searchBar").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") searchGames();
+        });
+
     </script>
 
 </body>
