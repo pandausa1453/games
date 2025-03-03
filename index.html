@@ -141,6 +141,17 @@
     </div>
 
     <script>
+        const games = {
+            shooter: { "1v1.LOL": "1v1lol.html", "Getaway Shootout": "getawayshootout.html", "Rooftop Snipers": "rooftopsnipers.html" },
+            driving: { "Stunt Car": "stuntcar.html", "Car Obby": "carobby.html", "Escape Road": "escaperoad.html", "Battle Karts": "battlekarts.html" },
+            sports: { "Basket Random": "basketrandom.html", "Retro Bowl College": "retrobowlc.html" },
+            idle: { "Idle Dice": "idledice.html" },
+            strategy: { "Paper.io 2": "paperio2.html", "Getting Over It": "gettingoverit.html" },
+            skill: { "Slope": "slope.html", "Subway Surfers": "subwaysurfers.html", "Fruit Merge": "fruitmerge.html", "Escape Jump": "escapejump.html" },
+            gba: { "Grand Theft Auto Advance": "gtaa.html", "Mario Kart Super Circuit": "mkss.html", "Pokémon FireRed": "pkfr.html" },
+            snes: { "Donkey Kong Country": "dkc.html", "Mario Paint": "mpa.html", "Street Fighter II": "sf5.html", "Super Mario Kart": "smk.html", "Super Mario World": "smw.html", "Tetris & Dr. Mario": "tg2.html", "The Legend of Zelda: A Link to the Past": "lttp.html", "Super Mario RPG": "SMRPG.html" }
+        };
+
         function searchGame() {
             let query = document.getElementById("searchBar").value.toLowerCase();
             let gameListDiv = document.getElementById("gameList");
