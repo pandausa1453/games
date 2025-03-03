@@ -29,20 +29,18 @@
             cursor: pointer;
             text-decoration: none;
             text-align: center;
+            white-space: nowrap;
             background-color: #007bff;
             color: white;
             transition: transform 0.2s, background-color 0.3s;
         }
+        .category-btn { width: 250px; }
+        .game-btn { width: auto; max-width: 250px; white-space: normal; }
         .category-btn:hover, .game-btn:hover, .back-home-btn:hover, .back-console-btn:hover {
             transform: scale(1.1);
             background-color: #0056b3;
         }
-        .console-btn img {
-            width: 120px;
-            height: 80px;
-            border-radius: 8px;
-        }
-        #gameList, #consoleSelection, #backButtons {
+        #gameList, #consoleSelection, #backButtons, #searchResults {
             display: none;
             margin-top: 20px;
         }
@@ -52,16 +50,35 @@
         }
         .back-console-btn {
             font-size: 16px;
+            margin-top: 0;
             display: none;
         }
-        #searchBar {
-            width: 60%;
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .search-input {
             padding: 10px;
             font-size: 18px;
-            margin-bottom: 20px;
+            width: 300px;
             border-radius: 5px;
             border: none;
-            text-align: center;
+        }
+        .search-btn {
+            padding: 10px 15px;
+            font-size: 18px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-btn:hover {
+            background-color: #218838;
+        }
+        .console-btn img {
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -69,7 +86,10 @@
 
     <h1>Game Library</h1>
 
-    <input type="text" id="searchBar" placeholder="Search for a game..." onkeyup="searchGame(event)">
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search for a game...">
+        <button onclick="searchGames()" class="search-btn">Search</button>
+    </div>
 
     <div id="backButtons">
         <a href="#" class="back-home-btn" onclick="goHome()">🏠 Back to Home Page</a>
@@ -97,87 +117,94 @@
     </div>
 
     <div id="gameList"></div>
+    <div id="searchResults"></div>
 
     <script>
         const games = {
-            driving: [
-                { name: "Stunt Car", link: "stuntcar.html" },
-                { name: "Car Obby", link: "carobby.html" },
-                { name: "Escape Road", link: "escaperoad.html" },
-                { name: "Battle Karts", link: "battlekarts.html" }
-            ],
-            shooter: [
-                { name: "1v1.LOL", link: "1v1lol.html" },
-                { name: "Getaway Shootout", link: "getawayshootout.html" },
-                { name: "Rooftop Snipers", link: "rooftopsnipers.html" }
-            ],
-            sports: [
-                { name: "Basket Random", link: "basketrandom.html" },
-                { name: "Retro Bowl College", link: "retrobowlc.html" }
-            ],
-            idle: [
-                { name: "Idle Dice", link: "idledice.html" }
-            ],
-            strategy: [
-                { name: "Paper.io 2", link: "paperio2.html" },
-                { name: "Getting Over It", link: "gettingoverit.html" }
-            ],
-            skill: [
-                { name: "Slope", link: "slope.html" },
-                { name: "Subway Surfers", link: "subwaysurfers.html" },
-                { name: "Fruit Merge", link: "fruitmerge.html" },
-                { name: "Escape Jump", link: "escapejump.html" }
-            ]
+            shooter: ["1v1.LOL", "Getaway Shootout", "Rooftop Snipers"],
+            driving: ["Stunt Car", "Car Obby", "Escape Road", "Battle Karts"],
+            sports: ["Basket Random", "Retro Bowl College"],
+            idle: ["Idle Dice"],
+            strategy: ["Paper.io 2", "Getting Over It"],
+            skill: ["Slope", "Subway Surfers", "Fruit Merge", "Escape Jump"],
+            gba: ["Game 1", "Game 2"], 
+            snes: ["Game 3", "Game 4"]
         };
 
+        function fadeIn(element) {
+            element.style.display = "block";
+            setTimeout(() => element.style.opacity = "1", 50);
+        }
+
+        function fadeOut(element, callback) {
+            element.style.opacity = "0";
+            setTimeout(() => {
+                element.style.display = "none";
+                if (callback) callback();
+            }, 500);
+        }
+
         function showGames(category) {
-            document.getElementById("consoleSelection").style.display = "none";
-            document.getElementById("buttons").style.display = "none";
-            document.getElementById("backButtons").style.display = "block";
-            document.getElementById("gameList").style.display = "block";
+            fadeOut(document.getElementById("consoleSelection"));
+            fadeOut(document.getElementById("buttons"));
+            fadeIn(document.getElementById("backButtons"));
+            fadeIn(document.getElementById("gameList"));
 
             let gameListDiv = document.getElementById("gameList");
             gameListDiv.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Games</h2>`;
-            gameListDiv.innerHTML += `<div class="button-container">${
-                games[category].map(game => `<a href="${game.link}" class="game-btn">${game.name}</a>`).join("")
-            }</div>`;
-
-            document.querySelector(".back-console-btn").style.display = category === "gba" || category === "snes" ? "inline-block" : "none";
+            
+            let gameButtons = games[category].map(game => `<a href="${game.toLowerCase().replace(/ /g, '')}.html" class="game-btn">${game}</a>`).join("");
+            
+            gameListDiv.innerHTML += `<div class="button-container">${gameButtons}</div>`;
         }
 
         function showConsoles() {
-            document.getElementById("buttons").style.display = "none";
-            document.getElementById("consoleSelection").style.display = "block";
-            document.getElementById("backButtons").style.display = "block";
+            fadeOut(document.getElementById("buttons"), () => {
+                fadeIn(document.getElementById("consoleSelection"));
+                fadeIn(document.getElementById("backButtons"));
+            });
             document.querySelector(".back-console-btn").style.display = "none";
         }
 
         function goBack() {
-            document.getElementById("gameList").style.display = "none";
-            document.getElementById("consoleSelection").style.display = "block";
+            fadeOut(document.getElementById("gameList"), () => {
+                fadeIn(document.getElementById("consoleSelection"));
+            });
             document.querySelector(".back-console-btn").style.display = "none";
         }
 
         function goHome() {
-            document.getElementById("consoleSelection").style.display = "none";
-            document.getElementById("gameList").style.display = "none";
-            document.getElementById("buttons").style.display = "block";
-            document.getElementById("backButtons").style.display = "none";
+            fadeOut(document.getElementById("consoleSelection"));
+            fadeOut(document.getElementById("gameList"));
+            fadeOut(document.getElementById("searchResults"));
+            fadeIn(document.getElementById("buttons"));
+            fadeOut(document.getElementById("backButtons"));
         }
 
-        function searchGame(event) {
-            if (event.key === "Enter") {
-                let query = document.getElementById("searchBar").value.toLowerCase();
-                for (let category in games) {
-                    let foundGame = games[category].find(game => game.name.toLowerCase() === query);
-                    if (foundGame) {
-                        window.location.href = foundGame.link;
-                        return;
-                    }
-                }
-                alert("No matching game found.");
+        function searchGames() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let resultsDiv = document.getElementById("searchResults");
+            let allGames = Object.values(games).flat();
+            let matchingGames = allGames.filter(game => game.toLowerCase().includes(input));
+
+            resultsDiv.innerHTML = `<h2>Search Results</h2>`;
+            if (matchingGames.length > 0) {
+                resultsDiv.innerHTML += `<div class="button-container">` +
+                    matchingGames.map(game => `<a href="${game.toLowerCase().replace(/ /g, '')}.html" class="game-btn">${game}</a>`).join("") +
+                    `</div>`;
+            } else {
+                resultsDiv.innerHTML += `<p>No games found</p>`;
             }
+
+            fadeIn(resultsDiv);
         }
+
+        document.getElementById("searchInput").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                searchGames();
+            }
+        });
+
     </script>
 
 </body>
