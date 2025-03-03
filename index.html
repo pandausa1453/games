@@ -34,34 +34,37 @@
             white-space: nowrap;
             background-color: #007bff;
             color: white;
-            width: 250px; /* Ensuring all buttons are the same size */
+            width: 250px;
         }
         .category-btn:hover, .game-btn:hover, .back-home-btn:hover, .back-console-btn:hover {
             transform: scale(1.1);
             background-color: #0056b3;
         }
-        .console-btn img {
-            width: 200px; /* Normal size images */
-            height: auto;
-            border-radius: 8px;
-        }
-        #searchBar {
-            width: 300px; /* More reasonable size */
-            padding: 10px;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        #gameList, #consoleSelection, #backButtons, #searchResults {
+        #gameList, #consoleSelection, #searchResults {
             display: none;
             margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
-        .back-home-btn {
+        .back-home-btn, .back-console-btn {
             font-size: 20px;
-            margin-bottom: 10px;
+            margin: 10px 0;
         }
-        .back-console-btn {
-            font-size: 16px;
-            margin-top: 10px;
+        .search-container {
+            margin-bottom: 20px;
+        }
+        #searchBar {
+            padding: 10px;
+            font-size: 18px;
+            width: 300px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        .console-btn img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -69,12 +72,14 @@
 
     <h1>Game Library</h1>
 
-    <input type="text" id="searchBar" placeholder="Search for a game...">
-    <button onclick="searchGame()">Search</button>
-
     <div id="backButtons">
         <a href="#" class="back-home-btn" onclick="goHome()">🏠 Back to Home Page</a>
         <a href="#" class="back-console-btn" onclick="goBack()">⬅ Back to Console Selection</a>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search for a game...">
+        <button onclick="searchGames()">🔍 Search</button>
     </div>
 
     <div class="button-container" id="buttons">
@@ -89,25 +94,37 @@
 
     <div id="consoleSelection">
         <h2>Choose a Console</h2>
-        <div class="button-container">
-            <button class="console-btn" onclick="showGames('gba')">
-                <img src="https://i.imgur.com/AWlL2Xb.jpeg" alt="Game Boy Advance">
-            </button>
-            <button class="console-btn" onclick="showGames('snes')">
-                <img src="https://i.imgur.com/gJUJIuX.jpeg" alt="Super Nintendo">
-            </button>
-        </div>
+        <button class="console-btn" onclick="showGames('gba')">
+            <img src="https://i.imgur.com/AWlL2Xb.jpeg" alt="Game Boy Advance">
+        </button>
+        <button class="console-btn" onclick="showGames('snes')">
+            <img src="https://i.imgur.com/gJUJIuX.jpeg" alt="Super Nintendo">
+        </button>
     </div>
 
     <div id="gameList"></div>
     <div id="searchResults"></div>
 
     <script>
+        function fadeIn(element) {
+            element.style.display = "block";
+            setTimeout(() => element.style.opacity = "1", 50);
+        }
+
+        function fadeOut(element, callback) {
+            element.style.opacity = "0";
+            setTimeout(() => {
+                element.style.display = "none";
+                if (callback) callback();
+            }, 500);
+        }
+
         function showGames(category) {
-            document.getElementById("consoleSelection").style.display = "none";
-            document.getElementById("buttons").style.display = "none";
-            document.getElementById("backButtons").style.display = "block";
-            document.getElementById("gameList").style.display = "block";
+            fadeOut(document.getElementById("consoleSelection"));
+            fadeOut(document.getElementById("buttons"));
+            fadeOut(document.getElementById("searchResults"));
+            fadeIn(document.getElementById("backButtons"));
+            fadeIn(document.getElementById("gameList"));
 
             let gameListDiv = document.getElementById("gameList");
             gameListDiv.innerHTML = "";
@@ -127,7 +144,7 @@
                     <div class="button-container">
                         <a href="dkc.html" class="game-btn">Donkey Kong Country</a>
                         <a href="mpa.html" class="game-btn">Mario Party Advance</a>
-                        <a href="sf5.html" class="game-btn">Street Fighter 5</a>
+                        <a href="sf5.html" class="game-btn">Street Fighter II</a>
                         <a href="smk.html" class="game-btn">Super Mario Kart</a>
                         <a href="smw.html" class="game-btn">Super Mario World</a>
                         <a href="tg2.html" class="game-btn">Top Gear 2</a>
@@ -139,56 +156,58 @@
         }
 
         function showConsoles() {
-            document.getElementById("buttons").style.display = "none";
-            document.getElementById("consoleSelection").style.display = "block";
-            document.getElementById("backButtons").style.display = "block";
+            fadeOut(document.getElementById("buttons"), () => {
+                fadeIn(document.getElementById("consoleSelection"));
+                fadeIn(document.getElementById("backButtons"));
+            });
         }
 
         function goBack() {
-            document.getElementById("gameList").style.display = "none";
-            document.getElementById("consoleSelection").style.display = "block";
+            fadeOut(document.getElementById("gameList"), () => {
+                fadeIn(document.getElementById("consoleSelection"));
+            });
         }
 
         function goHome() {
-            document.getElementById("consoleSelection").style.display = "none";
-            document.getElementById("gameList").style.display = "none";
-            document.getElementById("searchResults").style.display = "none";
-            document.getElementById("buttons").style.display = "block";
-            document.getElementById("backButtons").style.display = "none";
+            fadeOut(document.getElementById("consoleSelection"));
+            fadeOut(document.getElementById("gameList"));
+            fadeOut(document.getElementById("searchResults"));
+            fadeIn(document.getElementById("buttons"));
+            fadeOut(document.getElementById("backButtons"));
         }
 
-        function searchGame() {
-            let input = document.getElementById("searchBar").value.toLowerCase();
+        function searchGames() {
+            let query = document.getElementById("searchBar").value.toLowerCase();
             let allGames = {
-                "Stunt Car": "stuntcar.html",
-                "Car Obby": "carobby.html",
-                "Escape Road": "escaperoad.html",
-                "Battle Karts": "battlekarts.html",
-                "1v1.LOL": "1v1lol.html",
-                "Getaway Shootout": "getawayshootout.html",
-                "Rooftop Snipers": "rooftopsnipers.html",
-                "Basket Random": "basketrandom.html",
-                "Retro Bowl College": "retrobowlc.html"
+                "GTA Advance": "gtaa.html",
+                "Mario Kart: Super Circuit": "mkss.html",
+                "Pokémon FireRed": "pkfr.html",
+                "Donkey Kong Country": "dkc.html",
+                "Mario Party Advance": "mpa.html",
+                "Street Fighter II": "sf5.html",
+                "Super Mario Kart": "smk.html",
+                "Super Mario World": "smw.html",
+                "Top Gear 2": "tg2.html",
+                "The Legend of Zelda: A Link to the Past": "lttp.html",
+                "Super Mario RPG": "SMRPG.html"
             };
 
-            let results = Object.keys(allGames).filter(game => game.toLowerCase().includes(input));
             let resultsDiv = document.getElementById("searchResults");
             resultsDiv.innerHTML = "";
+            let matches = Object.keys(allGames).filter(name => name.toLowerCase().includes(query));
 
-            if (results.length === 0) {
-                resultsDiv.innerHTML = "<h2>No games found</h2>";
+            if (matches.length > 0) {
+                resultsDiv.innerHTML = matches.map(game => `<a href="${allGames[game]}" class="game-btn">${game}</a>`).join("");
             } else {
-                resultsDiv.innerHTML = results.map(game => `<a href="${allGames[game]}" class="game-btn">${game}</a>`).join("");
+                resultsDiv.innerHTML = "<p>No games found.</p>";
             }
 
-            document.getElementById("buttons").style.display = "none";
-            resultsDiv.style.display = "block";
+            fadeOut(document.getElementById("buttons"));
+            fadeIn(resultsDiv);
         }
 
         document.getElementById("searchBar").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                searchGame();
-            }
+            if (event.key === "Enter") searchGames();
         });
     </script>
 
