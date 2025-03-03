@@ -121,21 +121,19 @@
             }
         });
 
-        function fadeIn(element) {
-            element.style.display = "block";
-            setTimeout(() => element.style.opacity = "1", 50);
-        }
-
-        function fadeOut(element) {
-            element.style.opacity = "0";
-            setTimeout(() => element.style.display = "none", 500);
+        function showConsoles() {
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("gameList").style.display = "none";
+            document.getElementById("searchResults").style.display = "none";
+            document.getElementById("consoleSelection").style.display = "block";
+            document.querySelector(".back-console-btn").style.display = "block";
         }
 
         function showGames(category) {
-            fadeOut(document.getElementById("buttons"));
-            fadeOut(document.getElementById("consoleSelection"));
-            fadeIn(document.getElementById("backButtons"));
-            fadeIn(document.getElementById("gameList"));
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("consoleSelection").style.display = "none";
+            document.getElementById("backButtons").style.display = "block";
+            document.getElementById("gameList").style.display = "block";
 
             let games = {
                 "shooter": [
@@ -177,28 +175,18 @@
 
             let gameListDiv = document.getElementById("gameList");
             gameListDiv.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Games</h2><div class="button-container">`;
-            if (games[category]) {
-                games[category].forEach(game => {
-                    gameListDiv.innerHTML += `<a href="${game.file}" class="game-btn">${game.name}</a>`;
-                });
-            }
+            games[category]?.forEach(game => {
+                gameListDiv.innerHTML += `<a href="${game.file}" class="game-btn">${game.name}</a>`;
+            });
             gameListDiv.innerHTML += `</div>`;
         }
 
-        function searchGames() {
-            let input = document.getElementById("searchBar").value.toLowerCase();
-            let gameSections = document.querySelectorAll(".category-btn, .console-btn");
-            gameSections.forEach(section => section.style.display = "none");
-            
-            let gameListDiv = document.getElementById("searchResults");
-            gameListDiv.innerHTML = `<h2>Search Results</h2><div class="button-container"></div>`;
-            fadeIn(gameListDiv);
-        }
-
         function goHome() {
-            fadeOut(document.getElementById("searchResults"));
-            fadeIn(document.getElementById("buttons"));
-            fadeOut(document.getElementById("backButtons"));
+            document.getElementById("searchResults").style.display = "none";
+            document.getElementById("gameList").style.display = "none";
+            document.getElementById("consoleSelection").style.display = "none";
+            document.getElementById("buttons").style.display = "block";
+            document.getElementById("backButtons").style.display = "none";
         }
     </script>
 
