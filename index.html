@@ -73,7 +73,7 @@
             text-align: center;
         }
         #searchButton {
-            padding: 10px 20px;
+            padding: 10px;
             font-size: 18px;
             background-color: #007bff;
             color: white;
@@ -154,35 +154,21 @@
             snes: { "Donkey Kong Country": "dkc.html", "Mario Paint": "mpa.html", "Street Fighter II": "sf5.html", "Super Mario Kart": "smk.html", "Super Mario World": "smw.html", "Tetris & Dr. Mario": "tg2.html", "The Legend of Zelda: A Link to the Past": "lttp.html", "Super Mario RPG": "SMRPG.html" }
         };
 
-        function searchGame() {
-            let query = document.getElementById("searchBar").value.toLowerCase();
+        function showGames(category) {
             let gameListDiv = document.getElementById("gameList");
-            let results = [];
+            let buttonsDiv = document.getElementById("buttons");
+            let consoleDiv = document.getElementById("consoleSelection");
 
-            for (const category in games) {
-                for (const [name, link] of Object.entries(games[category])) {
-                    if (name.toLowerCase().includes(query)) {
-                        results.push(`<a href="${link}" class="game-btn">${name}</a>`);
-                    }
-                }
-            }
+            gameListDiv.innerHTML = `<h2>${category.replace(/^\w/, c => c.toUpperCase())} Games</h2><div class='button-container'>` +
+                Object.entries(games[category] || {}).map(([name, link]) => 
+                    `<a href="${link}" class="game-btn">${name}</a>`
+                ).join("") +
+                `</div>`;
 
-            if (results.length > 0) {
-                gameListDiv.innerHTML = "<h2>Search Results</h2><div class='button-container'>" + results.join("") + "</div>";
-            } else {
-                gameListDiv.innerHTML = "<h2>No games found</h2>";
-            }
-
-            document.getElementById("buttons").style.display = "none";
-            document.getElementById("consoleSelection").style.display = "none";
+            buttonsDiv.style.display = "none";
+            consoleDiv.style.display = "none";
             gameListDiv.style.display = "block";
         }
-
-        document.getElementById("searchBar").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                searchGame();
-            }
-        });
 
         function goHome() {
             document.getElementById("buttons").style.display = "flex";
