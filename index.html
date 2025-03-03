@@ -21,70 +21,36 @@
             gap: 20px;
             flex-wrap: wrap;
         }
-        .category-btn, .game-btn, .back-home-btn, .back-console-btn {
+        .category-btn, .game-btn, .back-home-btn, .back-console-btn, .search-btn {
             padding: 15px 30px;
             font-size: 18px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.2s, background-color 0.3s;
-            display: inline-block;
             text-decoration: none;
             text-align: center;
-            white-space: nowrap;
             background-color: #007bff;
             color: white;
         }
-        .category-btn { width: 250px; }
-        .game-btn { width: auto; max-width: 250px; white-space: normal; }
-        .category-btn:hover, .game-btn:hover, .back-home-btn:hover, .back-console-btn:hover {
+        .category-btn, .game-btn { width: auto; max-width: 250px; }
+        .category-btn:hover, .game-btn:hover, .back-home-btn:hover, .back-console-btn:hover, .search-btn:hover {
             transform: scale(1.1);
             background-color: #0056b3;
         }
-        #gameList, #consoleSelection, #backButtons {
+        #gameList, #consoleSelection, #searchResults {
             display: none;
             margin-top: 20px;
-        }
-        .back-home-btn {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        .back-console-btn {
-            font-size: 16px;
-            margin-top: 0;
-            display: none;
         }
         .search-container {
             margin-bottom: 20px;
         }
-        .search-input {
+        input[type="text"] {
             padding: 10px;
-            width: 300px;
             font-size: 16px;
-            border-radius: 5px;
-            border: none;
-        }
-        .search-btn {
-            padding: 10px 15px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #28a745;
-            color: white;
-        }
-        .search-btn:hover {
-            background-color: #218838;
-        }
-        .console-btn img {
-            width: 150px;
-            height: 150px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .console-btn img:hover {
-            transform: scale(1.1);
+            width: 60%;
+            border-radius: 8px;
+            border: 1px solid #ccc;
         }
     </style>
 </head>
@@ -92,14 +58,13 @@
 
     <h1>Game Library</h1>
 
-    <div class="search-container">
-        <input type="text" id="searchInput" class="search-input" placeholder="Search for a game...">
-        <button onclick="searchGame()" class="search-btn">🔍 Search</button>
+    <div id="backButtons">
+        <button class="back-home-btn" onclick="goHome()">🏠 Back to Home Page</button>
     </div>
 
-    <div id="backButtons">
-        <a href="#" class="back-home-btn" onclick="goHome()">🏠 Back to Home Page</a>
-        <a href="#" class="back-console-btn" onclick="goBack()">⬅ Back to Console Selection</a>
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search for a game..." onkeypress="handleKeyPress(event)">
+        <button class="search-btn" onclick="searchGames()">🔍 Search</button>
     </div>
 
     <div class="button-container" id="buttons">
@@ -114,90 +79,75 @@
 
     <div id="consoleSelection">
         <h2>Choose a Console</h2>
-        <button class="console-btn" onclick="showGames('gba')">
-            <img src="https://i.imgur.com/AWlL2Xb.jpeg" alt="Game Boy Advance">
-        </button>
-        <button class="console-btn" onclick="showGames('snes')">
-            <img src="https://i.imgur.com/gJUJIuX.jpeg" alt="Super Nintendo">
-        </button>
+        <button class="console-btn" onclick="showGames('gba')">Game Boy Advance</button>
+        <button class="console-btn" onclick="showGames('snes')">Super Nintendo</button>
     </div>
 
     <div id="gameList"></div>
+    <div id="searchResults"></div>
 
     <script>
-        document.getElementById("searchInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                searchGame();
-            }
-        });
-
-        function searchGame() {
-            let input = document.getElementById("searchInput").value.toLowerCase();
-            let games = {
-                "stunt car": "stuntcar.html",
-                "car obby": "carobby.html",
-                "escape road": "escaperoad.html",
-                "battle karts": "battlekarts.html",
-                "1v1.lol": "1v1lol.html",
-                "getaway shootout": "getawayshootout.html",
-                "rooftop snipers": "rooftopsnipers.html",
-                "basket random": "basketrandom.html",
-                "retro bowl college": "retrobowlc.html",
-                "idle dice": "idledice.html",
-                "paper.io 2": "paperio2.html",
-                "getting over it": "gettingoverit.html",
-                "slope": "slope.html",
-                "subway surfers": "subwaysurfers.html",
-                "fruit merge": "fruitmerge.html",
-                "escape jump": "escapejump.html"
-            };
-
-            let results = Object.keys(games).filter(game => game.includes(input));
-
-            if (results.length > 0) {
-                let searchPage = "<h1>Search Results</h1><ul>";
-                results.forEach(game => {
-                    searchPage += `<li><a href="${games[game]}">${game}</a></li>`;
-                });
-                searchPage += "</ul><a href='index.html'>🔙 Back to Home</a>";
-                let newWindow = window.open("", "_blank");
-                newWindow.document.write(searchPage);
-            } else {
-                let newWindow = window.open("", "_blank");
-                newWindow.document.write("<h1>No games found</h1><a href='index.html'>🔙 Back to Home</a>");
-            }
-        }
+        const games = {
+            shooter: ["1v1.LOL", "Getaway Shootout", "Rooftop Snipers"],
+            driving: ["Stunt Car", "Car Obby", "Escape Road", "Battle Karts"],
+            sports: ["Basket Random", "Retro Bowl College"],
+            idle: ["Idle Dice"],
+            strategy: ["Paper.io 2", "Getting Over It"],
+            skill: ["Slope", "Subway Surfers", "Fruit Merge", "Escape Jump"],
+            gba: ["Grand Theft Auto Advance", "The Legend of Zelda: A Link to the Past", "Mario Kart: Super Circuit", "Pokémon FireRed"],
+            snes: ["Donkey Kong Country", "Mario Party Advance", "Street Fighter II", "Super Mario Kart", "Super Mario World", "Top Gear 2", "Super Mario RPG"]
+        };
 
         function showGames(category) {
-            let gameLists = {
-                "retro": `
-                    <h2>Retro Games</h2>
-                    <div class="button-container">
-                        <a href="gba1.html" class="game-btn">GBA Game 1</a>
-                        <a href="gba2.html" class="game-btn">GBA Game 2</a>
-                        <a href="snes1.html" class="game-btn">SNES Game 1</a>
-                        <a href="snes2.html" class="game-btn">SNES Game 2</a>
-                    </div>
-                `
-            };
-
-            document.getElementById("gameList").innerHTML = gameLists[category] || "<h2>No games available</h2>";
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("consoleSelection").style.display = "none";
+            document.getElementById("searchResults").style.display = "none";
+            document.getElementById("gameList").innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Games</h2>`;
+            document.getElementById("gameList").innerHTML += games[category].map(game => 
+                `<button class="game-btn">${game}</button>`).join(" ");
             document.getElementById("gameList").style.display = "block";
         }
 
         function showConsoles() {
             document.getElementById("buttons").style.display = "none";
+            document.getElementById("gameList").style.display = "none";
+            document.getElementById("searchResults").style.display = "none";
             document.getElementById("consoleSelection").style.display = "block";
-            document.getElementById("backButtons").style.display = "block";
         }
 
         function goHome() {
-            location.reload();
+            document.getElementById("consoleSelection").style.display = "none";
+            document.getElementById("gameList").style.display = "none";
+            document.getElementById("searchResults").style.display = "none";
+            document.getElementById("buttons").style.display = "flex";
         }
 
-        function goBack() {
+        function searchGames() {
+            const query = document.getElementById("searchBar").value.toLowerCase();
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("gameList").style.display = "none";
             document.getElementById("consoleSelection").style.display = "none";
-            document.getElementById("buttons").style.display = "block";
+
+            let results = [];
+            for (const category in games) {
+                results.push(...games[category].filter(game => game.toLowerCase().includes(query)));
+            }
+
+            if (results.length > 0) {
+                document.getElementById("searchResults").innerHTML = `<h2>Search Results</h2>`;
+                document.getElementById("searchResults").innerHTML += results.map(game => 
+                    `<button class="game-btn">${game}</button>`).join(" ");
+            } else {
+                document.getElementById("searchResults").innerHTML = "<h2>No games found</h2>";
+            }
+
+            document.getElementById("searchResults").style.display = "block";
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                searchGames();
+            }
         }
     </script>
 
