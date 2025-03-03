@@ -18,7 +18,7 @@
         .button-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
         }
         .category-btn, .game-btn, .back-home-btn, .back-console-btn {
@@ -27,21 +27,21 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.2s, background-color 0.3s;
-            display: inline-block;
             text-decoration: none;
             text-align: center;
-            white-space: nowrap;
             background-color: #007bff;
             color: white;
             opacity: 1;
-            transition: opacity 0.5s ease-in-out;
+            transition: transform 0.2s, background-color 0.3s;
         }
-        .category-btn { width: 250px; }
-        .game-btn { width: auto; max-width: 250px; white-space: normal; }
         .category-btn:hover, .game-btn:hover, .back-home-btn:hover, .back-console-btn:hover {
             transform: scale(1.1);
             background-color: #0056b3;
+        }
+        .console-btn img {
+            width: 120px;
+            height: 80px;
+            border-radius: 8px;
         }
         #gameList, #consoleSelection, #backButtons {
             display: none;
@@ -59,13 +59,13 @@
             display: none;
         }
         #searchBar {
-            width: 80%;
-            max-width: 400px;
+            width: 60%;
             padding: 10px;
+            font-size: 18px;
             margin-bottom: 20px;
             border-radius: 5px;
             border: none;
-            font-size: 16px;
+            text-align: center;
         }
     </style>
 </head>
@@ -73,8 +73,8 @@
 
     <h1>Game Library</h1>
 
-    <input type="text" id="searchBar" placeholder="Search for games..." onkeypress="handleKeyPress(event)">
-    
+    <input type="text" id="searchBar" placeholder="Search for a game..." onkeyup="searchGame(event)">
+
     <div id="backButtons">
         <a href="#" class="back-home-btn" onclick="goHome()">🏠 Back to Home Page</a>
         <a href="#" class="back-console-btn" onclick="goBack()">⬅ Back to Console Selection</a>
@@ -103,6 +103,37 @@
     <div id="gameList"></div>
 
     <script>
+        const games = {
+            driving: [
+                { name: "Stunt Car", link: "stuntcar.html" },
+                { name: "Car Obby", link: "carobby.html" },
+                { name: "Escape Road", link: "escaperoad.html" },
+                { name: "Battle Karts", link: "battlekarts.html" }
+            ],
+            shooter: [
+                { name: "1v1.LOL", link: "1v1lol.html" },
+                { name: "Getaway Shootout", link: "getawayshootout.html" },
+                { name: "Rooftop Snipers", link: "rooftopsnipers.html" }
+            ],
+            sports: [
+                { name: "Basket Random", link: "basketrandom.html" },
+                { name: "Retro Bowl College", link: "retrobowlc.html" }
+            ],
+            idle: [
+                { name: "Idle Dice", link: "idledice.html" }
+            ],
+            strategy: [
+                { name: "Paper.io 2", link: "paperio2.html" },
+                { name: "Getting Over It", link: "gettingoverit.html" }
+            ],
+            skill: [
+                { name: "Slope", link: "slope.html" },
+                { name: "Subway Surfers", link: "subwaysurfers.html" },
+                { name: "Fruit Merge", link: "fruitmerge.html" },
+                { name: "Escape Jump", link: "escapejump.html" }
+            ]
+        };
+
         function fadeIn(element) {
             element.style.display = "block";
             setTimeout(() => element.style.opacity = "1", 50);
@@ -123,26 +154,12 @@
             fadeIn(document.getElementById("gameList"));
 
             let gameListDiv = document.getElementById("gameList");
-            gameListDiv.innerHTML = "";
+            gameListDiv.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Games</h2>`;
+            gameListDiv.innerHTML += `<div class="button-container">${
+                games[category].map(game => `<a href="${game.link}" class="game-btn">${game.name}</a>`).join("")
+            }</div>`;
 
-            let games = {
-                driving: ["stuntcar.html", "carobby.html", "escaperoad.html", "battlekarts.html"],
-                shooter: ["1v1lol.html", "getawayshootout.html", "rooftopsnipers.html"],
-                sports: ["basketrandom.html", "retrobowlc.html"],
-                idle: ["idledice.html"],
-                strategy: ["paperio2.html", "gettingoverit.html"],
-                skill: ["slope.html", "subwaysurfers.html", "fruitmerge.html", "escapejump.html"]
-            };
-
-            if (games[category]) {
-                let categoryTitle = category.charAt(0).toUpperCase() + category.slice(1) + " Games";
-                gameListDiv.innerHTML = `<h2>${categoryTitle}</h2><div class="button-container">`;
-                games[category].forEach(game => {
-                    let gameName = game.replace(".html", "").replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                    gameListDiv.innerHTML += `<a href="${game}" class="game-btn">${gameName}</a>`;
-                });
-                gameListDiv.innerHTML += `</div>`;
-            }
+            document.querySelector(".back-console-btn").style.display = category === "gba" || category === "snes" ? "inline-block" : "none";
         }
 
         function showConsoles() {
@@ -167,37 +184,19 @@
             fadeOut(document.getElementById("backButtons"));
         }
 
-        function searchGames() {
-            let input = document.getElementById("searchBar").value.toLowerCase();
-            let gameLinks = document.querySelectorAll(".game-btn");
-            let found = false;
-
-            gameLinks.forEach(link => {
-                if (link.innerText.toLowerCase().includes(input)) {
-                    link.style.display = "inline-block";
-                    found = true;
-                } else {
-                    link.style.display = "none";
-                }
-            });
-
-            if (!found) {
-                document.getElementById("gameList").innerHTML = `<h2>No games found</h2>`;
-            } else {
-                document.getElementById("gameList").innerHTML = `<h2>Search Results</h2>`;
-                gameLinks.forEach(link => {
-                    if (link.style.display === "inline-block") {
-                        document.getElementById("gameList").appendChild(link.cloneNode(true));
-                    }
-                });
-            }
-
-            fadeIn(document.getElementById("gameList"));
-        }
-
-        function handleKeyPress(event) {
+        function searchGame(event) {
             if (event.key === "Enter") {
-                searchGames();
+                let query = document.getElementById("searchBar").value.toLowerCase();
+                let gameFound = false;
+                for (let category in games) {
+                    let filteredGames = games[category].filter(game => game.name.toLowerCase().includes(query));
+                    if (filteredGames.length > 0) {
+                        showGames(category);
+                        gameFound = true;
+                        break;
+                    }
+                }
+                if (!gameFound) alert("No matching games found.");
             }
         }
     </script>
