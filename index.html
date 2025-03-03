@@ -8,9 +8,9 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 20px;
             background-color: #1e1e2e;
             color: white;
+            margin: 20px;
         }
         h1 {
             margin-bottom: 20px;
@@ -24,18 +24,16 @@
         .category-btn, .game-btn, .back-home-btn, .back-console-btn {
             padding: 15px 30px;
             font-size: 18px;
-            border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.2s, background-color 0.3s;
-            display: inline-block;
-            text-decoration: none;
-            text-align: center;
             background-color: #007bff;
             color: white;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            width: 250px;
         }
-        .category-btn { width: 250px; }
-        .game-btn { width: 250px; white-space: normal; }
         .category-btn:hover, .game-btn:hover, .back-home-btn:hover, .back-console-btn:hover {
             transform: scale(1.1);
             background-color: #0056b3;
@@ -43,15 +41,6 @@
         #gameList, #consoleSelection, #searchResults {
             display: none;
             margin-top: 20px;
-        }
-        .back-home-btn {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        .back-console-btn {
-            font-size: 16px;
-            margin-top: 0;
-            display: none;
         }
         .search-container {
             margin-bottom: 20px;
@@ -78,6 +67,15 @@
         .console-btn img {
             width: 150px;
             height: 150px;
+        }
+        .back-home-btn {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .back-console-btn {
+            font-size: 16px;
+            margin-top: 0;
+            display: none;
         }
     </style>
 </head>
@@ -122,48 +120,30 @@
 
     <script>
         let games = {
-            shooter: ["1v1.LOL", "Getaway Shootout", "Rooftop Snipers"],
-            driving: ["Stunt Car", "Car Obby", "Escape Road", "Battle Karts"],
-            sports: ["Basket Random", "Retro Bowl College"],
-            idle: ["Idle Dice"],
-            strategy: ["Paper.io 2", "Getting Over It"],
-            skill: ["Slope", "Subway Surfers", "Fruit Merge", "Escape Jump"],
-            gba: {
-                "Donkey Kong Country": "dkc.html",
-                "Mario Party Advance": "mpa.html",
-                "Street Fighter 5": "sf5.html",
-                "Mario Kart Super Circuit": "mkss.html",
-                "Pokemon FireRed": "pkfr.html",
-                "Grand Theft Auto Advance": "gtaa.html"
-            },
-            snes: {
-                "Super Mario Kart": "smk.html",
-                "Super Mario World": "smw.html",
-                "Top Gear 2": "tg2.html",
-                "Legend of Zelda: A Link to the Past": "lttp.html",
-                "Super Mario RPG": "SMRPG.html"
-            }
+            shooter: {"1v1.LOL": "1v1lol.html", "Getaway Shootout": "getawayshootout.html", "Rooftop Snipers": "rooftopsnipers.html"},
+            driving: {"Stunt Car": "stuntcar.html", "Car Obby": "carobby.html", "Escape Road": "escaperoad.html", "Battle Karts": "battlekarts.html"},
+            sports: {"Basket Random": "basketrandom.html", "Retro Bowl College": "retrobowlc.html"},
+            idle: {"Idle Dice": "idledice.html"},
+            strategy: {"Paper.io 2": "paperio2.html", "Getting Over It": "gettingoverit.html"},
+            skill: {"Slope": "slope.html", "Subway Surfers": "subwaysurfers.html", "Fruit Merge": "fruitmerge.html", "Escape Jump": "escapejump.html"},
+            gba: {"Donkey Kong Country": "dkc.html", "Mario Party Advance": "mpa.html", "Street Fighter 5": "sf5.html", "Mario Kart Super Circuit": "mkss.html", "Pokemon FireRed": "pkfr.html", "Grand Theft Auto Advance": "gtaa.html"},
+            snes: {"Super Mario Kart": "smk.html", "Super Mario World": "smw.html", "Top Gear 2": "tg2.html", "Legend of Zelda: A Link to the Past": "lttp.html", "Super Mario RPG": "SMRPG.html"}
         };
 
         function showGames(category) {
             document.getElementById("buttons").style.display = "none";
-            document.getElementById("gameList").innerHTML = "";
-            document.getElementById("searchResults").innerHTML = "";
-            let gameListDiv = document.getElementById("gameList");
-            gameListDiv.style.display = "block";
+            document.getElementById("gameList").style.display = "block";
+            document.getElementById("consoleSelection").style.display = "none";
+            document.getElementById("backButtons").style.display = "block";
 
-            let gamesHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Games</h2><div class="button-container">`;
-            if (typeof games[category] === "object") {
-                for (let game in games[category]) {
-                    gamesHTML += `<a href="${games[category][game]}" class="game-btn">${game}</a>`;
-                }
-            } else {
-                games[category].forEach(game => {
-                    gamesHTML += `<a href="#" class="game-btn">${game}</a>`;
-                });
+            let gameListDiv = document.getElementById("gameList");
+            gameListDiv.innerHTML = `<h2>${category.toUpperCase()} Games</h2><div class="button-container">`;
+            for (let game in games[category]) {
+                gameListDiv.innerHTML += `<a href="${games[category][game]}" class="game-btn">${game}</a>`;
             }
-            gamesHTML += "</div>";
-            gameListDiv.innerHTML = gamesHTML;
+            gameListDiv.innerHTML += "</div>";
+
+            document.querySelector(".back-console-btn").style.display = category === 'gba' || category === 'snes' ? "inline-block" : "none";
         }
 
         function searchGame() {
@@ -173,30 +153,17 @@
             document.getElementById("buttons").style.display = "none";
             document.getElementById("gameList").style.display = "none";
 
-            let results = [];
-            for (let category in games) {
-                if (typeof games[category] === "object") {
-                    for (let game in games[category]) {
-                        if (game.toLowerCase().includes(query)) {
-                            results.push(`<a href="${games[category][game]}" class="game-btn">${game}</a>`);
-                        }
-                    }
-                }
-            }
+            let results = Object.keys(games).flatMap(category => Object.entries(games[category]).filter(([name]) => name.toLowerCase().includes(query)));
 
-            searchResults.innerHTML = results.length ? results.join("") : "<h2>No games found</h2>";
+            searchResults.innerHTML = results.length ? results.map(([name, link]) => `<a href="${link}" class="game-btn">${name}</a>`).join("") : "<h2>No games found</h2>";
             searchResults.style.display = "block";
         }
 
-        document.getElementById("searchInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") searchGame();
-        });
+        document.getElementById("searchInput").addEventListener("keypress", event => { if (event.key === "Enter") searchGame(); });
 
-        function goHome() {
-            document.getElementById("buttons").style.display = "block";
-            document.getElementById("gameList").style.display = "none";
-            document.getElementById("searchResults").style.display = "none";
-        }
+        function goHome() { location.reload(); }
+        function goBack() { showConsoles(); }
+        function showConsoles() { document.getElementById("buttons").style.display = "none"; document.getElementById("consoleSelection").style.display = "block"; }
     </script>
 
 </body>
