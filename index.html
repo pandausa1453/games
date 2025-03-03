@@ -154,6 +154,33 @@
         snes: { "Donkey Kong Country": "dkc.html", "Mario Paint": "mpa.html", "Street Fighter II": "sf5.html", "Super Mario Kart": "smk.html", "Super Mario World": "smw.html", "Tetris & Dr. Mario": "tg2.html", "The Legend of Zelda: A Link to the Past": "lttp.html", "Super Mario RPG": "SMRPG.html" }
     };
 
+    function showGames(category) {
+        let gameListDiv = document.getElementById("gameList");
+        let results = [];
+
+        if (games[category]) {
+            for (const [name, link] of Object.entries(games[category])) {
+                results.push(`<a href="${link}" class="game-btn">${name}</a>`);
+            }
+        }
+
+        if (results.length > 0) {
+            gameListDiv.innerHTML = "<h2>Games</h2><div class='button-container'>" + results.join("") + "</div>";
+        } else {
+            gameListDiv.innerHTML = "<h2>No games found</h2>";
+        }
+
+        gameListDiv.style.display = "block";
+        document.getElementById("buttons").style.display = "none";
+        document.getElementById("consoleSelection").style.display = "none";
+    }
+
+    function showConsoles() {
+        document.getElementById("consoleSelection").style.display = "block";
+        document.getElementById("buttons").style.display = "none";
+        document.getElementById("gameList").style.display = "none";
+    }
+
     function searchGame() {
         let query = document.getElementById("searchBar").value.toLowerCase();
         let gameListDiv = document.getElementById("gameList");
