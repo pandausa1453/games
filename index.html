@@ -143,36 +143,35 @@
     </div>
 
     <script>
-        const games = {
-            shooter: { "1v1.LOL": "1v1lol.html", "Getaway Shootout": "getawayshootout.html", "Rooftop Snipers": "rooftopsnipers.html" },
-            driving: { "Stunt Car": "stuntcar.html", "Car Obby": "carobby.html", "Escape Road": "escaperoad.html", "Battle Karts": "battlekarts.html" },
-            sports: { "Basket Random": "basketrandom.html", "Retro Bowl College": "retrobowlc.html" },
-            idle: { "Idle Dice": "idledice.html" },
-            strategy: { "Paper.io 2": "paperio2.html", "Getting Over It": "gettingoverit.html" },
-            skill: { "Slope": "slope.html", "Subway Surfers": "subwaysurfers.html", "Fruit Merge": "fruitmerge.html", "Escape Jump": "escapejump.html" },
-            gba: { "Grand Theft Auto Advance": "gtaa.html", "Mario Kart Super Circuit": "mkss.html", "Pokémon FireRed": "pkfr.html" },
-            snes: { "Donkey Kong Country": "dkc.html", "Mario Paint": "mpa.html", "Street Fighter II": "sf5.html", "Super Mario Kart": "smk.html", "Super Mario World": "smw.html", "Tetris & Dr. Mario": "tg2.html", "The Legend of Zelda: A Link to the Past": "lttp.html", "Super Mario RPG": "SMRPG.html" }
-        };
+        function searchGame() {
+            let query = document.getElementById("searchBar").value.toLowerCase();
+            let gameListDiv = document.getElementById("gameList");
+            let results = [];
 
-        function showConsoles() {
-            document.getElementById("buttons").style.display = "none";
-            document.getElementById("consoleSelection").style.display = "block";
-            document.getElementById("gameList").style.display = "none";
-        }
+            for (const category in games) {
+                for (const [name, link] of Object.entries(games[category])) {
+                    if (name.toLowerCase().includes(query)) {
+                        results.push(`<a href="${link}" class="game-btn">${name}</a>`);
+                    }
+                }
+            }
 
-        function showGames(category) {
+            if (results.length > 0) {
+                gameListDiv.innerHTML = "<h2>Search Results</h2><div class='button-container'>" + results.join("") + "</div>";
+            } else {
+                gameListDiv.innerHTML = "<h2>No games found</h2>";
+            }
+
             document.getElementById("buttons").style.display = "none";
             document.getElementById("consoleSelection").style.display = "none";
-
-            let gameListDiv = document.getElementById("gameList");
-            gameListDiv.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Games</h2>`;
-            gameListDiv.innerHTML += '<div class="button-container">';
-            for (const [name, link] of Object.entries(games[category])) {
-                gameListDiv.innerHTML += `<a href="${link}" class="game-btn">${name}</a>`;
-            }
-            gameListDiv.innerHTML += '</div>';
             gameListDiv.style.display = "block";
         }
+
+        document.getElementById("searchBar").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                searchGame();
+            }
+        });
 
         function goHome() {
             document.getElementById("buttons").style.display = "flex";
