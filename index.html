@@ -11,6 +11,10 @@
             margin: 20px;
             background-color: #1e1e2e;
             color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
         h1 {
             margin-bottom: 20px;
@@ -22,7 +26,7 @@
             flex-wrap: wrap;
             margin-top: 20px;
         }
-        .category-btn, .game-btn, .back-home-btn, .back-console-btn {
+        .category-btn, .game-btn, .back-home-btn, .back-console-btn, .bottom-btn {
             padding: 15px 30px;
             font-size: 18px;
             border: none;
@@ -37,7 +41,7 @@
             color: white;
             width: 250px;
         }
-        .category-btn:hover, .game-btn:hover, .back-home-btn:hover, .back-console-btn:hover {
+        .category-btn:hover, .game-btn:hover, .back-home-btn:hover, .back-console-btn:hover, .bottom-btn:hover {
             transform: scale(1.1);
             background-color: #0056b3;
         }
@@ -87,28 +91,11 @@
             border-radius: 10px;
         }
         .bottom-buttons {
+            margin-top: auto;
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 40px;
-        }
-        .bottom-btn {
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s, background-color 0.3s;
-            display: inline-block;
-            text-decoration: none;
-            text-align: center;
-            background-color: #28a745;
-            color: white;
-            width: 250px;
-        }
-        .bottom-btn:hover {
-            transform: scale(1.1);
-            background-color: #218838;
+            padding: 20px;
         }
     </style>
 </head>
@@ -148,10 +135,11 @@
 
     <div id="gameList"></div>
 
-    <!-- Bottom Buttons -->
     <div class="bottom-buttons">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSczP6XRDcjGEQJpXHWGcQEqMMAaSVYEINpcqbQx6Ti5y1jK0A/viewform?usp=dialog" class="bottom-btn" target="_blank">📝 Game Suggestions</a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSepO-HRMCXmZmLBzq-eh6Di5lRQKWp5kg9NnZWSNpqktperEQ/viewform?usp=dialog" class="bottom-btn" target="_blank">⭐ Review Us</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSczP6XRDcjGEQJpXHWGcQEqMMAaSVYEINpcqbQx6Ti5y1jK0A/viewform?usp=dialog" 
+           target="_blank" class="bottom-btn">📝 Game Suggestions</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSepO-HRMCXmZmLBzq-eh6Di5lRQKWp5kg9NnZWSNpqktperEQ/viewform?usp=dialog" 
+           target="_blank" class="bottom-btn">⭐ Review Us</a>
     </div>
 
     <script>
@@ -166,11 +154,23 @@
             snes: { "Donkey Kong Country": "dkc.html", "Mario Paint": "mpa.html", "Street Fighter II": "sf5.html", "Super Mario Kart": "smk.html", "Super Mario World": "smw.html", "Tetris & Dr. Mario": "tg2.html", "The Legend of Zelda: A Link to the Past": "lttp.html", "Super Mario RPG": "SMRPG.html" }
         };
 
+        function showConsoles() {
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("consoleSelection").style.display = "block";
+            document.getElementById("gameList").style.display = "none";
+        }
+
         function showGames(category) {
             document.getElementById("buttons").style.display = "none";
             document.getElementById("consoleSelection").style.display = "none";
+
             let gameListDiv = document.getElementById("gameList");
             gameListDiv.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Games</h2>`;
+            gameListDiv.innerHTML += '<div class="button-container">';
+            for (const [name, link] of Object.entries(games[category])) {
+                gameListDiv.innerHTML += `<a href="${link}" class="game-btn">${name}</a>`;
+            }
+            gameListDiv.innerHTML += '</div>';
             gameListDiv.style.display = "block";
         }
 
