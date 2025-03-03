@@ -69,7 +69,7 @@
             text-align: center;
         }
         #searchButton {
-            padding: 10px 20px;
+            padding: 10px;
             font-size: 18px;
             background-color: #007bff;
             color: white;
@@ -85,6 +85,32 @@
             width: 150px;
             height: auto;
             border-radius: 10px;
+        }
+        /* New styles for bottom buttons */
+        .bottom-buttons {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .bottom-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+            white-space: normal;
+            background-color: #007bff;
+            color: white;
+            width: 250px;
+        }
+        .bottom-btn:hover {
+            transform: scale(1.1);
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -124,6 +150,12 @@
 
     <div id="gameList"></div>
 
+    <!-- Bottom Buttons for Game Suggestions and Review Us -->
+    <div class="bottom-buttons">
+        <a href="https://forms.gle/vns46RCpttTYDe9o9" class="bottom-btn" target="_blank">📝 Game Suggestions</a>
+        <a href="https://forms.gle/RuWTdm6nLDwD4UY57" class="bottom-btn" target="_blank">⭐ Review Us</a>
+    </div>
+
     <script>
         const games = {
             shooter: { "1v1.LOL": "1v1lol.html", "Getaway Shootout": "getawayshootout.html", "Rooftop Snipers": "rooftopsnipers.html" },
@@ -135,51 +167,6 @@
             gba: { "Grand Theft Auto Advance": "gtaa.html", "Mario Kart Super Circuit": "mkss.html", "Pokémon FireRed": "pkfr.html" },
             snes: { "Donkey Kong Country": "dkc.html", "Mario Paint": "mpa.html", "Street Fighter II": "sf5.html", "Super Mario Kart": "smk.html", "Super Mario World": "smw.html", "Tetris & Dr. Mario": "tg2.html", "The Legend of Zelda: A Link to the Past": "lttp.html", "Super Mario RPG": "SMRPG.html" }
         };
-
-        function showConsoles() {
-            document.getElementById("buttons").style.display = "none";
-            document.getElementById("consoleSelection").style.display = "block";
-        }
-
-        function showGames(category) {
-            document.getElementById("buttons").style.display = "none";
-            document.getElementById("consoleSelection").style.display = "none";
-
-            let gameListDiv = document.getElementById("gameList");
-            gameListDiv.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Games</h2>`;
-            gameListDiv.innerHTML += '<div class="button-container">';
-            for (const [name, link] of Object.entries(games[category])) {
-                gameListDiv.innerHTML += `<a href="${link}" class="game-btn">${name}</a>`;
-            }
-            gameListDiv.innerHTML += '</div>';
-            gameListDiv.style.display = "block";
-        }
-
-        function searchGame() {
-            let query = document.getElementById("searchBar").value.toLowerCase();
-            let results = [];
-
-            for (const category in games) {
-                for (const [name, link] of Object.entries(games[category])) {
-                    if (name.toLowerCase().includes(query)) {
-                        results.push(`<a href="${link}" class="game-btn">${name}</a>`);
-                    }
-                }
-            }
-
-            document.getElementById("buttons").style.display = "none";
-            document.getElementById("consoleSelection").style.display = "none";
-            
-            let gameListDiv = document.getElementById("gameList");
-            gameListDiv.innerHTML = results.length ? results.join("") : "<h2>No games found</h2>";
-            gameListDiv.style.display = "block";
-        }
-
-        document.getElementById("searchBar").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                searchGame();
-            }
-        });
 
         function goHome() {
             document.getElementById("buttons").style.display = "flex";
