@@ -66,15 +66,18 @@
             object-fit: cover;
             border-radius: 8px;
         }
+        #back-console-btn {
+            display: none;
+        }
     </style>
 </head>
 <body>
 
     <h1>Game Library</h1>
 
-    <div id="backButtons">
+    <div>
         <a href="#" class="back-home-btn" onclick="goHome()">🏠 Back to Home Page</a>
-        <a href="#" class="back-console-btn" onclick="goBack()">⬅ Back to Console Selection</a>
+        <a href="#" class="back-console-btn" id="back-console-btn" onclick="goBack()">⬅ Back to Console Selection</a>
     </div>
 
     <div class="search-container">
@@ -123,13 +126,13 @@
             fadeOut(document.getElementById("consoleSelection"));
             fadeOut(document.getElementById("buttons"));
             fadeOut(document.getElementById("searchResults"));
-            fadeIn(document.getElementById("backButtons"));
             fadeIn(document.getElementById("gameList"));
 
             let gameListDiv = document.getElementById("gameList");
             gameListDiv.innerHTML = "";
 
             if (category === "gba") {
+                document.getElementById("back-console-btn").style.display = "inline-block";
                 gameListDiv.innerHTML = `
                     <h2>Game Boy Advance Games</h2>
                     <div class="button-container">
@@ -139,6 +142,7 @@
                     </div>
                 `;
             } else if (category === "snes") {
+                document.getElementById("back-console-btn").style.display = "inline-block";
                 gameListDiv.innerHTML = `
                     <h2>Super Nintendo Games</h2>
                     <div class="button-container">
@@ -158,7 +162,6 @@
         function showConsoles() {
             fadeOut(document.getElementById("buttons"), () => {
                 fadeIn(document.getElementById("consoleSelection"));
-                fadeIn(document.getElementById("backButtons"));
             });
         }
 
@@ -166,6 +169,7 @@
             fadeOut(document.getElementById("gameList"), () => {
                 fadeIn(document.getElementById("consoleSelection"));
             });
+            document.getElementById("back-console-btn").style.display = "none";
         }
 
         function goHome() {
@@ -173,7 +177,7 @@
             fadeOut(document.getElementById("gameList"));
             fadeOut(document.getElementById("searchResults"));
             fadeIn(document.getElementById("buttons"));
-            fadeOut(document.getElementById("backButtons"));
+            document.getElementById("back-console-btn").style.display = "none";
         }
 
         function searchGames() {
@@ -193,22 +197,12 @@
             };
 
             let resultsDiv = document.getElementById("searchResults");
-            resultsDiv.innerHTML = "";
-            let matches = Object.keys(allGames).filter(name => name.toLowerCase().includes(query));
-
-            if (matches.length > 0) {
-                resultsDiv.innerHTML = matches.map(game => `<a href="${allGames[game]}" class="game-btn">${game}</a>`).join("");
-            } else {
-                resultsDiv.innerHTML = "<p>No games found.</p>";
-            }
+            resultsDiv.innerHTML = Object.keys(allGames).filter(name => name.toLowerCase().includes(query))
+                .map(game => `<a href="${allGames[game]}" class="game-btn">${game}</a>`).join("") || "<p>No games found.</p>";
 
             fadeOut(document.getElementById("buttons"));
             fadeIn(resultsDiv);
         }
-
-        document.getElementById("searchBar").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") searchGames();
-        });
     </script>
 
 </body>
