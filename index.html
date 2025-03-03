@@ -31,7 +31,6 @@
             text-align: center;
             background-color: #007bff;
             color: white;
-            opacity: 1;
             transition: transform 0.2s, background-color 0.3s;
         }
         .category-btn:hover, .game-btn:hover, .back-home-btn:hover, .back-console-btn:hover {
@@ -46,8 +45,6 @@
         #gameList, #consoleSelection, #backButtons {
             display: none;
             margin-top: 20px;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
         }
         .back-home-btn {
             font-size: 20px;
@@ -55,7 +52,6 @@
         }
         .back-console-btn {
             font-size: 16px;
-            margin-top: 0;
             display: none;
         }
         #searchBar {
@@ -134,24 +130,11 @@
             ]
         };
 
-        function fadeIn(element) {
-            element.style.display = "block";
-            setTimeout(() => element.style.opacity = "1", 50);
-        }
-
-        function fadeOut(element, callback) {
-            element.style.opacity = "0";
-            setTimeout(() => {
-                element.style.display = "none";
-                if (callback) callback();
-            }, 500);
-        }
-
         function showGames(category) {
-            fadeOut(document.getElementById("consoleSelection"));
-            fadeOut(document.getElementById("buttons"));
-            fadeIn(document.getElementById("backButtons"));
-            fadeIn(document.getElementById("gameList"));
+            document.getElementById("consoleSelection").style.display = "none";
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("backButtons").style.display = "block";
+            document.getElementById("gameList").style.display = "block";
 
             let gameListDiv = document.getElementById("gameList");
             gameListDiv.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Games</h2>`;
@@ -163,40 +146,36 @@
         }
 
         function showConsoles() {
-            fadeOut(document.getElementById("buttons"), () => {
-                fadeIn(document.getElementById("consoleSelection"));
-                fadeIn(document.getElementById("backButtons"));
-            });
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("consoleSelection").style.display = "block";
+            document.getElementById("backButtons").style.display = "block";
             document.querySelector(".back-console-btn").style.display = "none";
         }
 
         function goBack() {
-            fadeOut(document.getElementById("gameList"), () => {
-                fadeIn(document.getElementById("consoleSelection"));
-            });
+            document.getElementById("gameList").style.display = "none";
+            document.getElementById("consoleSelection").style.display = "block";
             document.querySelector(".back-console-btn").style.display = "none";
         }
 
         function goHome() {
-            fadeOut(document.getElementById("consoleSelection"));
-            fadeOut(document.getElementById("gameList"));
-            fadeIn(document.getElementById("buttons"));
-            fadeOut(document.getElementById("backButtons"));
+            document.getElementById("consoleSelection").style.display = "none";
+            document.getElementById("gameList").style.display = "none";
+            document.getElementById("buttons").style.display = "block";
+            document.getElementById("backButtons").style.display = "none";
         }
 
         function searchGame(event) {
             if (event.key === "Enter") {
                 let query = document.getElementById("searchBar").value.toLowerCase();
-                let gameFound = false;
                 for (let category in games) {
-                    let filteredGames = games[category].filter(game => game.name.toLowerCase().includes(query));
-                    if (filteredGames.length > 0) {
-                        showGames(category);
-                        gameFound = true;
-                        break;
+                    let foundGame = games[category].find(game => game.name.toLowerCase() === query);
+                    if (foundGame) {
+                        window.location.href = foundGame.link;
+                        return;
                     }
                 }
-                if (!gameFound) alert("No matching games found.");
+                alert("No matching game found.");
             }
         }
     </script>
