@@ -1,141 +1,148 @@
-<html>
+<html lang="en">
 <head>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    #fullscreenButton, #homeButton {
-      position: absolute;
-      z-index: 1000;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-      border-radius: 5px;
-      transition: all 0.5s ease-in-out;
-    }
-    #fullscreenButton {
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    #homeButton {
-      top: 10px;
-      left: 10px;
-    }
-    #fullscreenButton:hover, #homeButton:hover {
-      background-color: #0056b3;
-    }
-    #dimOverlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      opacity: 1;
-      transition: opacity 0.5s;
-      pointer-events: none;
-    }
-  </style>
-</head>
-<body>
-
-<button id="homeButton" onclick="goHome()">🏠 Back to Home</button>
-<div id="dimOverlay"></div>
-<button id="fullscreenButton" onclick="openFullscreen()">Play in Fullscreen</button>
-
-<iframe id="innerFrame" name="innerFrame" 
-  sandbox="allow-scripts allow-popups allow-forms allow-same-origin allow-popups-to-escape-sandbox allow-downloads allow-storage-access-by-user-activation" 
-  frameborder="0" allowfullscreen 
-  src="https://ubg77.github.io/fix/getting-over-it/">
-</iframe>
-
-<script>
-  let button = document.getElementById("fullscreenButton");
-  let overlay = document.getElementById("dimOverlay");
-  let buttonMoved = false;
-
-  // Move the button and undim background after 10 seconds if not clicked
-  let moveTimeout = setTimeout(() => {
-    if (!buttonMoved) {
-      button.style.top = "10px";
-      button.style.left = "auto";
-      button.style.right = "10px";
-      button.style.transform = "translate(0, 0)";
-      overlay.style.opacity = "0";
-    }
-  }, 10000);
-
-  function openFullscreen() {
-    buttonMoved = true;
-    clearTimeout(moveTimeout);
-
-    let newWindow = window.open("", "_blank", "width=800,height=600");
-
-    newWindow.document.write(`
-      <html>
-      <head>
-        <style>
-          body, html {
+    <title>Play Getting Over It Unblocked Game Online !</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow, noodp, noydir">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="requiresActiveX=true,IE=Edge,chrome=1">
+    <meta http-equiv="Content-Language" content="en-US">
+    
+    <style>
+        * {
             margin: 0;
             padding: 0;
-            height: 100%;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
+        }
+        html, body {
+            background-color: rgba(0, 0, 0, 0.4);
             width: 100%;
+            height: 100%;
             overflow: hidden;
-            background-color: black;
-          }
-          iframe {
+            position: relative;
+        }
+        iframe {
             width: 100%;
             height: 100%;
             border: none;
-          }
-        </style>
-      </head>
-      <body>
-        <iframe id="gameFrame" src="https://ubg77.github.io/fix/getting-over-it/" allowfullscreen></iframe>
+        }
+        #fullscreenButton, #homeButton {
+            position: absolute;
+            z-index: 1000;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: all 0.5s ease-in-out;
+        }
+        #fullscreenButton {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #homeButton {
+            top: 10px;
+            left: 10px;
+        }
+        #fullscreenButton:hover, #homeButton:hover {
+            background-color: #0056b3;
+        }
+        #dimOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 1;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+    </style> 
+</head>
+<body id="run_IFRAME_HTML">
 
-        <script>
-          document.body.addEventListener("click", function() {
-            let lock = document.body.requestPointerLock || 
-                       document.body.mozRequestPointerLock || 
-                       document.body.webkitRequestPointerLock;
-            if (lock) lock();
-          });
+    <button id="homeButton" onclick="goHome()">🏠 Back to Home</button>
+    <div id="dimOverlay"></div>
+    <button id="fullscreenButton" onclick="openFullscreen()">Play in Fullscreen</button>
 
-          document.addEventListener("pointerlockchange", () => {
-            if (document.pointerLockElement !== document.body) {
-              console.log("Mouse unlocked");
+    <iframe id="iframehtml5" width="100%" height="100%" src="https://scratch.mit.edu/projects/389464290/embed" frameborder="0" scrolling="auto" allowfullscreen></iframe>
+
+    <script>
+        let button = document.getElementById("fullscreenButton");
+        let overlay = document.getElementById("dimOverlay");
+        let buttonMoved = false;
+
+        // Move the button and undim background after 10 seconds if not clicked
+        let moveTimeout = setTimeout(() => {
+            if (!buttonMoved) {
+                button.style.top = "10px";
+                button.style.left = "auto";
+                button.style.right = "10px";
+                button.style.transform = "translate(0, 0)";
+                overlay.style.opacity = "0";
             }
-          });
-        <\/script>
-      </body>
-      </html>
-    `);
+        }, 10000);
 
-    overlay.style.opacity = "0";
-    button.style.top = "10px";
-    button.style.left = "auto";
-    button.style.right = "10px";
-    button.style.transform = "translate(0, 0)";
-  }
+        function openFullscreen() {
+            buttonMoved = true;
+            clearTimeout(moveTimeout);
 
-  function goHome() {
-    window.location.href = "index.html"; // Adjust this if your home page has a different file name
-  }
-</script>
+            let newWindow = window.open("", "_blank", "width=800,height=600");
+
+            newWindow.document.write(`
+                <html>
+                <head>
+                    <style>
+                        body, html {
+                            margin: 0;
+                            padding: 0;
+                            height: 100%;
+                            width: 100%;
+                            overflow: hidden;
+                            background-color: black;
+                        }
+                        iframe {
+                            width: 100%;
+                            height: 100%;
+                            border: none;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <iframe id="gameFrame" src="https://scratch.mit.edu/projects/389464290/embed" allowfullscreen></iframe>
+                    <script>
+                        document.body.addEventListener("click", function() {
+                            let lock = document.body.requestPointerLock || 
+                                       document.body.mozRequestPointerLock || 
+                                       document.body.webkitRequestPointerLock;
+                            if (lock) lock();
+                        });
+
+                        document.addEventListener("pointerlockchange", () => {
+                            if (document.pointerLockElement !== document.body) {
+                                console.log("Mouse unlocked");
+                            }
+                        });
+                    <\/script>
+                </body>
+                </html>
+            `);
+
+            overlay.style.opacity = "0";
+            button.style.top = "10px";
+            button.style.left = "auto";
+            button.style.right = "10px";
+            button.style.transform = "translate(0, 0)";
+        }
+
+        function goHome() {
+            window.location.href = "index.html"; // Adjust if home page URL is different
+        }
+    </script>
 
 </body>
 </html>
