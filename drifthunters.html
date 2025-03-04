@@ -1,50 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Play Drift Hunters</title>
-    <style>
-        /* Style for the Back to Home button */
-        .back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #007BFF; /* Blue color */
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 5px;
-            z-index: 1000;
-        }
-        .back-button:hover {
-            background-color: #0056b3;
-        }
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="robots" content="index, follow">
+    <title>Drift Hunters</title>
+        <link rel="canonical" href="https://www.twoplayergames.org/game/drift-hunters">
+        <link href="/dist/gameframe-c11d10c8.css" rel="stylesheet">
 
-        /* Centering the game iframe */
-        .game-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full height */
-            flex-direction: column;
-        }
-    </style>
-</head>
+    <link rel="preconnect" href="//www.googletagservices.com" crossorigin="">
+    <link rel="preconnect" href="//imasdk.googleapis.com" crossorigin="">
+    <link rel="preconnect" href="//pagead2.googlesyndication.com" crossorigin="">
+
+<script src="https://s0.2mdn.net/instream/video/client.js" async="" type="text/javascript"></script><script type="text/javascript">
+    !function(){window.tcfReady=!1,window.tcfReadyProxy={tcfReady:!1};var t,a=window,o={},e=0;!function o(){for(;a;){try{if(a.frames.__tcfapiLocator){t=a;break}}catch(t){}if(a===window.top)break;a=a.parent}if(!t&&window!==window.top){if(a=window,++e<10)return setTimeout(o,50),void console.log("__tcfapiLocator frame not found, trying again...");console.log("__tcfapiLocator frame check timeout")}window.tcfReadyProxy.tcfReady=window.tcfReady=!0}(),window.__tcfapi=function(a,e,n,c){if(t){var i=Math.random()+"",d={__tcfapiCall:{command:a,parameter:c,version:e,callId:i}};o[i]=n,t.postMessage(d,"*")}else n({msg:"CMP not found",eventStatus:"cmpNotFound",cmpLoaded:!1},!1)},window.addEventListener("message",(function(t){var a={};try{a="string"==typeof t.data?JSON.parse(t.data):t.data}catch(t){}var e=a.__tcfapiReturn;e&&"function"==typeof o[e.callId]&&o[e.callId](e.returnValue,e.success)}),!1)}();
+</script>
+
+<meta http-equiv="origin-trial" content="A9AxgGSwmnfgzzkyJHILUr3H8nJ/3D+57oAsL4DBt4USlng4jZ0weq+fZtHC/Qwwn6gd4QSa5DzT3OBif+kXVA0AAAB4eyJvcmlnaW4iOiJodHRwczovL2ltYXNkay5nb29nbGVhcGlzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="></head>
 <body>
 
-    <!-- Back to Home Button -->
-    <a href="https://pandausa1453.github.io/games/" class="back-button">Back to Home</a>
-
-    <!-- Game Container -->
-    <div class="game-container">
-        <iframe class="game-iframe" loading="lazy" id="game-area" 
-            src="https://1games.io/game/drift-hunters/" 
-            width="800" height="650" scrolling="none" frameborder="0" allowfullscreen>
-        </iframe>
+    <div id="play" style="display: none;">
+        <div class="gameframe-content">
+            <div class="game-item">
+                <div class="image">
+                    <img draggable="false" srcset="https://images.twoplayergames.org/files/games/o6/drift-hunters/drift-hunters.jpg?auto=format&amp;w=100 1x, https://images.twoplayergames.org/files/games/o6/drift-hunters/drift-hunters.jpg?auto=format&amp;w=200 2x" src="https://images.twoplayergames.org/files/games/o6/drift-hunters/drift-hunters.jpg?auto=format&amp;w=100" width="100" height="75" alt="Drift Hunters">                </div>
+            </div>
+            <h1 class="game-title">Drift Hunters</h1>
+            <div class="game-play">
+                <a id="button-play" class="play-button-disabled" href="#"><span class="icon"></span><span class="title">Play</span></a>
+            </div>
+            <div class="game-play-info visibility-hidden">Watch an ad to play this game.</div>
+        </div>
     </div>
 
-</body>
-</html>
+    <div id="game-container" style=""><iframe id="game" tabindex="0" allow="microphone" scrolling="no" frameborder="0" allowfullscreen="true" width="100%" height="100%" src="https://files.twoplayergames.org/files/games/o6/drift-hunters/index.html" style="border: none; overflow: hidden;"></iframe></div>
+
+    <div id="ima-container" style="display: none;">
+        <div id="non-linear-text" style="display: none;"></div>
+        <div id="ad-container"><div style="position: absolute;"><div style="display: none;"><video title="Advertisement" webkit-playsinline="true" playsinline="true" style="background-color: rgb(0, 0, 0); height: 100%; width: 100%; position: absolute; left: 0px; top: 0px;"></video><div style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></div></div><div style="display: none;"><video title="Advertisement" webkit-playsinline="true" playsinline="true" style="background-color: rgb(0, 0, 0); height: 100%; width: 100%; position: absolute; left: 0px; top: 0px;"></video><div style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></div></div><iframe src="https://imasdk.googleapis.com/js/core/bridge3.687.1_en.html#fid=goog_656481606" allowfullscreen="" allow="autoplay;attribution-reporting" id="goog_656481606" title="Advertisement" style="border: 0px; opacity: 0; margin: 0px; padding: 0px; position: relative; color-scheme: light;"></iframe><iframe title="Advertisement" style="display: none;"></iframe></div></div>
+    </div>
+
+    <div id="error" style="display: none;">
+        <div class="error-code"></div>
+        <div class="error-message"></div>
+        <div class="error-raw"></div>
+    </div>
+<script>
+    window.siteConfig = {"domain":"twoplayergames.org","origin":{"desktop":"https:\/\/www.twoplayergames.org","mobile":"https:\/\/m.twoplayergames.org","files":"https:\/\/files.twoplayergames.org","images":"https:\/\/images.twoplayergames.org"},"gamesDir":"files\/games"}
+</script>
+    <!--
+Direct embed file:
+https://files.twoplayergames.org/files/games/o6/drift-hunters/index.html
+
+Our beloved CDN:
+tinyurl.com/TPG-CDN
+-->
+<script>
+    window.gameData = {"id":2526,"title":"Drift Hunters","slug":"drift-hunters","imageFile":"o6\/drift-hunters\/drift-hunters.jpg","url":"https:\/\/www.twoplayergames.org\/game\/drift-hunters","embed":"https:\/\/files.twoplayergames.org\/files\/games\/o6\/drift-hunters\/index.html","embedBase":"https:\/\/files.twoplayergames.org\/files\/games\/o6\/drift-hunters","embedFrame":"https:\/\/www.twoplayergames.org\/embed\/drift-hunters","isExternal":false,"preAd":true,"rating":"4.3","embedType":"html5"}
+</script>
+    <script>
+    window.gameEmbed = {"ruffleJs":"\/dist\/ruffle\/ruffle.3d6e142a.js"}
+</script>
+    <script>
+        var preAd = window.preAd || {};
+        preAd.adVendorName = 'YB (w/ Rewarded)';
+        preAd.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
+            'sz=400x300|640x480&iu=/52555387,22538980388/twoplayergames.org_640x480_video&impl=s&gdfp_req=1&env=vp&' +
+            'output=vast&unviewed_position_start=1&' +
+            'description_url=' + encodeURI(gameData.url) + '&correlator=&vpmute=0&plcmt=1';
+    </script>
+    <script src="//www.googletagservices.com/tag/js/gpt.js"></script>
+    <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script src="/dist/gameframe.ima-gpt-3e16985a.js"></script>
+
+
+</body></html>
