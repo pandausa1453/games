@@ -1,55 +1,50 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Play Drift Hunters Game Online!</title>
-    <meta charset="utf-8">
-    <meta name="robots" content="noindex, nofollow, noodp, noydir">
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no, minimal-ui">
-    <meta http-equiv="X-UA-Compatible" content="requiresActiveX=true,IE=Edge,chrome=1">
-    <meta http-equiv="Content-Language" content="en-US">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="external" content="true">
-    <meta name="distribution" content="Global">
-    <meta http-equiv="audience" content="General">
-    <meta name="title" content="Drift Hunters">
-    <meta name="description" content="Drift Hunters is a free-to-play browser drifting game. Try your skills and make the road fire drift in the speed game. Customize your car according to your favorite style, upgrade performance to increase the ability and power of the vehicle.">
-    <meta name="keywords" content="DRIFT HUNTERS, DRIFT, HUNTERS">
-    <meta name="news_keywords" content="DRIFT HUNTERS, DRIFT, HUNTERS">
-    <link rel="canonical" href="https://drift-hunters.co/drift-hunters-games.embed">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1">
-    <link rel="stylesheet" type="text/css" href="/themes/Drift-Hunters/rs/css/app.BdTJ23og.css">
-    <script type="text/javascript" src="/themes/Drift-Hunters/rs/js/jquery.min.js"></script>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Drift Hunters</title>
     <style>
-        body {
-            font-family: "Sulphur Point", sans-serif;
-            font-weight: 700;
-            font-style: normal;
-            margin: 0;
-            text-align: center;
-        }
-        .back-home-button {
-            display: block;
-            width: 200px;
-            margin: 20px auto;
-            padding: 10px;
-            background-color: #f11932;
+        /* Style for the Back to Home button */
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #007BFF; /* Blue color */
             color: white;
-            text-align: center;
-            font-size: 18px;
+            padding: 10px 20px;
+            font-size: 16px;
             font-weight: bold;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 5px;
+            z-index: 1000;
         }
-        .back-home-button:hover {
-            background-color: #d0172b;
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Centering the game iframe */
+        .game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full height */
+            flex-direction: column;
         }
     </style>
 </head>
 <body>
-    <a href="/games/" class="back-home-button">Back to Home</a>
 
-    <iframe id="iframehtml5" width="100%" height="100%" frameborder="0" border="0" scrolling="no" class="iframe-default" allowfullscreen="true" src="https://htmlxm.github.io/h/drift-hunters/"></iframe>
+    <!-- Back to Home Button -->
+    <a href="https://pandausa1453.github.io/games/" class="back-button">Back to Home</a>
+
+    <!-- Game Container -->
+    <div class="game-container">
+        <iframe class="game-iframe" loading="lazy" id="game-area" 
+            src="https://1games.io/game/drift-hunters/" 
+            width="800" height="650" scrolling="none" frameborder="0" allowfullscreen>
+        </iframe>
+    </div>
+
 </body>
 </html>
