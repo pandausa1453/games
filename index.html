@@ -120,6 +120,7 @@
         <button class="category-btn" onclick="showGames('skill')">⚡ Skill Games</button>
         <button class="category-btn" onclick="showGames('flash')">👾 Flash Games</button>
         <button class="category-btn" onclick="showGames('papa')">🍩 Papa Games</button>
+        <button class="category-btn" onclick="showAllGames()">🔤 Show All Games (A-Z)</button>
     </div>
 
     <div id="consoleSelection">
@@ -160,6 +161,26 @@
         snes: { "Donkey Kong Country": "dkc.html", "Mario Paint": "mpa.html", "Street Fighter II": "sf5.html", "Super Mario Kart": "smk.html", "Super Mario World": "smw.html", "Tetris & Dr. Mario": "tg2.html", "The Legend of Zelda: A Link to the Past": "lttp.html", "Super Mario RPG": "SMRPG.html" }
     };
 
+    function showAllGames() {
+    let gameListDiv = document.getElementById("gameList");
+    let allGames = [];
+
+    for (const category in games) {
+        for (const [name, link] of Object.entries(games[category])) {
+            allGames.push({ name, link });
+        }
+    }
+
+    allGames.sort((a, b) => a.name.localeCompare(b.name));
+
+    let results = allGames.map(game => `<a href="${game.link}" class="game-btn">${game.name}</a>`);
+
+    gameListDiv.innerHTML = "<h2>All Games (A-Z)</h2><div class='button-container'>" + results.join("") + "</div>";
+
+    gameListDiv.style.display = "block";
+    document.getElementById("buttons").style.display = "none";
+    document.getElementById("consoleSelection").style.display = "none";
+    }
     function showGames(category) {
         let gameListDiv = document.getElementById("gameList");
         let results = [];
