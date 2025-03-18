@@ -327,25 +327,33 @@ input:checked + .slider:before {
     
 </script>
 <script>
-    function toggleTheme() {
-    document.body.classList.toggle('light-theme');
-    const isLightTheme = document.body.classList.contains('light-theme');
+function toggleTheme() {
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+
+    // Toggle the light-theme class
+    body.classList.toggle('light-theme');
+
+    // Check the current theme and store it in localStorage
+    const isLightTheme = body.classList.contains('light-theme');
     localStorage.setItem('theme', isLightTheme ? 'light' : 'dark');
-        console.log("Theme toggled!");
-        document.body.style.display = "none";
-document.body.offsetHeight; // Force repaint
-document.body.style.display = "block";
 
     // Update the toggle switch state
-    document.getElementById('themeToggle').checked = isLightTheme;
+    themeToggle.checked = isLightTheme;
 }
 
-// Run this function when the page loads
+// Run this function when the page loads to apply saved theme
 (function applySavedTheme() {
     const savedTheme = localStorage.getItem('theme');
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+
     if (savedTheme === 'light') {
-        document.body.classList.add('light-theme');
-        document.getElementById('themeToggle').checked = true;
+        body.classList.add('light-theme');
+        themeToggle.checked = true;
+    } else {
+        body.classList.remove('light-theme');
+        themeToggle.checked = false;
     }
 })();
 </script>
