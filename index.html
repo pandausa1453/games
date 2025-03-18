@@ -25,6 +25,13 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -167,7 +174,6 @@ input:checked + .slider:before {
         }
     </style>
 </head>
-<body>
 <body>
 
     <label class="theme-switch">
@@ -322,21 +328,22 @@ input:checked + .slider:before {
 </script>
 <script>
     function toggleTheme() {
-        document.body.classList.toggle('light-theme');
-        const isLightTheme = document.body.classList.contains('light-theme');
-        localStorage.setItem('theme', isLightTheme ? 'light' : 'dark');
+    document.body.classList.toggle('light-theme');
+    const isLightTheme = document.body.classList.contains('light-theme');
+    localStorage.setItem('theme', isLightTheme ? 'light' : 'dark');
 
-        // Update the toggle switch state
-        document.getElementById('themeToggle').checked = isLightTheme;
+    // Update the toggle switch state
+    document.getElementById('themeToggle').checked = isLightTheme;
+}
+
+// Run this function when the page loads
+(function applySavedTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        document.getElementById('themeToggle').checked = true;
     }
-
-    (function applySavedTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-theme');
-            document.getElementById('themeToggle').checked = true;
-        }
-    })();
+})();
 </script>
 </body>
 </html>
