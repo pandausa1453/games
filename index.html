@@ -331,6 +331,7 @@ input:checked + .slider:before {
     document.body.classList.toggle('light-theme');
     const isLightTheme = document.body.classList.contains('light-theme');
     localStorage.setItem('theme', isLightTheme ? 'light' : 'dark');
+        console.log("Theme toggled!");
 
     // Update the toggle switch state
     document.getElementById('themeToggle').checked = isLightTheme;
