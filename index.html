@@ -203,28 +203,37 @@ input:checked + .slider:before {
         <button class="category-btn" onclick="showAllGames()">🔤 Show All Games</button>
     </div>
 
-    <div id="consoleSelection">
-        <h2>Choose a Console</h2>
-        <div class="button-container">
-            <button class="console-btn" onclick="showGames('gba')">
-                <img src="https://i.imgur.com/AWlL2Xb.jpeg" alt="Game Boy Advance">
-            </button>
-            <button class="console-btn" onclick="showGames('snes')">
-                <img src="https://i.imgur.com/gJUJIuX.jpeg" alt="Super Nintendo">
-            </button>
-            <button class="console-btn" onclick="showGames('gbc')">
-                <img src="https://i.imgur.com/G2zsDnv.png" alt="Game Boy Color">
-            </button>
-            <button class="console-btn" onclick="showGames('n64')">
-                <img src="https://i.imgur.com/RQrfCUz.png" alt="Nintendo 64">
-            </button>
-            <h3>Series</h3>
-             <button class="console-btn" onclick="showGames('pokemon')">
-                <img src="https://i.imgur.com/kUexwxB.png" alt="Pokémon Games">
-            </button>
-        </div>
-        <a href="#" class="back-console-btn" onclick="goHome()">⬅ Back to Console Selection</a>
+   <div id="consoleSelection">
+    <h2>Choose a Console</h2>
+    <div class="button-container">
+        <button class="console-btn" onclick="showGames('gba')">
+            <img src="https://i.imgur.com/AWlL2Xb.jpeg" alt="Game Boy Advance">
+        </button>
+        <button class="console-btn" onclick="showGames('snes')">
+            <img src="https://i.imgur.com/gJUJIuX.jpeg" alt="Super Nintendo">
+        </button>
+        <button class="console-btn" onclick="showGames('gbc')">
+            <img src="https://i.imgur.com/G2zsDnv.png" alt="Game Boy Color">
+        </button>
+        <button class="console-btn" onclick="showGames('n64')">
+            <img src="https://i.imgur.com/RQrfCUz.png" alt="Nintendo 64">
+        </button>
     </div>
+
+    <!-- Move Series title to its own row -->
+    <div style="width: 100%; text-align: center; margin-top: 20px;">
+        <h3>Series</h3>
+    </div>
+
+    <!-- Move Pokémon button to its own row -->
+    <div style="width: 100%; text-align: center;">
+        <button class="console-btn" onclick="showGames('pokemon')">
+            <img src="https://i.imgur.com/kUexwxB.png" alt="Pokémon Games">
+        </button>
+    </div>
+
+    <a href="#" class="back-console-btn" onclick="goHome()">⬅ Back to Console Selection</a>
+</div>
 
     <div id="gameList"></div>
 
