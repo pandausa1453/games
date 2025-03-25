@@ -218,6 +218,9 @@ input:checked + .slider:before {
         <button class="console-btn" onclick="showGames('n64')">
             <img src="https://i.imgur.com/RQrfCUz.png" alt="Nintendo 64">
         </button>
+        <button class="console-btn" onclick="showGames('nes')">
+            <img src="https://i.imgur.com/pFIay4g.jpeg" alt="Nintendo System">
+        </button>
     </div>
 
     <!-- Move Series title to its own row -->
@@ -246,10 +249,11 @@ input:checked + .slider:before {
            target="_blank" class="bottom-btn">⭐ Review Us</a>
     </div>
 
-    <script>
+    <script> 
     const games = {
         shooter: { "1v1.LOL": "1v1lol.html", "Getaway Shootout": "getawayshootout.html", "Rooftop Snipers": "rooftopsnipers.html" },
-        gbc: { "Pokémon Crystal": "pkcv.html", "Pokémon Silver": "pksv.html","Legend of Zelda": "lgfz.html" },
+        gbc: { "Pokémon Crystal": "pkcv.html", "Pokémon Silver": "pksv.html"},
+        nes: { "Legend of Zelda": "lgfz.html"},
         pokemon: { "Pokémon Crystal": "pkcv.html", "Pokémon Silver": "pksv.html","Pokémon FireRed": "pkfr.html", "Pokémon Emerald": "pkem.html", "Pokémon Ruby": "pkrb.html", "Pokémon Leaf Green": "pklg.html", "Pokémon Sapphire": "pksafv.html" },
         n64: { "Mario Kart 64": "mksf.html" },
         driving: { "Stunt Car": "stuntcar.html", "Car Obby": "carobby.html", "Escape Road": "escaperoad.html", "Battle Karts": "battlekarts.html", "Drift Boss": "driftboss.html", "drift hunters": "drifthunters.html" },
