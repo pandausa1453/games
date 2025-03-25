@@ -218,6 +218,10 @@ input:checked + .slider:before {
             <button class="console-btn" onclick="showGames('n64')">
                 <img src="https://i.imgur.com/RQrfCUz.png" alt="Nintendo 64">
             </button>
+            <h3>Series</h3>
+             <button class="console-btn" onclick="showGames('pokemon')">
+                <img src="https://i.imgur.com/kUexwxB.png" alt="Pokémon Games">
+            </button>
         </div>
         <a href="#" class="back-console-btn" onclick="goHome()">⬅ Back to Console Selection</a>
     </div>
@@ -237,6 +241,7 @@ input:checked + .slider:before {
     const games = {
         shooter: { "1v1.LOL": "1v1lol.html", "Getaway Shootout": "getawayshootout.html", "Rooftop Snipers": "rooftopsnipers.html" },
         gbc: { "Pokémon Crystal": "pkcv.html", "Pokémon Silver": "pksv.html" },
+        pokemon: { "Pokémon Crystal": "pkcv.html", "Pokémon Silver": "pksv.html","Pokémon FireRed": "pkfr.html", "Pokémon Emerald": "pkem.html", "Pokémon Ruby": "pkrb.html", "Pokémon Leaf Green": "pklg.html", "Pokémon Sapphire": "pksafv.html" },
         n64: { "Mario Kart 64": "mksf.html" },
         driving: { "Stunt Car": "stuntcar.html", "Car Obby": "carobby.html", "Escape Road": "escaperoad.html", "Battle Karts": "battlekarts.html", "Drift Boss": "driftboss.html", "drift hunters": "drifthunters.html" },
         sports: { "Basket Random": "basketrandom.html", "Retro Bowl College": "retrobowlc.html", "Retro Bowl": "retrobowl.html" },
@@ -246,7 +251,7 @@ input:checked + .slider:before {
         gba: { "Grand Theft Auto Advance": "gtaa.html", "Mario Kart Super Circuit": "mkss.html", "Pokémon FireRed": "pkfr.html", "Pokémon Emerald": "pkem.html", "Pokémon Ruby": "pkrb.html", "Pokémon Leaf Green": "pklg.html", "Pokémon Sapphire": "pksafv.html"  },
         flash: { "Resort Empire": "resortempire.html" },
         papa: { "Papa Louie 2": "papalouie2.html", "Papa Louie 3": "papalouie3.html"},
-        snes: { "Donkey Kong Country": "dkc.html", "Mario Paint": "mpa.html", "Street Fighter II": "sf5.html", "Super Mario Kart": "smk.html", "Super Mario World": "smw.html", "Tetris & Dr. Mario": "tg2.html", "The Legend of Zelda: A Link to the Past": "lttp.html", "Super Mario RPG": "SMRPG.html" }
+        snes: { "Donkey Kong Country": "dkc.html", "Mario Paint": "mpa.html", "Street Fighter II": "sf5.html", "Super Mario Kart": "smk.html", "Super Mario World": "smw.html", "Top Gear 2": "tg2.html", "The Legend of Zelda: A Link to the Past": "lttp.html", "Super Mario RPG": "SMRPG.html" }
     };
 
     function showAllGames() {
