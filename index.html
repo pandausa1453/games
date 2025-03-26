@@ -384,128 +384,119 @@ function toggleTheme() {
 })();
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Feature</title>
+    <title>Game Library</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
-
-        /* Floating Chat Button */
-        #chat-button {
+        /* Chat Button Styling */
+        #chat-btn {
             position: fixed;
             bottom: 20px;
             right: 20px;
+            padding: 15px;
             background-color: #007bff;
             color: white;
             border: none;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 24px;
             cursor: pointer;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: block; /* Ensures it's visible */
         }
 
-        /* Chat Box (Hidden by Default) */
-        #chat-container {
-            display: none;
+        #chat-box {
             position: fixed;
             bottom: 80px;
             right: 20px;
             width: 300px;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            height: 400px;
+            background-color: #f1f1f1;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             padding: 10px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
         }
 
-        #messages { list-style: none; padding: 0; height: 250px; overflow-y: auto; border: 1px solid #ddd; }
-        li { padding: 10px; margin: 5px; background: #f1f1f1; border-radius: 10px; }
+        #chat-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Floating Button -->
-    <button id="chat-button" onclick="toggleChat()">💬</button>
+<button id="chat-btn">💬 Chat</button>
+<div id="chat-box">
+    <h3>Chat</h3>
+    <div id="messages"></div>
+    <input type="text" id="chat-input" placeholder="Type a message...">
+</div>
 
-    <!-- Chat Box (Initially Hidden) -->
-    <div id="chat-container">
-        <h2>Chat Room</h2>
-        <ul id="messages"></ul>
-        <input type="text" id="username" placeholder="Enter your name" />
-        <input type="text" id="message" placeholder="Type a message..." />
-        <button onclick="sendMessage()">Send</button>
-    </div>
+<script>
+    // Firebase Configuration
+    const firebaseConfig = {
+        apiKey: "YOUR-API-KEY",
+        authDomain: "YOUR-PROJECT.firebaseapp.com",
+        projectId: "YOUR-PROJECT-ID",
+        storageBucket: "YOUR-PROJECT.appspot.com",
+        messagingSenderId: "YOUR-MESSAGING-SENDER-ID",
+        appId: "YOUR-APP-ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-    <!-- Firebase Chat Script -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+    // DOM Elements
+    const chatBtn = document.getElementById('chat-btn');
+    const chatBox = document.getElementById('chat-box');
+    const chatInput = document.getElementById('chat-input');
+    const messages = document.getElementById('messages');
 
-        // Firebase configuration
-        const firebaseConfig = {
-  apiKey: "AIzaSyC7GwIyvOCBUvc1g8-M1eiiWNpIb662jf8",
-  authDomain: "chat-server-eb32c.firebaseapp.com",
-  projectId: "chat-server-eb32c",
-  storageBucket: "chat-server-eb32c.firebasestorage.app",
-  messagingSenderId: "934248506824",
-  appId: "1:934248506824:web:523272bbada1c587c50cfd",
-  measurementId: "G-5342TQQ6GV"
-};
+    // Toggle Chat Box
+    chatBtn.addEventListener('click', () => {
+        chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
+    });
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Toggle chat visibility
-        function toggleChat() {
-            const chatBox = document.getElementById("chat-container");
-            chatBox.style.display = chatBox.style.display === "none" ? "block" : "none";
+    // Send Message
+    chatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && chatInput.value.trim() !== '') {
+            sendMessage(chatInput.value);
+            chatInput.value = '';
         }
+    });
 
-        // Function to send a message
-        async function sendMessage() {
-            const username = document.getElementById("username").value;
-            const message = document.getElementById("message").value;
+    // Function to Send Message to Firebase
+    function sendMessage(message) {
+        const msg = {
+            text: message,
+            timestamp: Date.now()
+        };
+        db.ref('messages').push(msg);
+    }
 
-            if (username && message) {
-                // Send message to Firestore
-                await addDoc(collection(db, "messages"), {
-                    username: username,
-                    message: message,
-                    timestamp: serverTimestamp()
-                });
+    // Listen for New Messages
+    db.ref('messages').on('child_added', (snapshot) => {
+        const msg = snapshot.val();
+        displayMessage(msg);
+    });
 
-                // Clear message input field
-                document.getElementById("message").value = "";
-            }
-        }
-
-        // Function to fetch and display messages in real-time
-        function fetchMessages() {
-            const messagesRef = collection(db, "messages");
-            const q = query(messagesRef, orderBy("timestamp"));
-
-            // Real-time listener for new messages
-            onSnapshot(q, (querySnapshot) => {
-                const messagesList = document.getElementById("messages");
-                messagesList.innerHTML = "";  // Clear current messages
-
-                querySnapshot.forEach((doc) => {
-                    const messageData = doc.data();
-                    const li = document.createElement("li");
-                    li.textContent = `${messageData.username}: ${messageData.message}`;
-                    messagesList.appendChild(li);
-                });
-            });
-        }
-
-        // Fetch messages when the page loads
-        fetchMessages();
-    </script>
+    // Function to Display Message
+    function displayMessage(msg) {
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = `${new Date(msg.timestamp).toLocaleTimeString()} - ${msg.text}`;
+        messages.appendChild(messageDiv);
+        messages.scrollTop = messages.scrollHeight;
+    }
+</script>
 
 </body>
 </html>
