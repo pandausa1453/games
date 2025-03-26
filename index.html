@@ -388,7 +388,7 @@ function toggleTheme() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Chat App</title>
+    <title>Chat Feature</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
 
@@ -447,14 +447,14 @@ function toggleTheme() {
 
         // Firebase configuration
         const firebaseConfig = {
-            apiKey: "YOUR_FIREBASE_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID",
-            measurementId: "YOUR_MEASUREMENT_ID"
-        };
+  apiKey: "AIzaSyC7GwIyvOCBUvc1g8-M1eiiWNpIb662jf8",
+  authDomain: "chat-server-eb32c.firebaseapp.com",
+  projectId: "chat-server-eb32c",
+  storageBucket: "chat-server-eb32c.firebasestorage.app",
+  messagingSenderId: "934248506824",
+  appId: "1:934248506824:web:523272bbada1c587c50cfd",
+  measurementId: "G-5342TQQ6GV"
+};
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
@@ -468,41 +468,43 @@ function toggleTheme() {
 
         // Function to send a message
         async function sendMessage() {
-            const usernameInput = document.getElementById("username");
-            const messageInput = document.getElementById("message");
-            
-            if (messageInput.value.trim() === "" || usernameInput.value.trim() === "") return; // Prevent empty messages
-            
-            await addDoc(collection(db, "messages"), {
-                username: usernameInput.value,
-                text: messageInput.value,
-                timestamp: serverTimestamp()
-            });
+            const username = document.getElementById("username").value;
+            const message = document.getElementById("message").value;
 
-            messageInput.value = ""; // Clear input after sending
-        }
-
-        // Function to display messages in real time
-        function loadMessages() {
-            const messagesList = document.getElementById("messages");
-            const q = query(collection(db, "messages"), orderBy("timestamp"));
-
-            onSnapshot(q, (snapshot) => {
-                messagesList.innerHTML = "";
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const li = document.createElement("li");
-                    li.textContent = `${data.username}: ${data.text}`;
-                    messagesList.appendChild(li);
+            if (username && message) {
+                // Send message to Firestore
+                await addDoc(collection(db, "messages"), {
+                    username: username,
+                    message: message,
+                    timestamp: serverTimestamp()
                 });
 
-                // Auto-scroll to the latest message
-                messagesList.scrollTop = messagesList.scrollHeight;
+                // Clear message input field
+                document.getElementById("message").value = "";
+            }
+        }
+
+        // Function to fetch and display messages in real-time
+        function fetchMessages() {
+            const messagesRef = collection(db, "messages");
+            const q = query(messagesRef, orderBy("timestamp"));
+
+            // Real-time listener for new messages
+            onSnapshot(q, (querySnapshot) => {
+                const messagesList = document.getElementById("messages");
+                messagesList.innerHTML = "";  // Clear current messages
+
+                querySnapshot.forEach((doc) => {
+                    const messageData = doc.data();
+                    const li = document.createElement("li");
+                    li.textContent = `${messageData.username}: ${messageData.message}`;
+                    messagesList.appendChild(li);
+                });
             });
         }
 
-        // Load messages when the page loads
-        loadMessages();
+        // Fetch messages when the page loads
+        fetchMessages();
     </script>
 
 </body>
