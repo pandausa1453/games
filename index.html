@@ -384,119 +384,85 @@ function toggleTheme() {
 })();
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Library</title>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <title>Chat</title>
     <style>
-        /* Chat Button Styling */
-        #chat-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 24px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: block; /* Ensures it's visible */
-        }
-
+        /* Style for the chat box */
         #chat-box {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
             width: 300px;
             height: 400px;
-            background-color: #f1f1f1;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid #ccc;
             padding: 10px;
             overflow-y: auto;
-            display: none;
-            z-index: 1000;
+            background-color: #f9f9f9;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            display: none; /* Hidden by default */
         }
-
-        #chat-input {
+        #chat-box h2 {
+            margin-top: 0;
+        }
+        #messages {
+            height: 300px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+        }
+        #input {
             width: 100%;
-            padding: 10px;
+            padding: 5px;
             margin-top: 10px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
+        }
+        #toggle-chat {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
+    <div id="toggle-chat">Chat</div> <!-- Button to toggle the chat visibility -->
 
-<button id="chat-btn">💬 Chat</button>
-<div id="chat-box">
-    <h3>Chat</h3>
-    <div id="messages"></div>
-    <input type="text" id="chat-input" placeholder="Type a message...">
-</div>
+    <div id="chat-box">
+        <h2>Chat</h2>
+        <div id="messages"></div>
+        <input type="text" id="input" placeholder="Type a message..." />
+    </div>
 
-<script>
-    // Firebase Configuration
-    const firebaseConfig = {
-        apiKey: "YOUR-API-KEY",
-        authDomain: "YOUR-PROJECT.firebaseapp.com",
-        projectId: "YOUR-PROJECT-ID",
-        storageBucket: "YOUR-PROJECT.appspot.com",
-        messagingSenderId: "YOUR-MESSAGING-SENDER-ID",
-        appId: "YOUR-APP-ID"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+    <script>
+        // Toggle chat box visibility
+        document.getElementById("toggle-chat").addEventListener("click", function() {
+            showChat();
+        });
 
-    // DOM Elements
-    const chatBtn = document.getElementById('chat-btn');
-    const chatBox = document.getElementById('chat-box');
-    const chatInput = document.getElementById('chat-input');
-    const messages = document.getElementById('messages');
-
-    // Toggle Chat Box
-    chatBtn.addEventListener('click', () => {
-        chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
-    });
-
-    // Send Message
-    chatInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && chatInput.value.trim() !== '') {
-            sendMessage(chatInput.value);
-            chatInput.value = '';
+        // Show the chat box
+        function showChat() {
+            const chatBox = document.getElementById("chat-box");
+            if (chatBox.style.display === "none" || chatBox.style.display === "") {
+                chatBox.style.display = "block";
+            } else {
+                chatBox.style.display = "none";
+            }
         }
-    });
 
-    // Function to Send Message to Firebase
-    function sendMessage(message) {
-        const msg = {
-            text: message,
-            timestamp: Date.now()
-        };
-        db.ref('messages').push(msg);
-    }
-
-    // Listen for New Messages
-    db.ref('messages').on('child_added', (snapshot) => {
-        const msg = snapshot.val();
-        displayMessage(msg);
-    });
-
-    // Function to Display Message
-    function displayMessage(msg) {
-        const messageDiv = document.createElement('div');
-        messageDiv.textContent = `${new Date(msg.timestamp).toLocaleTimeString()} - ${msg.text}`;
-        messages.appendChild(messageDiv);
-        messages.scrollTop = messages.scrollHeight;
-    }
-</script>
-
+        // Add a message to the chat box
+        document.getElementById("input").addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && this.value.trim() !== "") {
+                const messageDiv = document.createElement("div");
+                messageDiv.textContent = this.value;
+                document.getElementById("messages").appendChild(messageDiv);
+                this.value = ""; // Clear the input after sending a message
+                document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight; // Scroll to bottom
+            }
+        });
+    </script>
 </body>
 </html>
