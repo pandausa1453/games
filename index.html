@@ -382,6 +382,88 @@ function toggleTheme() {
         themeToggle.checked = false;
     }
 })();
-</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Chat App</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #chat-container { max-width: 400px; margin: auto; }
+        #messages { list-style: none; padding: 0; height: 300px; overflow-y: auto; border: 1px solid #ddd; }
+        li { padding: 10px; margin: 5px; background: #f1f1f1; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>Chat Room</h2>
+    <div id="chat-container">
+        <ul id="messages"></ul>
+        <input type="text" id="username" placeholder="Enter your name" />
+        <input type="text" id="message" placeholder="Type a message..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <!-- Firebase Chat Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC7GwIyvOCBUvc1g8-M1eiiWNpIb662jf8",
+            authDomain: "chat-server-eb32c.firebaseapp.com",
+            projectId: "chat-server-eb32c",
+            storageBucket: "chat-server-eb32c.firebasestorage.app",
+            messagingSenderId: "934248506824",
+            appId: "1:934248506824:web:523272bbada1c587c50cfd",
+            measurementId: "G-5342TQQ6GV"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Function to send a message
+        async function sendMessage() {
+            const usernameInput = document.getElementById("username");
+            const messageInput = document.getElementById("message");
+            
+            if (messageInput.value.trim() === "" || usernameInput.value.trim() === "") return; // Prevent empty messages
+            
+            await addDoc(collection(db, "messages"), {
+                username: usernameInput.value,
+                text: messageInput.value,
+                timestamp: serverTimestamp() // Use Firestore server timestamp
+            });
+
+            messageInput.value = ""; // Clear input after sending
+        }
+
+        // Function to display messages in real time
+        function loadMessages() {
+            const messagesList = document.getElementById("messages");
+            const q = query(collection(db, "messages"), orderBy("timestamp"));
+
+            onSnapshot(q, (snapshot) => {
+                messagesList.innerHTML = ""; // Clear list before reloading messages
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const li = document.createElement("li");
+                    li.textContent = `${data.username}: ${data.text}`;
+                    messagesList.appendChild(li);
+                });
+
+                // Auto-scroll to the latest message
+                messagesList.scrollTop = messagesList.scrollHeight;
+            });
+        }
+
+        // Load messages when the page loads
+        loadMessages();
+    </script>
+
 </body>
 </html>
