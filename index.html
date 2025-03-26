@@ -390,16 +390,50 @@ function toggleTheme() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Chat App</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        #chat-container { max-width: 400px; margin: auto; }
-        #messages { list-style: none; padding: 0; height: 300px; overflow-y: auto; border: 1px solid #ddd; }
+        body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
+
+        /* Floating Chat Button */
+        #chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Chat Box (Hidden by Default) */
+        #chat-container {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            padding: 10px;
+        }
+
+        #messages { list-style: none; padding: 0; height: 250px; overflow-y: auto; border: 1px solid #ddd; }
         li { padding: 10px; margin: 5px; background: #f1f1f1; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <h2>Chat Room</h2>
+    <!-- Floating Button -->
+    <button id="chat-button" onclick="toggleChat()">💬</button>
+
+    <!-- Chat Box (Initially Hidden) -->
     <div id="chat-container">
+        <h2>Chat Room</h2>
         <ul id="messages"></ul>
         <input type="text" id="username" placeholder="Enter your name" />
         <input type="text" id="message" placeholder="Type a message..." />
@@ -413,18 +447,24 @@ function toggleTheme() {
 
         // Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyC7GwIyvOCBUvc1g8-M1eiiWNpIb662jf8",
-            authDomain: "chat-server-eb32c.firebaseapp.com",
-            projectId: "chat-server-eb32c",
-            storageBucket: "chat-server-eb32c.firebasestorage.app",
-            messagingSenderId: "934248506824",
-            appId: "1:934248506824:web:523272bbada1c587c50cfd",
-            measurementId: "G-5342TQQ6GV"
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID",
+            measurementId: "YOUR_MEASUREMENT_ID"
         };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
+        // Toggle chat visibility
+        function toggleChat() {
+            const chatBox = document.getElementById("chat-container");
+            chatBox.style.display = chatBox.style.display === "none" ? "block" : "none";
+        }
 
         // Function to send a message
         async function sendMessage() {
@@ -436,7 +476,7 @@ function toggleTheme() {
             await addDoc(collection(db, "messages"), {
                 username: usernameInput.value,
                 text: messageInput.value,
-                timestamp: serverTimestamp() // Use Firestore server timestamp
+                timestamp: serverTimestamp()
             });
 
             messageInput.value = ""; // Clear input after sending
@@ -448,7 +488,7 @@ function toggleTheme() {
             const q = query(collection(db, "messages"), orderBy("timestamp"));
 
             onSnapshot(q, (snapshot) => {
-                messagesList.innerHTML = ""; // Clear list before reloading messages
+                messagesList.innerHTML = "";
                 snapshot.forEach((doc) => {
                     const data = doc.data();
                     const li = document.createElement("li");
