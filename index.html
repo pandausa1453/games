@@ -389,8 +389,11 @@ function toggleTheme() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Library</title>
+    
+    <!-- Load Firebase SDKs in the correct order -->
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    
     <style>
         /* Chat Button Styling */
         #chat-btn {
@@ -420,7 +423,7 @@ function toggleTheme() {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             padding: 10px;
             overflow-y: auto;
-            display: none;
+            display: none; /* Hidden initially */
             z-index: 1000;
         }
 
@@ -444,14 +447,17 @@ function toggleTheme() {
 
 <script>
     // Firebase Configuration
-    const firebaseConfig = {
-        apiKey: "YOUR-API-KEY",
-        authDomain: "YOUR-PROJECT.firebaseapp.com",
-        projectId: "YOUR-PROJECT-ID",
-        storageBucket: "YOUR-PROJECT.appspot.com",
-        messagingSenderId: "YOUR-MESSAGING-SENDER-ID",
-        appId: "YOUR-APP-ID"
-    };
+   const firebaseConfig = {
+  apiKey: "AIzaSyC7GwIyvOCBUvc1g8-M1eiiWNpIb662jf8",
+  authDomain: "chat-server-eb32c.firebaseapp.com",
+  projectId: "chat-server-eb32c",
+  storageBucket: "chat-server-eb32c.firebasestorage.app",
+  messagingSenderId: "934248506824",
+  appId: "1:934248506824:web:523272bbada1c587c50cfd",
+  measurementId: "G-5342TQQ6GV"
+};
+    
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
@@ -466,7 +472,11 @@ function toggleTheme() {
 
     // Show/Hide Chat Box
     function showChat() {
-        chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
+        if (chatBox.style.display === 'none' || chatBox.style.display === '') {
+            chatBox.style.display = 'block'; // Show the chat box
+        } else {
+            chatBox.style.display = 'none'; // Hide the chat box
+        }
     }
 
     // Send Message
