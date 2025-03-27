@@ -16,22 +16,17 @@
     <iframe id="searchFrame" style="width:100%; height:600px; border:0;"></iframe>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.body.addEventListener("click", function(e) {
-                let target = e.target;
-                
-                // Find if the clicked element is a link inside search results
-                while (target && target.tagName !== "A") {
-                    target = target.parentElement;
-                }
-
-                if (target && target.href) {
-                    e.preventDefault(); // Stop normal navigation
-                    document.getElementById("searchFrame").src = target.href; // Load in iframe
-                }
-            });
-        });
-    </script>
+    document.addEventListener("click", function(event) {
+        let target = event.target;
+        while (target && target.tagName !== "A") {
+            target = target.parentElement;
+        }
+        if (target && target.href) {
+            event.preventDefault();
+            window.open(target.href, "_blank", "width=800,height=600"); // Opens in a popup
+        }
+    });
+</script>
 
 </body>
 </html>
