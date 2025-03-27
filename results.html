@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h2>Search Results</h2>
+    
+    <!-- Google Search Results -->
+    <script async src="https://cse.google.com/cse.js?cx=https://cse.google.com/cse.js?cx=5240a0e622ec54648"></script>
+    <div class="gcse-searchresults-only"></div>
+
+    <!-- Iframe for displaying clicked results -->
+    <iframe id="searchFrame" style="width:100%; height:600px; border:0;"></iframe>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.addEventListener("click", function(e) {
+                let target = e.target;
+                
+                // Find if the clicked element is a link inside search results
+                while (target && target.tagName !== "A") {
+                    target = target.parentElement;
+                }
+
+                if (target && target.href) {
+                    e.preventDefault(); // Stop normal navigation
+                    document.getElementById("searchFrame").src = target.href; // Load in iframe
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
