@@ -15,16 +15,23 @@
     <!-- Iframe for displaying clicked results -->
     <iframe id="searchFrame" style="width:100%; height:600px; border:0;"></iframe>
 
-    <script>
-    document.addEventListener("click", function(event) {
-        let target = event.target;
-        while (target && target.tagName !== "A") {
-            target = target.parentElement;
-        }
-        if (target && target.href) {
-            event.preventDefault();
-            window.open(target.href, "_blank", "width=800,height=600"); // Opens in a popup
-        }
+   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.body.addEventListener("click", function(event) {
+            let target = event.target;
+            
+            // Find the actual link (in case user clicks inside a div or span)
+            while (target && target.tagName !== "A") {
+                target = target.parentElement;
+            }
+
+            if (target && target.href) {
+                event.preventDefault(); // Stop the default link action
+                
+                // Open in a small popup window
+                window.open(target.href, "_blank", "width=1000,height=700,left=100,top=50,noopener,noreferrer");
+            }
+        });
     });
 </script>
 
