@@ -15,32 +15,48 @@
     <!-- Iframe for displaying clicked results -->
     <iframe id="searchFrame" style="width:100%; height:600px; border:0;"></iframe>
 
-  <script>
+  <iframe id="searchFrame" style="width:100%; height:600px; border:0;"></iframe>
+
+<script>
     let searchWindow = null; // Store reference to the new window
 
-    document.addEventListener("DOMContentLoaded", function() {
-        document.body.addEventListener("click", function(event) {
-            let target = event.target;
+    // List of domains to open in a separate window
+    const openInNewWindowDomains = ['youtube.com', 'google.com'];
 
-            // Ensure the clicked element is a link
-            while (target && target.tagName !== "A") {
-                target = target.parentElement;
-            }
+    function openInSearchWindow(url) {
+        // Open the link in a new window if it's from a specified domain
+        if (!searchWindow || searchWindow.closed) {
+            searchWindow = window.open(url, "SearchWindow", "width=1000,height=700,left=100,top=50,noopener");
+        } else {
+            searchWindow.location.href = url;
+            searchWindow.focus();
+        }
+    }
 
-            if (target && target.href) {
-                event.preventDefault(); // Stop default link behavior
+    function interceptSearchResultClicks() {
+        document.querySelectorAll(".gsc-results .gsc-webResult a").forEach(link => {
+            link.addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent the link from opening in a new tab or iframe
                 
-                // If the window is not open or was closed, open a new one
-                if (!searchWindow || searchWindow.closed) {
-                    searchWindow = window.open(target.href, "SearchWindow", "width=1000,height=700,left=100,top=50,noopener");
+                const linkHost = new URL(this.href).hostname; // Get the domain of the clicked link
+                
+                // Check if the domain is in the list of domains to open in a new window
+                if (openInNewWindowDomains.some(domain => linkHost.includes(domain))) {
+                    openInSearchWindow(this.href); // Open in a new window
                 } else {
-                    // If the window is already open, update its location
-                    searchWindow.location.href = target.href;
-                    searchWindow.focus();
+                    // Load the normal link in the iframe
+                    document.getElementById("searchFrame").src = this.href;
                 }
-            }
+            });
         });
-    });
+    }
+
+    // Use MutationObserver to detect dynamically loaded search results
+    const observer = new MutationObserver(interceptSearchResultClicks);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Also attach event listener when page loads
+    document.addEventListener("DOMContentLoaded", interceptSearchResultClicks);
 </script>
 
 </body>
