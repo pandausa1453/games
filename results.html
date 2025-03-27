@@ -15,21 +15,29 @@
     <!-- Iframe for displaying clicked results -->
     <iframe id="searchFrame" style="width:100%; height:600px; border:0;"></iframe>
 
-   <script>
+  <script>
+    let searchWindow = null; // Store reference to the new window
+
     document.addEventListener("DOMContentLoaded", function() {
         document.body.addEventListener("click", function(event) {
             let target = event.target;
-            
-            // Find the actual link (in case user clicks inside a div or span)
+
+            // Ensure the clicked element is a link
             while (target && target.tagName !== "A") {
                 target = target.parentElement;
             }
 
             if (target && target.href) {
-                event.preventDefault(); // Stop the default link action
+                event.preventDefault(); // Stop default link behavior
                 
-                // Open in a small popup window
-                window.open(target.href, "_blank", "width=1000,height=700,left=100,top=50,noopener,noreferrer");
+                // If the window is not open or was closed, open a new one
+                if (!searchWindow || searchWindow.closed) {
+                    searchWindow = window.open(target.href, "SearchWindow", "width=1000,height=700,left=100,top=50,noopener");
+                } else {
+                    // If the window is already open, update its location
+                    searchWindow.location.href = target.href;
+                    searchWindow.focus();
+                }
             }
         });
     });
