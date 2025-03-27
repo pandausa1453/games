@@ -12,16 +12,13 @@
     <script async src="https://cse.google.com/cse.js?cx=https://cse.google.com/cse.js?cx=5240a0e622ec54648"></script>
     <div class="gcse-searchresults-only"></div>
 
-    <!-- Iframe for displaying clicked results -->
     <iframe id="searchFrame" style="width:100%; height:600px; border:0;"></iframe>
-
-  <iframe id="searchFrame" style="width:100%; height:600px; border:0;"></iframe>
 
 <script>
     let searchWindow = null; // Store reference to the new window
 
     // List of domains to open in a separate window
-    const openInNewWindowDomains = ['https://www.youtube.com/', 'www.google.com'];
+    const openInNewWindowDomains = ['https://www.youtube.com', 'google.com', 'facebook.com'];
 
     function openInSearchWindow(url) {
         // Open the link in a new window if it's from a specified domain
@@ -33,30 +30,47 @@
         }
     }
 
-    function interceptSearchResultClicks() {
-        document.querySelectorAll(".gsc-results .gsc-webResult a").forEach(link => {
-            link.addEventListener("click", function(event) {
-                event.preventDefault(); // Prevent the link from opening in a new tab or iframe
-                
-                const linkHost = new URL(this.href).hostname; // Get the domain of the clicked link
-                
-                // Check if the domain is in the list of domains to open in a new window
-                if (openInNewWindowDomains.some(domain => linkHost.includes(domain))) {
-                    openInSearchWindow(this.href); // Open in a new window
-                } else {
-                    // Load the normal link in the iframe
-                    document.getElementById("searchFrame").src = this.href;
-                }
-            });
-        });
+    function interceptSearchResultClicks(event) {
+        let target = event.target;
+        
+        // Find the actual link (in case the user clicks inside a div or span)
+        while (target && target.tagName !== "A") {
+            target = target.parentElement;
+        }
+
+        if (target && target.href) {
+            event.preventDefault(); // Prevent default link action
+
+            const linkHost = new URL(target.href).hostname; // Get the domain of the clicked link
+
+            // Check if the domain is in the list of domains to open in a new window
+            if (openInNewWindowDomains.some(domain => linkHost.includes(domain))) {
+                openInSearchWindow(target.href); // Open in a new window
+            } else {
+                // Load the normal link in the iframe
+                document.getElementById("searchFrame").src = target.href;
+            }
+        }
     }
 
-    // Use MutationObserver to detect dynamically loaded search results
-    const observer = new MutationObserver(interceptSearchResultClicks);
+    // Use MutationObserver to detect when search results load dynamically
+    const observer = new MutationObserver(() => {
+        // Intercept clicks when new search results are loaded
+        document.querySelectorAll(".gsc-results .gsc-webResult a").forEach(link => {
+            link.addEventListener("click", interceptSearchResultClicks);
+        });
+    });
+    
+    // Start observing the page
     observer.observe(document.body, { childList: true, subtree: true });
 
-    // Also attach event listener when page loads
-    document.addEventListener("DOMContentLoaded", interceptSearchResultClicks);
+    // Also attach the event listener when the page loads
+    document.addEventListener("DOMContentLoaded", function() {
+        // Attach click listener on initially loaded links
+        document.querySelectorAll(".gsc-results .gsc-webResult a").forEach(link => {
+            link.addEventListener("click", interceptSearchResultClicks);
+        });
+    });
 </script>
 
 </body>
