@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Search</title>
 </head>
-    <script>
+   <script>
     function openWithProxy(event) {
         let target = event.target;
 
@@ -17,14 +17,15 @@
         if (target && target.href) {
             event.preventDefault(); // Stop default action
 
-            // Cloudflare Worker Proxy URL (Replace with your actual deployed Worker URL)
-            let proxyURL = "https://muddy-pond-b7b3.cookinglol001.workers.dev/" + encodeURIComponent(target.href);
+            // Cloudflare Worker Proxy URL with proper query parameter
+            let proxyURL = `https://muddy-pond-b7b3.cookinglol001.workers.dev/?url=${encodeURIComponent(target.href)}`;
             
-            window.open(proxyURL, "_blank");
+            window.open(proxyURL, "_blank"); // Open in new tab
         }
     }
 
     function attachLinkListeners() {
+        // Targeting Google Custom Search result links
         document.querySelectorAll(".gsc-results .gsc-webResult a").forEach(link => {
             link.removeEventListener("click", openWithProxy);
             link.addEventListener("click", openWithProxy);
@@ -37,6 +38,7 @@
 
     document.addEventListener("DOMContentLoaded", attachLinkListeners);
 </script>
+
 <body>
     <h2>Search</h2>
 
