@@ -12,7 +12,7 @@
     <script async src="https://cse.google.com/cse.js?cx=5240a0e622ec54648"></script>
     <div class="gcse-search"></div>
 
-   <script>
+<script>
     function openWithProxy(event) {
         let target = event.target;
 
@@ -27,13 +27,29 @@
             // Cloudflare Worker Proxy URL with proper query parameter
             let proxyURL = `https://muddy-pond-b7b3.cookinglol001.workers.dev/?url=${encodeURIComponent(target.href)}`;
 
-            // Check if the page is inside an iframe
+            // Check if the page is in an iframe
             if (window.top !== window.self) {
-                // If inside an iframe, open the window using target="_blank"
-                window.location.href = proxyURL;  // Open in the current iframe
+                // If inside an iframe, open the new window with the proxy URL
+                const newWindow = window.open(proxyURL, "_blank", "width=1000,height=700,left=100,top=50,noopener");
+
+                // Ensure the new window opens successfully
+                if (newWindow) {
+                    newWindow.focus();
+                } else {
+                    // If the pop-up is blocked, notify the user (optional)
+                    alert("Pop-up blocked! Please allow pop-ups for this site.");
+                }
             } else {
                 // If not inside an iframe, open the proxied URL in a new window
-                window.open(proxyURL, "_blank", "width=1000,height=700,left=100,top=50,noopener");
+                const newWindow = window.open(proxyURL, "_blank", "width=1000,height=700,left=100,top=50,noopener");
+
+                // Ensure the new window opens successfully
+                if (newWindow) {
+                    newWindow.focus();
+                } else {
+                    // If the pop-up is blocked, notify the user (optional)
+                    alert("Pop-up blocked! Please allow pop-ups for this site.");
+                }
             }
         }
     }
@@ -54,5 +70,6 @@
     // Run on page load
     document.addEventListener("DOMContentLoaded", attachLinkListeners);
 </script>
+
 </body>
 </html>
