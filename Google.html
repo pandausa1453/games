@@ -8,24 +8,39 @@
 <body>
     <h2>Search</h2>
 
-    <!-- Google Custom Search Box -->
+    <!-- Google Custom Search Box and Results -->
     <script async src="https://cse.google.com/cse.js?cx=5240a0e622ec54648"></script>
-    <div class="gcse-searchbox-only"></div>
+    <div class="gcse-search"></div>
 
-    <script>
-        function checkForSearchQuery() {
-            const hash = window.location.hash; 
-            
-            if (hash.includes("gsc.q=")) {
-                // Redirect to results page while keeping the query
-                const query = hash.substring(1); // Remove #
-                window.location.href = "results.html#" + query;
-            }
+<script>
+    function forceLinksToNewWindow(event) {
+        let target = event.target;
+
+        // Find the actual <a> element in case of nested clicks
+        while (target && target.tagName !== "A") {
+            target = target.parentElement;
         }
 
-        // Detect search query change
-        window.addEventListener("hashchange", checkForSearchQuery);
-        checkForSearchQuery(); // Run on page load in case there's already a query
-    </script>
+        if (target && target.href) {
+            event.preventDefault(); // Stop default action
+            window.open(target.href, "_blank", "width=1000,height=700,left=100,top=50,noopener");
+        }
+    }
+
+    function attachLinkListeners() {
+        document.querySelectorAll(".gsc-results .gsc-webResult a").forEach(link => {
+            link.removeEventListener("click", forceLinksToNewWindow);
+            link.addEventListener("click", forceLinksToNewWindow);
+        });
+    }
+
+    // Observe dynamic changes and attach event listeners
+    const observer = new MutationObserver(attachLinkListeners);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Run on page load
+    document.addEventListener("DOMContentLoaded", attachLinkListeners);
+</script>
+
 </body>
 </html>
