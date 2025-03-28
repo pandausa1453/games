@@ -59,7 +59,7 @@
                     }
                 });
             } catch (error) {
-                console.error("Error rewriting links: ", error);
+                console.error("Error rewriting links inside iframe: ", error);
             }
         }
 
@@ -71,13 +71,16 @@
             });
         }
 
-        // Observe dynamic changes for live search results
-        const observer = new MutationObserver(attachLinkListeners);
-        observer.observe(document.body, { childList: true, subtree: true });
+        // Observe dynamic changes for live search results and iframe content
+        const observer = new MutationObserver(() => {
+            // Attach listeners to new search result links
+            attachLinkListeners();
 
-        // Observe iframe content for link rewriting
-        const iframeObserver = new MutationObserver(rewriteLinks);
-        iframeObserver.observe(document.body, { childList: true, subtree: true });
+            // Rewrite links inside iframe if any content changed
+            rewriteLinks();
+        });
+        
+        observer.observe(document.body, { childList: true, subtree: true });
 
         // Run on page load
         document.addEventListener("DOMContentLoaded", () => {
