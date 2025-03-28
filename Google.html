@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Search</title>
 </head>
-   <script>
+  <script>
     function openWithProxy(event) {
         let target = event.target;
 
@@ -19,8 +19,9 @@
 
             // Cloudflare Worker Proxy URL with proper query parameter
             let proxyURL = `https://muddy-pond-b7b3.cookinglol001.workers.dev/?url=${encodeURIComponent(target.href)}`;
-            
-            window.open(proxyURL, "_blank"); // Open in new tab
+
+            // Open the proxied URL in a new window with defined size
+            window.open(proxyURL, "_blank", "width=800,height=600");
         }
     }
 
@@ -38,7 +39,6 @@
 
     document.addEventListener("DOMContentLoaded", attachLinkListeners);
 </script>
-
 <body>
     <h2>Search</h2>
 
