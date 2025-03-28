@@ -5,6 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Search</title>
 </head>
+    <script>
+    function openWithProxy(event) {
+        let target = event.target;
+
+        // Find the actual <a> element in case the user clicks inside a div or span
+        while (target && target.tagName !== "A") {
+            target = target.parentElement;
+        }
+
+        if (target && target.href) {
+            event.preventDefault(); // Stop default action
+
+            // Cloudflare Worker Proxy URL (Replace with your actual deployed Worker URL)
+            let proxyURL = "https://muddy-pond-b7b3.cookinglol001.workers.dev/" + encodeURIComponent(target.href);
+            
+            window.open(proxyURL, "_blank");
+        }
+    }
+
+    function attachLinkListeners() {
+        document.querySelectorAll(".gsc-results .gsc-webResult a").forEach(link => {
+            link.removeEventListener("click", openWithProxy);
+            link.addEventListener("click", openWithProxy);
+        });
+    }
+
+    // Observe dynamic changes to search results and apply the listener
+    const observer = new MutationObserver(attachLinkListeners);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    document.addEventListener("DOMContentLoaded", attachLinkListeners);
+</script>
 <body>
     <h2>Search</h2>
 
