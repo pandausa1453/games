@@ -12,42 +12,47 @@
     <script async src="https://cse.google.com/cse.js?cx=5240a0e622ec54648"></script>
     <div class="gcse-search"></div>
 
-    <script>
-        // Open the link using the proxy
-        function openWithProxy(event) {
-            let target = event.target;
+   <script>
+    function openWithProxy(event) {
+        let target = event.target;
 
-            // Find the actual <a> element in case the user clicks inside a div or span
-            while (target && target.tagName !== "A") {
-                target = target.parentElement;
-            }
+        // Find the actual <a> element in case the user clicks inside a div or span
+        while (target && target.tagName !== "A") {
+            target = target.parentElement;
+        }
 
-            if (target && target.href) {
-                event.preventDefault(); // Stop default action
+        if (target && target.href) {
+            event.preventDefault(); // Stop default action
 
-                // Cloudflare Worker Proxy URL with proper query parameter
-                let proxyURL = `https://muddy-pond-b7b3.cookinglol001.workers.dev/?url=${encodeURIComponent(target.href)}`;
+            // Cloudflare Worker Proxy URL with proper query parameter
+            let proxyURL = `https://muddy-pond-b7b3.cookinglol001.workers.dev/?url=${encodeURIComponent(target.href)}`;
 
-                // Open the proxied URL in a new window with defined size
+            // Check if the page is inside an iframe
+            if (window.top !== window.self) {
+                // If inside an iframe, open the window using target="_blank"
+                window.location.href = proxyURL;  // Open in the current iframe
+            } else {
+                // If not inside an iframe, open the proxied URL in a new window
                 window.open(proxyURL, "_blank", "width=1000,height=700,left=100,top=50,noopener");
             }
         }
+    }
 
-        // Attach the event listener to all search result links
-        function attachLinkListeners() {
-            // Ensure all search result links use the proxy
-            document.querySelectorAll(".gsc-results .gsc-webResult a").forEach(link => {
-                link.removeEventListener("click", openWithProxy);
-                link.addEventListener("click", openWithProxy);
-            });
-        }
+    // Attach the event listener to all search result links
+    function attachLinkListeners() {
+        // Ensure all search result links use the proxy
+        document.querySelectorAll(".gsc-results .gsc-webResult a").forEach(link => {
+            link.removeEventListener("click", openWithProxy);
+            link.addEventListener("click", openWithProxy);
+        });
+    }
 
-        // Observe dynamic changes to search results and apply the listener
-        const observer = new MutationObserver(attachLinkListeners);
-        observer.observe(document.body, { childList: true, subtree: true });
+    // Observe dynamic changes to search results and apply the listener
+    const observer = new MutationObserver(attachLinkListeners);
+    observer.observe(document.body, { childList: true, subtree: true });
 
-        // Run on page load
-        document.addEventListener("DOMContentLoaded", attachLinkListeners);
-    </script>
+    // Run on page load
+    document.addEventListener("DOMContentLoaded", attachLinkListeners);
+</script>
 </body>
 </html>
