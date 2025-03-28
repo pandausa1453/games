@@ -3,11 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Search Embed</title>
+    <title>Google Search</title>
 </head>
 <body>
-    <h2>Search Google</h2>
-    <script async src="https://cse.google.com/cse.js?cx=5240a0e622ec54648">"></script>
-    <div class="gcse-search"></div>
+    <h2>Search</h2>
+
+    <!-- Google Custom Search Box -->
+    <script async src="https://cse.google.com/cse.js?cx=5240a0e622ec54648"></script>
+    <div class="gcse-searchbox-only"></div>
+
+    <script>
+        function checkForSearchQuery() {
+            const hash = window.location.hash; 
+            
+            if (hash.includes("gsc.q=")) {
+                // Redirect to results page while keeping the query
+                const query = hash.substring(1); // Remove #
+                window.location.href = "results.html#" + query;
+            }
+        }
+
+        // Detect search query change
+        window.addEventListener("hashchange", checkForSearchQuery);
+        checkForSearchQuery(); // Run on page load in case there's already a query
+    </script>
 </body>
 </html>
