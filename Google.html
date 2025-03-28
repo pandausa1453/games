@@ -41,13 +41,9 @@
             }
         }
 
-        // Function to rewrite all internal links within the iframe
-        function rewriteLinks() {
-            const iframe = document.querySelector("iframe");
-            if (!iframe) return;
-
+        // Rewrite all links inside the iframe
+        function rewriteIframeLinks(iframe) {
             try {
-                // Access iframe content safely
                 const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
                 // Find all internal links inside the iframe
@@ -63,29 +59,30 @@
             }
         }
 
-        // Attach click listener to initial search result links
-        function attachLinkListeners() {
+        // Function to handle dynamic content loading and apply event listeners to all links
+        function handleDynamicContent() {
+            // Attach listener to all search result links
             document.querySelectorAll(".gsc-results .gsc-webResult a").forEach(link => {
                 link.removeEventListener("click", openWithProxy);
                 link.addEventListener("click", openWithProxy);
             });
+
+            // Rewrite links in the iframe
+            const iframe = document.querySelector("iframe");
+            if (iframe) {
+                rewriteIframeLinks(iframe);
+            }
         }
 
-        // Observe dynamic changes for live search results and iframe content
+        // Attach event listener for dynamic content in the search results
         const observer = new MutationObserver(() => {
-            // Attach listeners to new search result links
-            attachLinkListeners();
-
-            // Rewrite links inside iframe if any content changed
-            rewriteLinks();
+            handleDynamicContent();
         });
-        
         observer.observe(document.body, { childList: true, subtree: true });
 
         // Run on page load
         document.addEventListener("DOMContentLoaded", () => {
-            attachLinkListeners();
-            rewriteLinks();
+            handleDynamicContent();
         });
     </script>
 </body>
