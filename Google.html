@@ -12,73 +12,72 @@
     <script async src="https://cse.google.com/cse.js?cx=5240a0e622ec54648"></script>
     <div class="gcse-search"></div>
 
-    <script>
-        function openWithProxy(event) {
-            let target = event.target;
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Search with Proxy</title>
+</head>
+<body>
+    <h2>Search</h2>
 
-            // Find the actual <a> element if clicking inside other elements
-            while (target && target.tagName !== "A") {
-                target = target.parentElement;
-            }
+    <!-- Google Custom Search Box and Results -->
+    <script async src="https://cse.google.com/cse.js?cx=5240a0e622ec54648"></script>
+    <div class="gcse-search"></div>
 
-            if (target && target.href) {
-                event.preventDefault(); // Stop the default action
-
-                // Cloudflare Worker Proxy URL with proper query parameter
-                let proxyURL = `https://muddy-pond-b7b3.cookinglol001.workers.dev/?url=${encodeURIComponent(target.href)}`;
-
-                // Always open in a new window, regardless of iframe or not
-                const newWindow = window.open(proxyURL, "_blank", "width=1000,height=700,left=100,top=50,noopener");
-
-                if (newWindow) {
-                    newWindow.focus();
-                } else {
-                    alert("Pop-up blocked! Please allow pop-ups for this site.");
-                }
-            }
-        }
-
-        // Attach event listeners to search result links
-        function attachLinkListeners() {
-            document.querySelectorAll(".gsc-results .gsc-webResult a").forEach(link => {
-                link.removeEventListener("click", openWithProxy);
-                link.addEventListener("click", openWithProxy);
-            });
-        }
-
-        // Observe dynamic changes and apply the event listener
-        const observer = new MutationObserver(attachLinkListeners);
-        observer.observe(document.body, { childList: true, subtree: true });
-
-        // Run on page load
-        document.addEventListener("DOMContentLoaded", attachLinkListeners);
-
-        function openWithProxy(event) {
+<script>
+// Function to open external links with the proxy
+function openWithProxy(event) {
     let target = event.target;
 
-    // Traverse up the DOM to find the <a> tag
+    // Traverse up to find the <a> element in case of nested clicks
     while (target && target.tagName !== "A") {
         target = target.parentElement;
     }
 
     if (target && target.href) {
-        event.preventDefault(); // Stop default action
+        event.preventDefault(); // Prevent default action
 
-        // Construct the proxied URL properly
-        let proxyURL = `https://muddy-pond-b7b3.cookinglol001.workers.dev/?url=${encodeURIComponent(target.href)}`;
+        // Construct the proxy URL
+        let originalURL = new URL(target.href);
+        let proxiedURL = `https://muddy-pond-b7b3.cookinglol001.workers.dev/?url=${encodeURIComponent(originalURL.href)}`;
 
-        // Open the proxied URL in a new window
-        const newWindow = window.open(proxyURL, "_blank", "width=1000,height=700,left=100,top=50,noopener");
+        // Open in a new window
+        const newWindow = window.open(proxiedURL, "_blank", "width=1000,height=700,left=100,top=50,noopener");
 
+        // Check if window opened successfully
         if (newWindow) {
-            newWindow.focus(); 
+            newWindow.focus();
         } else {
             alert("Pop-up blocked! Please allow pop-ups for this site.");
         }
     }
 }
 
-// Attach listeners to search result links
+// Function to rewrite all internal links within the iframe
+function rewriteLinks() {
+    const iframe = document.querySelector("iframe");
+    if (!iframe) return;
+
+    try {
+        // Access iframe content safely
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+        // Find all internal links inside the iframe
+        const links = iframeDoc.querySelectorAll("a");
+        links.forEach(link => {
+            if (link.href.startsWith("https://")) { // Only external HTTP(S) links
+                // Rewrite with the proxy
+                link.href = `https://muddy-pond-b7b3.cookinglol001.workers.dev/?url=${encodeURIComponent(link.href)}`;
+            }
+        });
+    } catch (error) {
+        console.error("Error rewriting links: ", error);
+    }
+}
+
+// Attach click listener to initial search result links
 function attachLinkListeners() {
     document.querySelectorAll(".gsc-results .gsc-webResult a").forEach(link => {
         link.removeEventListener("click", openWithProxy);
@@ -86,12 +85,24 @@ function attachLinkListeners() {
     });
 }
 
-// Monitor dynamic changes and reapply listeners
+// Observe dynamic changes for live search results
 const observer = new MutationObserver(attachLinkListeners);
 observer.observe(document.body, { childList: true, subtree: true });
-document.addEventListener("DOMContentLoaded", attachLinkListeners);
 
-    </script>
+// Observe iframe content for link rewriting
+const iframeObserver = new MutationObserver(rewriteLinks);
+iframeObserver.observe(document.body, { childList: true, subtree: true });
+
+// Run on page load
+document.addEventListener("DOMContentLoaded", () => {
+    attachLinkListeners();
+    rewriteLinks();
+});
+</script>
+
+</body>
+</html>
+
 
 </body>
 </html>
