@@ -7,7 +7,7 @@
 </head>
 <body>
     <h2>Search Results</h2>
-    
+
     <!-- Google Search Results -->
     <script async src="https://cse.google.com/cse.js?cx=5240a0e622ec54648"></script>
     <div class="gcse-searchresults-only"></div>
@@ -15,9 +15,8 @@
     <iframe id="searchFrame" style="width:100%; height:600px; border:0;"></iframe>
 
 <script>
-    let searchWindow = null; // Store reference to the new window
+    let searchWindow = null; 
 
-    // List of domains to open in a separate window
     const openInNewWindowDomains = ['youtube.com', 'google.com', 'facebook.com'];
 
     function openInSearchWindow(url) {
@@ -31,18 +30,15 @@
 
     function interceptSearchResultClicks(event) {
         let target = event.target;
-
-        // Find the actual link (if user clicks a nested element)
         while (target && target.tagName !== "A") {
             target = target.parentElement;
         }
 
         if (target && target.href) {
-            event.preventDefault(); // Stop default action
+            event.preventDefault();
 
-            const linkHost = new URL(target.href).hostname.replace(/^www\./, ""); // Remove "www."
+            const linkHost = new URL(target.href).hostname.replace(/^www\./, "");
 
-            // Check if the domain is in the list
             if (openInNewWindowDomains.includes(linkHost)) {
                 openInSearchWindow(target.href);
             } else {
@@ -51,20 +47,28 @@
         }
     }
 
-    // Function to attach event listeners to search result links
     function attachLinkListeners() {
         document.querySelectorAll(".gsc-results .gsc-webResult a").forEach(link => {
-            link.removeEventListener("click", interceptSearchResultClicks); // Remove previous listeners
+            link.removeEventListener("click", interceptSearchResultClicks);
             link.addEventListener("click", interceptSearchResultClicks);
         });
     }
 
-    // Observe dynamic content changes
     const observer = new MutationObserver(attachLinkListeners);
     observer.observe(document.body, { childList: true, subtree: true });
 
-    // Also run on initial load
-    document.addEventListener("DOMContentLoaded", attachLinkListeners);
+    document.addEventListener("DOMContentLoaded", function () {
+        attachLinkListeners();
+
+        // If redirected from Google.html, restore the query
+        if (window.location.hash.includes("gsc.q=")) {
+            const searchBox = document.querySelector("input.gsc-input");
+            if (searchBox) {
+                searchBox.value = decodeURIComponent(window.location.hash.split("gsc.q=")[1].split("&")[0]);
+                document.querySelector("input.gsc-search-button").click();
+            }
+        }
+    });
 </script>
 
 </body>
