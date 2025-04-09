@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🔓 Bookmarklet Game Launcher</title>
+  <style>
+    body {
+      background-color: #1e1e2f;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    .game-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .game-btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎮 Bookmarklet Game Launcher</h1>
+  <p>Click a button to launch a game in full screen without a proxy!</p>
+
+  <button class="game-btn" onclick="launch('https://slope-game.github.io/')">Play Slope</button>
+  <button class="game-btn" onclick="launch('https://1v1.lol')">Play 1v1.LOL</button>
+  <button class="game-btn" onclick="launch('https://sites.google.com/site/run3unblocked/')">Play Run 3</button>
+  <button class="game-btn" onclick="launch('https://smashkarts.io')">Play Smash Karts</button>
+  <button class="game-btn" onclick="launch('https://tunnelrush.online')">Play Tunnel Rush</button>
+
+  <script>
+    function launch(url) {
+      const win = window.open();
+      win.document.write(`<iframe src="${url}" style="position:fixed;top:0;left:0;width:100%;height:100%;border:none;"></iframe>`);
+    }
+  </script>
+</body>
+</html>
