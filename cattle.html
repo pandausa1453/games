@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullscreen Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            overflow: hidden;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+        }
+        .game-iframe {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+        .back-home-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 1000;
+        }
+        .back-home-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back to Home Button -->
+    <a href="index.html" class="back-home-btn">🏠 Back to Home</a>
+
+    <iframe class="game-iframe" id="game-area" 
+        src="https://crazycattle3d.github.io/" 
+        scrolling="none" 
+        allowfullscreen 
+        tabindex="0">
+    </iframe>
+</body>
+</html>
