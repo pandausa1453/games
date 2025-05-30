@@ -191,6 +191,7 @@ padding: 20px;
 <a href="#" class="back-home-btn" onclick="goHome()">🏠 Back to Home</a>
 
 <div class="button-container" id="buttons">
+<button class="category-btn" onclick="showGames('new')">⭐ New Games</button>
 <button class="category-btn" onclick="showConsoles()">🎮 Retro Games</button>
 <button class="category-btn" onclick="showGames('shooter')">🔫 Shooter Games</button>
 <button class="category-btn" onclick="showGames('driving')">🚗 Driving Games</button>
@@ -252,8 +253,9 @@ target="_blank" class="bottom-btn">⭐ Review Us</a>
 
 <script> 
 const games = {
+new: { "Awesome Tanks 2": "awesometanks2.html" },
 chat: { "Chat": "docs.html" },
-shooter: { "1v1.LOL": "1v1lol.html", "Getaway Shootout": "getawayshootout.html", "Neon Shooter": "neonshooter.html",  "Pixel Shooter": "pixelshooter.html" },
+shooter: { "1v1.LOL": "1v1lol.html", "Getaway Shootout": "getawayshootout.html", "Neon Shooter": "neonshooter.html",  "Pixel Shooter": "pixelshooter.html", "Awesome Tanks 2": "awesometanks2.html" },
 gbc: { "Pokémon Crystal": "pkcv.html", "Pokémon Silver": "pksv.html", "Legend of Zelda, The: Oracle of Seasons": "lgfzofs.html"},
 nes: { "Legend of Zelda": "lgfz.html", "Google": "Google.html", "test": "docs.html"},
 pokemon: { "Pokémon Crystal": "pkcv.html", "Pokémon Silver": "pksv.html","Pokémon FireRed": "pkfr.html", "Pokémon Emerald": "pkem.html", "Pokémon Ruby": "pkrb.html", "Pokémon Leaf Green": "pklg.html", "Pokémon Sapphire": "pksafv.html" },
