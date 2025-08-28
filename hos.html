@@ -1,1 +1,37 @@
-<iframe src="https://archive.org/embed/spider-man-12-full-screen" width="560" height="384" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Movie Player</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+      }
+      /* Container leaves a tiny gap at the bottom for fullscreen */
+      .iframe-container {
+        width: 100%;
+        height: calc(100% - 5px); /* leaves 5px at the bottom */
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="iframe-container">
+      <iframe 
+        src="https://archive.org/embed/spider-man-12-full-screen" 
+        frameborder="0" 
+        webkitallowfullscreen="true" 
+        mozallowfullscreen="true" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  </body>
+</html>
