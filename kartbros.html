@@ -1,0 +1,862 @@
+<html lang="en-us" class=" pleaserotate-hiding" style="--vh: 5.44px;"><head><style></style><script src="https://s0.2mdn.net/instream/video/client.js" async="" type="text/javascript"></script><script async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" id="analytics" async="" src="https://cdn.jsdelivr.net/gh/st39/sdk@main/ga.js"></script><script type="text/javascript" async="" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script><script id="gamemonetize-sdk" src="https://cdn.jsdelivr.net/gh/st39/sdk@main/sdkjs.js"></script><script src="//www.google.com/jsapi"></script><script>window.parent.maeExportApis_();</script>
+
+
+  <meta charset="utf-8">
+  <title>KART BROS!</title>
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/TemplateData/style.css">
+  <meta id="viewport" name="viewport" content="width=device-width,
+                     initial-scale=1,
+                     maximum-scale=1,
+                     user-scalable=no,
+                     viewport-fit=cover">
+
+  
+
+  <script>
+    function fit() {
+      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    }
+
+    
+    fit();
+
+    
+    addEventListener('resize', fit, { passive: true });
+
+    
+    addEventListener('orientationchange', () => {
+      setTimeout(fit, 450);           
+    });
+
+    
+    if (window.visualViewport) {
+      visualViewport.addEventListener('resize', fit, { passive: true });
+    }
+  </script>
+
+  <style>
+     
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      color: #000;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+
+     
+     
+
+     
+     
+    .game-section {
+      width: 100%;
+      height: 100%;
+       
+      background: #000;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+    }
+
+     
+    #unity-loading-bar {
+      background: #000;
+      position: absolute;
+      top: 60%;
+      align-items: center;
+      justify-content: center;
+      z-index: 15;
+    }
+
+    #unity-canvas {
+      background: #000;
+      width: calc(100%);
+      float: left;
+       
+       
+       
+    }
+
+
+    #unity-warning {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      pointer-events: none;
+      max-width: 90%;
+      text-align: center;
+      display: none;
+    }
+
+    html,
+    body,
+    .game-section,
+    #unity-canvas {
+       
+      height: calc(var(--vh, 1vh)*100);
+       
+      overscroll-behavior: none;
+       
+    }
+
+     
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #d32f2f;
+      text-align: center;
+    }
+
+    h2 {
+      color: #1976d2;
+    }
+
+
+    #adContainerMainMenu {
+      position: absolute;
+       
+      top: 50%;
+       
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    #adContainerMainMenu>div {
+      pointer-events: auto;
+    }
+
+     
+    #kartbros-io_300x250,
+    #kartbros-io_300x250_2 {
+      pointer-events: auto;
+       
+    }
+
+    #adContainerBottom {
+      position: absolute;
+      bottom: 1px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      text-align: center;
+      display: none;
+       
+      pointer-events: none;
+    }
+
+    #adContainerBottom>div {
+      pointer-events: auto;
+    }
+
+    #adContainerTop {
+      position: absolute;
+      top: 10px;
+       
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: none;
+       
+      pointer-events: none;
+    }
+
+    #adContainerTop>div {
+      pointer-events: auto;
+    }
+
+     
+    #kartbros-io_728x90 {
+      pointer-events: auto;
+    }
+
+     
+    #adContainerPillars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+      pointer-events: none;
+      display: none;
+       
+    }
+
+    #adContainerPillars>div {
+      pointer-events: auto;
+    }
+
+
+     
+    #videoAdOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #videoad {
+      width: 960px;
+      height: 540px;
+      background: #000;
+    }
+
+     
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .spinning-wheel {
+      display: inline-block;
+      transform-origin: center;
+      animation: spin 1s linear infinite;
+    }
+  </style>
+
+<script>
+  if (typeof navigator.serviceWorker !== 'undefined') {
+    navigator.serviceWorker.register('https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/TemplateData/sw.js')
+  }
+</script>
+
+  
+  <script>
+    window.aiptag = window.aiptag || { cmd: [] };
+    aiptag.cmd.display = aiptag.cmd.display || [];
+    aiptag.cmd.player = aiptag.cmd.player || [];
+
+    
+    aiptag.cmp = {
+      show: true,
+      button: true,
+      buttonText: "Privacy settings",
+      buttonPosition: "bottom-left"
+    };
+
+    
+    aiptag.cmd.player.push(function () {
+      aiptag.adplayer = new aipPlayer({
+        AD_WIDTH: 960,
+        AD_HEIGHT: 540,
+        AD_DISPLAY: 'default', 
+        LOADING_TEXT: 'loading advertisement',
+        PREROLL_ELEM: function () { return document.getElementById('videoad'); },
+        AIP_COMPLETE: function (state) {
+          console.log("Video Ad Completed: " + state);
+          if (typeof SendEvent === "function") {
+            SendEvent("event", "aip_video_completed", { state: state });
+          }
+          if (typeof completeVideoAd === "function") {
+            completeVideoAd(false);
+          }
+        }
+      });
+    });
+
+  </script>
+  <script>
+    (function () {
+      function detectMsStart() {
+        var uri = window.location.pathname + window.location.search + window.location.hash;
+        var lowerUri = (uri || '').toLowerCase();
+        var params = new URLSearchParams(window.location.search || '');
+        if (params.has('ms') || params.has('msstart_sdk_init')) {
+          return true;
+        }
+        if (lowerUri.indexOf('msstart_sdk_init') !== -1) {
+          return true;
+        }
+        return lowerUri.indexOf('ms') !== -1;
+      }
+
+      window.isMsStart = detectMsStart();
+      if (window.isMsStart) {
+        window.msStart = true;
+        var msSdkScript = document.createElement('script');
+        msSdkScript.src = 'https://assets.msn.com/staticsb/statics/latest/msstart-games-sdk/msstart-v1.0.0-rc.19.min.js';
+        msSdkScript.async = true;
+        msSdkScript.addEventListener('load', function () {
+          if (typeof window.loadMsVideoAsync === 'function') {
+            window.loadMsVideoAsync();
+          }
+        });
+        document.head.appendChild(msSdkScript);
+      }
+    })();
+  </script>
+  <script async="" src="//api.adinplay.com/libs/aiptag/pub/SSK/kartbros.io/tag.min.js"></script>
+  
+  
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-1BSXC3Y865"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-1BSXC3Y865', { cookie_flags: 'secure;samesite=none' });
+  </script>
+  
+  
+  <script>
+    
+    function generateSessionId() {
+      const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let result = '';
+      for (let i = 0; i < 25; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
+    
+    
+    var sid = generateSessionId();
+    
+    
+    function updateStatus(fromEvent = false) {
+      const req = new XMLHttpRequest();
+      var aStr = "recordsession.php?s="+sid;
+      if(fromEvent == true)  aStr = aStr + "&e=1"
+      req.open("GET", aStr);
+      req.send();
+    }
+    
+    function SendEvent(theEvent, theAction, theParms = '') {
+      if(theParms == '') {
+        gtag(theEvent, theAction);
+      } else {
+        gtag(theEvent, theAction, theParms);
+      }
+      updateStatus(true);
+    }
+    
+    function GA4_SendEvent(eventName, paramsJson) {
+      
+      var parsedParams;
+      if (paramsJson && paramsJson.length > 0) {
+        try { 
+          parsedParams = JSON.parse(paramsJson); 
+        } catch (e) { 
+          parsedParams = undefined;
+        }
+      }
+      
+      
+      if (parsedParams === undefined) {
+        SendEvent('event', eventName);
+      } else {
+        SendEvent('event', eventName, parsedParams);
+      }
+    }
+    
+  updateStatus(false);
+  </script>
+  <script>
+    var msVideoInstanceId = null;
+    var lastUnitPlayed = null;
+
+    function trackAdEvent(name, data) {
+      if (typeof SendEvent === "function") {
+        if (data && typeof data === "object") {
+          SendEvent("event", name, data);
+        } else {
+          SendEvent("event", name);
+        }
+      }
+    }
+
+    function focusGameCanvas() {
+      window.focus();
+      var contentElement = document.getElementById("openfl-content") || document.getElementById("unity-canvas");
+      if (contentElement && typeof contentElement.focus === "function") {
+        contentElement.focus();
+      }
+    }
+
+    function completeVideoAd(isBlocked) {
+      if (typeof window.Main !== "undefined" && typeof window.Main.DoneVideoAd === "function") {
+        try {
+          if (typeof isBlocked === "undefined") {
+            window.Main.DoneVideoAd();
+          } else {
+            window.Main.DoneVideoAd(isBlocked);
+          }
+        } catch (err) {
+          console.warn("Main.DoneVideoAd error", err);
+        }
+      }
+      focusGameCanvas();
+    }
+
+    function loadMsVideoAsync() {
+      if (!window.isMsStart || typeof window.$msstart === "undefined" || typeof window.$msstart.loadAdsAsync !== "function") {
+        msVideoInstanceId = null;
+        return;
+      }
+
+      window.$msstart.loadAdsAsync().then(function (adInstance) {
+        msVideoInstanceId = adInstance && adInstance.instanceId;
+      }).catch(function (error) {
+        console.log("MS loadAdsAsync error", error);
+        msVideoInstanceId = null;
+      });
+
+      if (typeof window.SetupMSNotification === "function") {
+        try {
+          window.SetupMSNotification();
+        } catch (notificationError) {
+          console.warn("SetupMSNotification error", notificationError);
+        }
+      }
+    }
+
+    function ShowVideo(theUnitName, forceAip) {
+      var unitName = theUnitName || "kartbros-io_preroll";
+      var forceFallback = !!forceAip;
+
+      console.log("SHOW_VIDEO", unitName, "forceAip:", forceFallback);
+
+      if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+        var prerollElement = document.getElementById("preroll");
+        if (prerollElement) {
+          prerollElement.style.display = "none";
+          prerollElement.style.visibility = "hidden";
+        }
+        completeVideoAd(false);
+        return;
+      }
+
+      if (!forceFallback && window.isMsStart && typeof window.$msstart !== "undefined" && typeof window.$msstart.showAdsAsync === "function") {
+        if (!msVideoInstanceId) {
+          console.log("MSStart ad not ready, falling back to AIP");
+          loadMsVideoAsync();
+        } else {
+          window.$msstart.showAdsAsync(msVideoInstanceId).then(function (adInstance) {
+            var completion = adInstance && adInstance.showAdsCompletedAsync;
+            if (completion && typeof completion.then === "function") {
+              completion.then(function () {
+                console.log("MS Video Ad Complete");
+                trackAdEvent("ms_video_shown2");
+                completeVideoAd(false);
+                loadMsVideoAsync();
+              }).catch(function (err) {
+                console.log("MS video not completed", err);
+                trackAdEvent("ms_video_not_completed");
+                loadMsVideoAsync();
+                ShowVideo(unitName, true);
+              });
+            } else {
+              console.log("MS video completion promise missing");
+              trackAdEvent("ms_video_shown2");
+              completeVideoAd(false);
+              loadMsVideoAsync();
+            }
+          }).catch(function (err) {
+            console.log("MS Video Ad Error, showing AIP fallback", err);
+            trackAdEvent("ms_video_show_error2");
+            loadMsVideoAsync();
+            ShowVideo(unitName, true);
+          });
+          return;
+        }
+      }
+
+      if (typeof window.aiptag === "undefined" || !window.aiptag.cmd || !window.aiptag.cmd.player) {
+        console.log("VIDEO_ADBLOCKED");
+        trackAdEvent("video_adblocked");
+        completeVideoAd(true);
+        return;
+      }
+
+      lastUnitPlayed = unitName;
+      trackAdEvent("startvideo-" + unitName);
+
+      window.aiptag.cmd.player.push(function () {
+        var player = window.aiptag.adplayer || window.adplayer;
+        if (player && typeof player.startPreRoll === "function") {
+          player.startPreRoll(unitName);
+        } else {
+          console.log("AIP adplayer missing - marking video complete");
+          trackAdEvent("video_adplayer_missing");
+          completeVideoAd(true);
+        }
+      });
+    }
+
+    function LoadVideo() {
+      loadMsVideoAsync();
+    }
+
+    window.LoadVideo = LoadVideo;
+    window.ShowVideo = ShowVideo;
+
+    loadMsVideoAsync();
+  </script>
+<style type="text/css">#button {
+  display:none;
+}
+.imgb_vis {
+  animation: imgb-animation 7s linear;
+}
+@keyframes imgb-animation {
+  10% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(100px);
+  }
+  90% {
+    transform: translateX(100px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}</style><style>.It9xAeq8bjIwRQ6F6LVq,.It9xAeq8bjIwRQ6F6LVq:before,.It9xAeq8bjIwRQ6F6LVq:after{border-radius:50%;width:2.5em;height:2.5em;animation-fill-mode:both;animation:yzIMaOqXQt0Qw0opdSpX 1.8s infinite ease-in-out}.It9xAeq8bjIwRQ6F6LVq{color:#9e0515;font-size:7px;position:absolute;text-indent:-9999em;transform:translateZ(0);animation-delay:-0.16s;top:calc(50% - 3.75em);left:calc(50% - 1.25em);display:block}.It9xAeq8bjIwRQ6F6LVq:before,.It9xAeq8bjIwRQ6F6LVq:after{content:"";position:absolute;top:0}.It9xAeq8bjIwRQ6F6LVq:before{left:-3.5em;animation-delay:-0.32s}.It9xAeq8bjIwRQ6F6LVq:after{left:3.5em}@keyframes yzIMaOqXQt0Qw0opdSpX{0%,80%,100%{box-shadow:0 2.5em 0 -1.3em}40%{box-shadow:0 2.5em 0 0}}</style><style>.mI58Gi15PAe8fqsHDOMI *{line-height:1.4em;vertical-align:middle}.mI58Gi15PAe8fqsHDOMI{display:flex;align-items:center;background-color:#f7fcff;box-shadow:0 0 3px rgba(0, 0, 0, 0.2);padding:0;border-radius:9px;position:fixed;z-index:999994;top:unset;bottom:5px;right:unset;left:5px;transition:background-color .3s ease,box-shadow .3s ease}.oSAXb5qPKj78_Sp8Oz9A{text-decoration:none;display:flex;align-items:center;padding:3px;border-radius:3px;transition:color .3s ease,transform .3s ease}.ciHgxN1orEDdqQlZUIRO{display:none;font-family:Arial,sans-serif;padding-right:5px;padding-left:2px;font-size:12px}.oSAXb5qPKj78_Sp8Oz9A:hover .ciHgxN1orEDdqQlZUIRO{display:inline;color:#3276ae}.uHNm6AHskWg7q6_iq6RI{top:unset;bottom:5px;right:5px;left:unset}.jbj_rARHnqU1Oj35bbgQ{top:unset;bottom:5px;right:unset;left:5px}.tXT909jFBi0yQpy3ku0Q{top:unset;bottom:5px;right:unset;left:50%;transform:translateX(-50%)}.ELiWH9h2FSasygiFrUsU{top:5px;bottom:unset;right:unset;left:50%;transform:translateX(-50%)}.EJLCLzR3Dm648i6W4F6I{top:5px;bottom:unset;right:5px;left:unset}.ou122XCMg9DfGPTD9R3w{top:5px;bottom:unset;right:unset;left:5px}</style><meta http-equiv="origin-trial" content="A9AxgGSwmnfgzzkyJHILUr3H8nJ/3D+57oAsL4DBt4USlng4jZ0weq+fZtHC/Qwwn6gd4QSa5DzT3OBif+kXVA0AAAB4eyJvcmlnaW4iOiJodHRwczovL2ltYXNkay5nb29nbGVhcGlzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="></head>
+
+<body>
+  <noscript>
+    <div style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:20px;line-height:1.4;z-index:9999;text-align:center;padding:24px">
+      Enable JavaScript bro!
+    </div>
+  </noscript>
+  
+  
+  
+  <div class="game-section" style="pointer-events: auto;">
+    <canvas id="unity-canvas" tabindex="-1" onblur="window.focus(); window.scrollTo(0, 0);" width="806" height="544" style="cursor: default;"></canvas>
+
+    
+
+    <div id="unity-loading-bar" style="display: none;">
+      <center>
+        <img src="https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/TemplateData/kart_wheel.png" class="spinning-wheel" alt="Spinning kart wheel loading indicator">
+        <br>
+        <img src="https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/TemplateData/loading4.png" alt="Loading game">
+        <br>
+        <img src="https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/TemplateData/fbro.png" alt="Football Bros character icon">
+        <img src="https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/TemplateData/bbbro.png" alt="Basket Bros character icon">
+        <img src="https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/TemplateData/sbro.png" alt="Soccer Bros character icon">
+        <img src="https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/TemplateData/wbro.png" alt="Wrestle Bros character icon">
+        <img src="https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/TemplateData/kbro.png" alt="Kart Bros character icon">
+        <img src="https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/TemplateData/bbro.png" alt="Baseball Bros character icon">
+        <img src="https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/TemplateData/kartbro.png" alt="Kart Bros character icon">
+      </center>
+    </div>
+
+    <div id="unity-warning"></div>
+
+
+
+  
+  <div id="videoAdOverlay">
+    <div id="videoad">
+      
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/TemplateData/pleaserotate.min.js"></script>
+  <script>
+    const AD_CONFIGS = {
+      ShowAd0: {
+        elementId: "kartbros-io_160x600",
+        msPlacementId: "left:160x600",
+        minWidth: 1200,
+        skipOnMobile: true,
+        logName: "ShowAd0"
+      },
+      ShowAd1: {
+        elementId: "kartbros-io_160x600_2",
+        msPlacementId: "right:160x600",
+        minWidth: 1200,
+        skipOnMobile: true,
+        logName: "ShowAd1"
+      },
+      ShowAd2: {
+        elementId: "kartbros-io_300x250_2",
+        msPlacementId: "left:300x250",
+        minWidth: 1200,
+        skipOnMobile: true,
+        logName: "ShowAd2"
+      },
+      ShowAd3: {
+        elementId: "kartbros-io_728x90",
+        msPlacementId: "top:728x90",
+        minWidth: 0,
+        skipOnMobile: true,
+        logName: "ShowAd3"
+      },
+      ShowAd4: {
+        elementId: null,
+        msPlacementId: "bottom:728x90",
+        minWidth: 1200,
+        skipOnMobile: true,
+        logName: "ShowAd4"
+      },
+      ShowAd6: {
+        elementId: "kartbros-io_300x250",
+        msPlacementId: "right:300x250",
+        minWidth: 1200,
+        skipOnMobile: true,
+        logName: "ShowAd6"
+      },
+      ShowAd7: {
+        elementId: null,
+        msPlacementId: "right:300x600",
+        minWidth: 1200,
+        skipOnMobile: true,
+        logName: "ShowAd7"
+      },
+      ShowAd8: {
+        elementId: null,
+        msPlacementId: "bottom:728x90_m",
+        minWidth: 0,
+        skipOnMobile: true,
+        logName: "ShowAd8"
+      },
+      ShowAd9: {
+        elementId: "kartbros-io_970x250",
+        msPlacementId: "bottom:970x250",
+        minWidth: 0,
+        skipOnMobile: true,
+        logName: "ShowAd9"
+      },
+      ShowAd10: {
+        elementId: null,
+        msPlacementId: null,
+        minWidth: 0,
+        skipOnMobile: true,
+        logName: "ShowAd10"
+      }
+    };
+
+    function _displayBannerAd(config, forceAipParam) {
+      if (!config) {
+        console.warn("_displayBannerAd called without config");
+        return;
+      }
+
+      var logName = config.logName || config.elementId || "ShowAd";
+      
+
+      if (config.skipOnMobile && /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+        return;
+      }
+
+      if (config.minWidth && window.innerWidth < config.minWidth) {
+        return;
+      }
+
+      if (!config.elementId) {
+        console.warn(logName + " - no elementId configured");
+        return;
+      }
+
+      var adElement = document.getElementById(config.elementId);
+
+      if (!adElement) {
+        console.error("Ad element not found:", config.elementId);
+        return;
+      }
+
+      adElement.style.display = config.displayStyle || "";
+
+      var attemptMsStart = window.isMsStart && typeof window.$msstart !== "undefined" && typeof window.$msstart.showDisplayAdsAsync === "function" && config.msPlacementId && !forceAipParam && !config.internalForceAip;
+
+      if (attemptMsStart) {
+        adElement.style.visibility = "hidden";
+        window.$msstart.showDisplayAdsAsync(config.msPlacementId).then(function () {
+          console.log(config.msPlacementId + " requested via MSStart.");
+          trackAdEvent("ms_banner_shown", { placement: config.msPlacementId });
+          adElement.style.visibility = "visible";
+        }).catch(function (error) {
+          console.log(config.msPlacementId + " nofill via MSStart.", error);
+          trackAdEvent("ms_banner_nofill", { placement: config.msPlacementId });
+          adElement.style.visibility = "visible";
+          config.internalForceAip = true;
+          _displayBannerAd(config, true);
+        });
+        return;
+      }
+
+      adElement.style.visibility = "visible";
+
+      if (typeof window.aiptag !== "undefined" && window.aiptag.cmd && window.aiptag.cmd.display) {
+        window.aiptag.cmd.display.push(function () {
+          if (typeof window.aipDisplayTag !== "undefined" && typeof window.aipDisplayTag.refresh === "function") {
+            window.aipDisplayTag.refresh(config.elementId);
+          } else if (window.aiptag && window.aiptag.display && typeof window.aiptag.display.refresh === "function") {
+            window.aiptag.display.refresh(config.elementId);
+          }
+        });
+
+        var eventName = window.isMsStart && (forceAipParam || config.internalForceAip) ? "ms_aip_banner_requested" : "aip_banner_requested";
+        trackAdEvent(eventName, { tag: config.elementId });
+      } else {
+        console.log(logName + " - No ad SDK available or ad blocked for:", config.elementId);
+        trackAdEvent("banner_adblocked", { tag: config.elementId });
+      }
+    }
+
+    function createBannerFunction(key) {
+      return function (forceaip) {
+        var baseConfig = AD_CONFIGS[key];
+        if (!baseConfig) {
+          console.warn(key + " config missing");
+          return;
+        }
+        var cloned = Object.assign({}, baseConfig);
+        if (forceaip) {
+          cloned.internalForceAip = true;
+        }
+        _displayBannerAd(cloned, !!forceaip);
+      };
+    }
+
+    var ShowAd0 = createBannerFunction("ShowAd0");
+    var ShowAd1 = createBannerFunction("ShowAd1");
+    var ShowAd2 = createBannerFunction("ShowAd2");
+    var ShowAd3 = createBannerFunction("ShowAd3");
+    var ShowAd4 = createBannerFunction("ShowAd4");
+    var ShowAd6 = createBannerFunction("ShowAd6");
+    var ShowAd7 = createBannerFunction("ShowAd7");
+    var ShowAd8 = createBannerFunction("ShowAd8");
+    var ShowAd9 = createBannerFunction("ShowAd9");
+    var ShowAd10 = createBannerFunction("ShowAd10");
+
+    window.ShowAd0 = ShowAd0;
+    window.ShowAd1 = ShowAd1;
+    window.ShowAd2 = ShowAd2;
+    window.ShowAd3 = ShowAd3;
+    window.ShowAd4 = ShowAd4;
+    window.ShowAd6 = ShowAd6;
+    window.ShowAd7 = ShowAd7;
+    window.ShowAd8 = ShowAd8;
+    window.ShowAd9 = ShowAd9;
+    window.ShowAd10 = ShowAd10;
+
+    window.addEventListener("DOMContentLoaded", function () {
+      try { ShowAd6(); } catch (err) { console.error("ShowAd6 error", err); }
+      try { ShowAd2(); } catch (err) { console.error("ShowAd2 error", err); }
+      try { ShowAd3(); } catch (err) { console.error("ShowAd3 error", err); }
+      try { ShowAd9(); } catch (err) { console.error("ShowAd9 error", err); }
+      try { ShowAd0(); } catch (err) { console.error("ShowAd0 error", err); }
+      try { ShowAd1(); } catch (err) { console.error("ShowAd1 error", err); }
+    });
+  </script>
+
+  <script>
+    
+    document.addEventListener('wheel', onScroll, false);
+    document.addEventListener('mousemove', onMouse, false);
+
+    function onMouse() {
+      const gameSection = document.querySelector('.game-section');
+      if (gameSection) {
+        gameSection.style['pointer-events'] = 'auto';
+      }
+    }
+
+    function onScroll() {
+      const gameSection = document.querySelector('.game-section');
+      if (gameSection) {
+        gameSection.style['pointer-events'] = 'none';
+
+        
+        setTimeout(function () {
+          gameSection.style['pointer-events'] = 'auto';
+        }, 500);
+      }
+    }
+
+    
+    window.addEventListener('orientationchange', () => {
+      if (window.screen.orientation && window.screen.orientation.type.startsWith('portrait')) {
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+        }
+      }
+    });
+
+    let canvas = document.getElementById("unity-canvas");
+
+    function unityShowBanner(msg, type) {
+      let warningBanner = document.getElementById("unity-warning");
+      function updateBannerVisibility() {
+        warningBanner.style.display = warningBanner.children.length ? "block" : "none";
+      }
+      let div = document.createElement("div");
+      div.innerHTML = msg;
+      warningBanner.appendChild(div);
+
+      if (type === "error") {
+        div.style = "background: red; padding: 10px;";
+      } else if (type === "warning") {
+        div.style = "background: yellow; padding: 10px;";
+        setTimeout(() => {
+          warningBanner.removeChild(div);
+          updateBannerVisibility();
+        }, 5000);
+      }
+      updateBannerVisibility();
+    }
+
+    var buildUrl = "https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/Build";
+    var loaderUrl = buildUrl + "/77aa2311d6862e6753a181896dfa2c12.loader.js";
+    var config = {
+      arguments: [],
+      dataUrl: buildUrl + "/102190d43e90efea26d753d85e616e22.data.unityweb",
+      frameworkUrl: buildUrl + "/3df40305caf9bde478d3aa8a67021399.framework.js.unityweb",
+        codeUrl: buildUrl + "/32e2077b8e7224301ebc457024a232dc.wasm.unityweb",
+        streamingAssetsUrl: "https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/StreamingAssets",
+      companyName: "BlueWizard",
+      productName: "KART BROS!",
+      productVersion: "1.49",
+      showBanner: unityShowBanner,
+    };
+
+    document.getElementById("unity-loading-bar").style.display = "block";
+
+    let script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = () => {
+      createUnityInstance(canvas, config, (progress) => {
+        
+      }).then((unityInstance) => {
+        window.unityInstance = unityInstance;
+        document.getElementById("unity-loading-bar").style.display = "none";
+      }).catch((message) => {
+        alert(message);
+      });
+    };
+    document.body.appendChild(script);
+  </script>
+  <script src="https://cdn.jsdelivr.net/gh/st39/sdk@main/api.js"></script>
+  <script type="text/javascript">window.SDK_OPTIONS={gameId:"r2tzpy9cgrn2u4xgzc9z0zbtvxm16mby",onEvent:function(a){switch(a.name){case"SDK_GAME_PAUSE":break;case"SDK_GAME_START":break;case"SDK_READY":break}}};(function(a,b,c){var d=a.getElementsByTagName(b)[0];a.getElementById(c)||(a=a.createElement(b),a.id=c,a.src="https://cdn.jsdelivr.net/gh/st39/sdk@main/sdkjs.js",d.parentNode.insertBefore(a,d))})(document,"script","gamemonetize-sdk");</script><script type="text/javascript">let isAdShown=false;function onClick(e){if(!isAdShown&&typeof sdk!=='undefined'&&typeof sdk.showBanner==='function'){sdk.showBanner();isAdShown=true}window.removeEventListener("click",onClick)}window.addEventListener("click",onClick);</script>
+
+</div><div id="pleaserotate-backdrop" style="display: none;"><div id="pleaserotate-container"><svg xmlns:xlink="http://www.w3.org/1999/xlink" id="pleaserotate-graphic" viewBox="0 0 250 250"><g id="pleaserotate-graphic-path"><path d="M190.5,221.3c0,8.3-6.8,15-15,15H80.2c-8.3,0-15-6.8-15-15V28.7c0-8.3,6.8-15,15-15h95.3c8.3,0,15,6.8,15,15V221.3zM74.4,33.5l-0.1,139.2c0,8.3,0,17.9,0,21.5c0,3.6,0,6.9,0,7.3c0,0.5,0.2,0.8,0.4,0.8s7.2,0,15.4,0h75.6c8.3,0,15.1,0,15.2,0s0.2-6.8,0.2-15V33.5c0-2.6-1-5-2.6-6.5c-1.3-1.3-3-2.1-4.9-2.1H81.9c-2.7,0-5,1.6-6.3,4C74.9,30.2,74.4,31.8,74.4,33.5zM127.7,207c-5.4,0-9.8,5.1-9.8,11.3s4.4,11.3,9.8,11.3s9.8-5.1,9.8-11.3S133.2,207,127.7,207z"></path></g></svg><div id="pleaserotate-message">Please Rotate Your Device<small>(or click to continue)</small></div></div></div><script src="https://cdn.jsdelivr.net/gh/brodeliver/kb@e1dbd99cb84ed805b588971bb24918657b757850/Build/77aa2311d6862e6753a181896dfa2c12.loader.js"></script><div id="button" class="imgb imgb_vis" style="position: fixed; top: 10%; left: -100px; z-index: 10; display: none;"><a target="_blank" href="https://sites.google.com/view/classroom6x/" title="More Unblocked Games 6x"><img src="https://lh4.googleusercontent.com/lUEWrXMVEr4AdjKISyJahDRJ61bwfvHdpeYm86Djn5U8oCm9dI60NGXSBqad9HUvzTXgqlkosA_hWV-VuXPjzrkGvh3_kNSgYk8ySWzXnDpbBCBiooyBbU8oBy3YBZMDkW8RcRVmDuC0raoeqZBm8kBlqs6c5mdfkJeN2aE68lXS_lcOZ5_F7lIuM6qLVg" width="100" height="30" style="cursor:pointer;" alt="Unblocked Games Classroom 6x"></a></div><div id="imaContainer" style="position: absolute; z-index: 10000; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgb(0, 0, 0); visibility: hidden; overflow: hidden;"><video id="imaVideo"></video></div><div id="imaContainer_new" style="position: absolute; z-index: 10000; top: 0px; left: 0px; width: 100%; height: 100%; background-color: rgb(0, 0, 0); visibility: hidden; overflow: hidden;"><video2 id="imaVideo2"></video2></div><div id="sdk__advertisement" style="position: fixed; z-index: 0; top: 0px; left: 0px; width: 100%; height: 100%; transform: translateX(-9999px); background-color: rgba(0, 0, 0, 0.8); opacity: 0; transition: opacity 300ms cubic-bezier(0.55, 0, 0.1, 1);"><div id="sdk__advertisement_slot" style="position: absolute; background-color: rgb(0, 0, 0); top: 0px; left: 0px; width: 806px; height: 544px;"><div style="position: absolute; width: 806px; height: 544px;"><div style="display: none;"><video title="Advertisement" webkit-playsinline="true" playsinline="true" style="background-color: rgb(0, 0, 0); height: 100%; width: 100%; position: absolute; left: 0px; top: 0px;"></video><div style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></div></div><div style="display: none;"><video title="Advertisement" webkit-playsinline="true" playsinline="true" style="background-color: rgb(0, 0, 0); height: 100%; width: 100%; position: absolute; left: 0px; top: 0px;"></video><div style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></div></div><iframe src="https://imasdk.googleapis.com/js/core/bridge3.741.1_en.html#deid=%22%22&amp;eventfe_experiment_ids=%5B%5D&amp;fid=%22goog_63575293%22&amp;genotype_experiment_data=%7B%22experimentStateProto%22%3A%22%5B%5B%5B45713128%2Cnull%2Cnull%2C%5B%5D%5D%2C%5Bnull%2C745150931%2Cnull%2C%5Bnull%2C1%5D%5D%2C%5Bnull%2C749060184%2Cnull%2C%5Bnull%2C128%5D%5D%2C%5B841585769%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5B45761044%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45722344%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45706017%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5B45740207%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45668885%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45685340%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45734716%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45735891%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45663239%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45715032%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5B45661356%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B839547366%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5B45676441%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45675307%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5B45675308%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5Bnull%2C45645574%2Cnull%2C%5B%5D%5D%2C%5B45688859%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45656766%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45710689%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45710688%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5B45685601%2Cnull%2Cnull%2C%5B%5D%5D%2C%5Bnull%2C45685602%2Cnull%2C%5Bnull%2C500%5D%5D%2C%5B45756824%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45747172%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B775241416%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B781107959%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B781107958%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B792614055%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B781107957%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45729602%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45753603%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45753604%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45658982%2Cnull%2Cnull%2C%5B%5D%5D%2C%5B45725657%2Cnull%2Cnull%2C%5B%5D%5D%5D%2C%5B%5B16%2C%5B%5B1%2C%5B%5B31089630%5D%2C%5B31089631%2C%5B%5B45668885%2Cnull%2Cnull%2C%5B1%5D%5D%5D%5D%5D%5D%2C%5B1000%2C%5B%5B95332046%5D%5D%5D%2C%5Bnull%2C%5B%5B95332047%5D%5D%5D%2C%5B10%2C%5B%5B95338769%2C%5B%5Bnull%2C45645574%2Cnull%2C%5Bnull%2C1%5D%5D%5D%5D%2C%5B95338770%2C%5B%5Bnull%2C45645574%2Cnull%2C%5Bnull%2C2%5D%5D%5D%5D%5D%5D%2C%5B50%2C%5B%5B95345206%5D%2C%5B95345207%2C%5B%5B45661356%2Cnull%2Cnull%2C%5B1%5D%5D%5D%5D%5D%5D%2C%5B1%2C%5B%5B95351425%5D%2C%5B95351426%2C%5B%5B45676441%2Cnull%2Cnull%2C%5B1%5D%5D%5D%5D%5D%5D%2C%5B20%2C%5B%5B95356068%5D%2C%5B95356069%2C%5B%5B45685601%2Cnull%2Cnull%2C%5B%5D%5D%2C%5Bnull%2C45685602%2Cnull%2C%5B%5D%5D%5D%5D%2C%5B95356070%2C%5B%5B45685601%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5Bnull%2C45685602%2Cnull%2C%5B%5D%5D%5D%5D%2C%5B95356071%2C%5B%5B45685601%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5Bnull%2C45685602%2Cnull%2C%5Bnull%2C100%5D%5D%5D%5D%5D%5D%2C%5B1%2C%5B%5B95373378%2C%5B%5B792614055%2Cnull%2Cnull%2C%5B1%5D%5D%5D%5D%2C%5B95373379%2C%5B%5B45747172%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5B781107959%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5B792614055%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5B781107957%2Cnull%2Cnull%2C%5B1%5D%5D%5D%5D%5D%5D%2C%5Bnull%2C%5B%5B95375930%5D%2C%5B95375931%2C%5B%5B45734716%2Cnull%2Cnull%2C%5B1%5D%5D%5D%5D%2C%5B95376520%2C%5B%5B45734716%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5B45735891%2Cnull%2Cnull%2C%5B1%5D%5D%5D%5D%5D%5D%2C%5Bnull%2C%5B%5B95378095%5D%2C%5B95378096%2C%5B%5B45740207%2Cnull%2Cnull%2C%5B1%5D%5D%5D%5D%5D%5D%2C%5B10%2C%5B%5B95378629%5D%2C%5B95378630%2C%5B%5B45729602%2Cnull%2Cnull%2C%5B1%5D%5D%5D%5D%2C%5B95381582%2C%5B%5B45729602%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5B45753603%2Cnull%2Cnull%2C%5B1%5D%5D%5D%5D%2C%5B95381583%2C%5B%5B45729602%2Cnull%2Cnull%2C%5B1%5D%5D%2C%5B45753604%2Cnull%2Cnull%2C%5B1%5D%5D%5D%5D%5D%5D%2C%5Bnull%2C%5B%5B95382403%5D%2C%5B95382404%2C%5B%5B45756824%2Cnull%2Cnull%2C%5B1%5D%5D%5D%5D%5D%5D%5D%5D%5D%2Cnull%2Cnull%2C%5Bnull%2C1000%2C1%2C1000%5D%5D%22%7D&amp;imalib_experiments=%5B44752711%2C95322027%2C95331589%2C95332046%5D&amp;is_eap_loader=false&amp;managed_js_experiment_id=0&amp;page_correlator=368189614807525&amp;pvsid=838992285836423&amp;top_accessible_page_url=%22https%3A%2F%2Fsites.google.com%22" allowfullscreen="" allow="attribution-reporting" id="goog_63575293" title="Advertisement" width="806" height="544" style="border: 0px; opacity: 1; margin: 0px; padding: 0px; position: relative; color-scheme: light;"></iframe><iframe title="Advertisement" style="visibility: hidden; width: 0px; height: 0px; position: absolute; left: 0px; top: 0px;"></iframe></div></div></div><iframe name="google_video_inner_static_iframe" id="google_video_inner_static_iframe" src="about:blank" style="height: 0px; width: 0px; display:none"></iframe><script src="blob:https://n-nx65ysdgwfdpuqh5qicmo5fnshs6iirqumg4twy-0lu-script.googleusercontent.com/63379530-2f3e-4e50-8351-96a69ca09f6a"></script><div id="sdk__baguette" style="z-index: 100; position: absolute; top: 0px; left: 0px;"></div></body></html>
