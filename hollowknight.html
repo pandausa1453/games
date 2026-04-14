@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game</title>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #0b1a2a;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+
+  iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+    top: 0;
+    left: 0;
+  }
+
+  #popupBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 14px;
+    background: rgba(0,0,0,0.75);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 10;
+    transition: 0.2s;
+  }
+
+  #popupBtn:hover {
+    background: rgba(0,0,0,0.9);
+  }
+</style>
+</head>
+
+<body>
+
+<button id="popupBtn">Open in Window</button>
+
+<iframe src="https://pandausa1453.github.io/games/hollowknightfs.html"></iframe>
+
+<script>
+  const btn = document.getElementById("popupBtn");
+
+  // Open popup window
+  btn.onclick = () => {
+    window.open(
+      "https://assets.hyperionx15.com/hollow-knight-main/index.html",
+      "_blank",
+      "width=1200,height=700,menubar=no,toolbar=no,location=no,status=no"
+    );
+    btn.style.display = "none";
+  };
+
+  // Hide button after 10 seconds
+  setTimeout(() => {
+    btn.style.display = "none";
+  }, 10000);
+</script>
+
+</body>
+</html>
