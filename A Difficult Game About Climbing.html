@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Unity WebGL Player | A Difficult Game About Climbing</title>
+  <base href="https://cdn.jsdelivr.net/gh/web-ports/adgac@main/">
   <link rel="shortcut icon" href="TemplateData/favicon.ico">
   <link rel="stylesheet" href="TemplateData/style.css">
   <style>
@@ -34,7 +34,7 @@
       cursor: pointer;
       z-index: 9999;
       font-family: Arial, sans-serif;
-      transition: 0.2s;
+      transition: background 0.2s;
     }
     #popupBtn:hover {
       background: rgba(0,0,0,0.9);
@@ -43,7 +43,7 @@
 </head>
 <body>
 
-  <button id="popupBtn">Open in Window</button>
+  <button id="popupBtn">⛶ Open in Window</button>
 
   <div id="loading-text" style="color: white; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;">LOADING...</div>
 
@@ -58,45 +58,20 @@
   </div>
 
   <script>
-    // Popup button
+    // ---- POPUP BUTTON ----
     const btn = document.getElementById("popupBtn");
+
     btn.onclick = () => {
-      const win = window.open("", "_blank", "width=1200,height=700");
-      win.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>A Difficult Game About Climbing</title>
-          <style>
-            html, body {
-              margin: 0;
-              padding: 0;
-              height: 100%;
-              overflow: hidden;
-              background: #231F20;
-            }
-            iframe {
-              width: 100%;
-              height: 100%;
-              border: none;
-            }
-          </style>
-        </head>
-        <body>
-          <iframe src="https://cdn.jsdelivr.net/gh/web-ports/adgac@main/index.html"></iframe>
-        </body>
-        </html>
-      `);
-      win.document.close();
+      // PASTE YOUR GAME LINK BELOW
+      window.open("https://pandausa1453.github.io/games/A%20Difficult%20Game%20About%20Climbing.html", "_blank", "width=1200,height=700");
       btn.style.display = "none";
     };
 
-    // Auto-hide after 10 seconds
     setTimeout(() => {
       btn.style.display = "none";
     }, 10000);
 
-    // Unity loader
+    // ---- UNITY LOADER ----
     const loadingText = document.querySelector("#loading-text");
     let loadedBytes = 0;
 
@@ -142,8 +117,6 @@
         mergeFiles(getParts("Build/adgac.wasm", 1, 3)),
       ]);
 
-      const buildUrl = "Build";
-      const loaderUrl = buildUrl + "/adgac.loader.js";
       const config = {
         dataUrl,
         frameworkUrl: "Build/adgac.framework.js",
@@ -177,7 +150,7 @@
       loadingBar.style.display = "block";
 
       const script = document.createElement("script");
-      script.src = loaderUrl;
+      script.src = "Build/adgac.loader.js";
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = (100 * progress) + "%";
@@ -193,5 +166,3 @@
 
 </body>
 </html>
-```
-
