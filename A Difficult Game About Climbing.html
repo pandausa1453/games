@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
 <head>
-<meta charset="UTF-8">
-<title>Game</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unity Game</title>
+
+<link rel="stylesheet" href="TemplateData/style.css">
 
 <style>
 html, body {
@@ -10,75 +14,191 @@ html, body {
   padding: 0;
   height: 100%;
   overflow: hidden;
-  background: #0b132b;
-}
-
-#game-frame {
-  width: 100%;
-  height: 100%;
-  border: none;
+  background: #231F20;
 }
 
 /* Fullscreen button */
-#fs-btn {
+#open-window-btn {
   position: fixed;
   top: 10px;
   right: 10px;
-  padding: 10px 16px;
-  background: #1c2541;
-  color: white;
+  z-index: 999999;
+  padding: 10px 14px;
+  font-size: 14px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
-  z-index: 9999;
+  background: #1c2541;
+  color: white;
 }
 
-#fs-btn:hover {
+#open-window-btn:hover {
   background: #3a506b;
 }
+
+/* Unity container stays full screen */
+#unity-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 </style>
+
 </head>
 
 <body>
 
-<button id="fs-btn">Fullscreen</button>
+<!-- 🔘 BUTTON -->
+<button id="open-window-btn">Open in New Window</button>
 
-<iframe id="game-frame" src="https://pandausa1453.github.io/games/A%20Difficult%20Game%20About%20Climbing.html"></iframe>
+<div id="loading-text" style="color:white;font-size:40px;text-align:center;margin-top:20px;">
+  LOADING...
+</div>
+
+<div id="unity-container" hidden>
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+
+  <div id="unity-loading-bar">
+    <div id="unity-progress-bar-empty">
+      <div id="unity-progress-bar-full"></div>
+    </div>
+  </div>
+</div>
 
 <script>
-const btn = document.getElementById("fs-btn");
-const frame = document.getElementById("game-frame");
+/* =========================
+   NEW WINDOW BUTTON LOGIC
+========================= */
+document.getElementById("open-window-btn").onclick = () => {
+  const w = window.open("about:blank", "_blank");
 
-btn.onclick = () => {
-  const newWindow = window.open("about:blank", "_blank");
-
-  newWindow.document.write(`
+  w.document.write(`
+    <!DOCTYPE html>
     <html>
-      <head>
-        <title>Game</title>
-        <style>
-          html, body {
-            margin: 0;
-            height: 100%;
-            overflow: hidden;
-            background: black;
-          }
-          iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-          }
-        </style>
-      </head>
-      <body>
-        <iframe src="${frame.src}"></iframe>
-      </body>
+    <head>
+      <title>Game</title>
+      <style>
+        html, body {
+          margin: 0;
+          height: 100%;
+          overflow: hidden;
+          background: black;
+        }
+        iframe {
+          width: 100%;
+          height: 100%;
+          border: none;
+        }
+      </style>
+    </head>
+    <body>
+      <iframe src="${window.location.href}"></iframe>
+    </body>
     </html>
   `);
 
-  newWindow.document.close();
+  w.document.close();
 };
+</script>
+
+<script>
+/* =========================
+   YOUR ORIGINAL UNITY LOADER
+   (unchanged game logic)
+========================= */
+
+var loadingText = document.querySelector("#loading-text");
+
+let totalBytes = 0;
+let loadedBytes = 0;
+
+async function fetchWithProgress(url) {
+    const response = await fetch(url);
+    const reader = response.body.getReader();
+    let chunks = [];
+    let received = 0;
+
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        received += value.length;
+        loadedBytes += value.length;
+        chunks.push(value);
+
+        let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
+        loadingText.textContent = `LOADING... ${mbDone} MB`;
+    }
+
+    let fullBuffer = new Uint8Array(received);
+    let offset = 0;
+
+    for (let chunk of chunks) {
+        fullBuffer.set(chunk, offset);
+        offset += chunk.length;
+    }
+
+    return fullBuffer.buffer;
+}
+
+async function mergeFiles(fileParts) {
+    const buffers = await Promise.all(
+        fileParts.map(part => fetchWithProgress(part))
+    );
+    return URL.createObjectURL(new Blob(buffers));
+}
+
+function getParts(file, start, end) {
+    let parts = [];
+    for (let i = start; i <= end; i++) {
+        parts.push(file + ".part" + i);
+    }
+    return parts;
+}
+
+(async () => {
+
+    const [dataUrl, wasmUrl] = await Promise.all([
+        mergeFiles(getParts("Build/adgac.data", 1, 14)),
+        mergeFiles(getParts("Build/adgac.wasm", 1, 3)),
+    ]);
+
+    var buildUrl = "Build";
+    var loaderUrl = buildUrl + "/adgac.loader.js";
+
+    var config = {
+        dataUrl: dataUrl,
+        frameworkUrl: "Build/adgac.framework.js",
+        codeUrl: wasmUrl,
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Pontypants",
+        productName: "Game",
+        productVersion: "1.0"
+    };
+
+    var container = document.querySelector("#unity-container");
+    var canvas = document.querySelector("#unity-canvas");
+
+    container.hidden = false;
+
+    var script = document.createElement("script");
+    script.src = loaderUrl;
+
+    script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+            document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
+        }).then(() => {
+            loadingText.remove();
+            document.querySelector("#unity-loading-bar").style.display = "none";
+            canvas.style.display = "block";
+        });
+    };
+
+    document.body.appendChild(script);
+
+})();
 </script>
 
 </body>
