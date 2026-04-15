@@ -62,8 +62,22 @@
     const btn = document.getElementById("popupBtn");
 
     btn.onclick = () => {
-      // PASTE YOUR GAME LINK BELOW
-      window.open("https://pandausa1453.github.io/games/A%20Difficult%20Game%20About%20Climbing.html", "_blank", "width=1200,height=700");
+      const win = window.open("about:blank", "_blank", "width=1200,height=700");
+      win.document.open();
+      win.document.write(`<!DOCTYPE html>
+<html>
+<head>
+  <title>A Difficult Game About Climbing</title>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #231F20; }
+    iframe { width: 100%; height: 100%; border: none; display: block; }
+  </style>
+</head>
+<body>
+  <iframe src="https://pandausa1453.github.io/games/A%20Difficult%20Game%20About%20Climbing.html" allowfullscreen></iframe>
+</body>
+</html>`);
+      win.document.close();
       btn.style.display = "none";
     };
 
